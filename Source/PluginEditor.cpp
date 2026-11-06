@@ -62,6 +62,12 @@ void TranceLookAndFeel::drawRotarySlider (juce::Graphics& g, int x, int y, int w
     g.fillPath (pointer, juce::AffineTransform::rotation (angle).translated (centre));
 }
 
+juce::Font TranceLookAndFeel::getTextButtonFont (juce::TextButton&, int buttonHeight)
+{
+    // Fixed size so two-digit gate step numbers (10-16) fit in the narrow step buttons.
+    return juce::Font (juce::FontOptions (juce::jmin (14.0f, (float) buttonHeight * 0.5f), juce::Font::bold));
+}
+
 juce::Font TranceLookAndFeel::getComboBoxFont (juce::ComboBox&)
 {
     return juce::Font (juce::FontOptions (14.0f));

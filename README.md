@@ -2,6 +2,8 @@
 
 **פלאגין סינתיסייזר למוזיקת טראנס** – VST3 / AU / Standalone, כתוב ב-C++ עם [JUCE](https://juce.com).
 
+![TranceForge](docs/screenshot.png)
+
 A trance-focused synth plugin: 7-voice **supersaw**, resonant filter, a 16-step tempo-synced **trance gate**, ping-pong delay and reverb – all in one instrument.
 
 ---

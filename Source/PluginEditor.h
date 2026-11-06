@@ -16,6 +16,7 @@ public:
                                bool isMouseOverButton, bool isButtonDown) override;
 
     juce::Font getComboBoxFont (juce::ComboBox&) override;
+    juce::Font getTextButtonFont (juce::TextButton&, int buttonHeight) override;
 
     static const juce::Colour background, panel, accent, accent2, text;
 };
