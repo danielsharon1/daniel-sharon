@@ -1,0 +1,384 @@
+<title>עֵת ירושלים 38</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700&family=Assistant:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one horological object, presented like a museum vitrine — live watch on the right, text on the left, then a technical sheet, the stone, the edition ledger and a private viewing request. */
+:root {
+  --bg: #F3EFE6;          /* Jerusalem limestone, daylight */
+  --surface: #EAE3D4;
+  --ink: #1D1A15;
+  --muted: #6B6253;
+  --line: #CFC5B1;
+  --gold: #9A7230;        /* 18k yellow gold, darkened for contrast on stone */
+  --gold-soft: #C9A45C;
+  --sold: #B9AE98;
+  --f-display: "Frank Ruhl Libre", "David", "Times New Roman", serif;
+  --f-body: "Assistant", "Arial Hebrew", "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --s-1: .8125rem; --s0: 1rem; --s1: 1.25rem; --s2: 1.75rem; --s3: 2.6rem; --s4: clamp(2.8rem, 7vw, 5.2rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15130F; --surface: #1E1B16; --ink: #EDE6D6; --muted: #A69B85; --line: #3A342A;
+    --gold: #D4AF66; --gold-soft: #A9884A; --sold: #4A4336; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15130F; --surface: #1E1B16; --ink: #EDE6D6; --muted: #A69B85; --line: #3A342A;
+  --gold: #D4AF66; --gold-soft: #A9884A; --sold: #4A4336; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.65; }
+.wrap { direction: rtl; }
+.band { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.inner { max-width: 1120px; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 300; text-wrap: balance; margin: 0; line-height: 1.1; }
+p { margin: 0; }
+.label { font-family: var(--f-body); font-size: var(--s-1); letter-spacing: .14em; color: var(--muted); font-weight: 600; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+
+/* top bar */
+header.band { padding-block: 22px; border-bottom: 1px solid var(--line); }
+header .inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.mark { font-family: var(--f-display); font-size: var(--s2); font-weight: 700; letter-spacing: .02em; }
+.mark small { font-family: var(--f-mono); font-size: var(--s-1); font-weight: 400; color: var(--muted); margin-inline-start: 10px; letter-spacing: .1em; }
+nav { display: flex; gap: 22px; flex-wrap: wrap; }
+nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+nav a:hover, nav a:focus-visible { color: var(--ink); }
+
+/* hero */
+.hero { padding-block: clamp(40px, 7vw, 96px); }
+.hero .inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.hero-copy { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.hero h1 { font-size: var(--s4); }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.lede { font-size: var(--s1); color: var(--muted); max-width: 32ch; font-weight: 300; }
+.price-row { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; padding-top: 6px; }
+.price { font-family: var(--f-display); font-size: var(--s3); font-weight: 400; }
+.price-note { color: var(--muted); font-size: .95rem; }
+.ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn { font: 600 1rem var(--f-body); padding: 14px 28px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg); cursor: pointer; text-decoration: none; transition: background .25s, color .25s; }
+.btn:hover { background: transparent; color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--ink); }
+.btn:focus-visible, nav a:focus-visible, .cell:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.vitrine { position: relative; display: grid; place-items: center; }
+.vitrine canvas { width: min(100%, 520px); aspect-ratio: 1; max-width: 100%; display: block; }
+.vitrine figcaption { margin-top: 10px; font-size: var(--s-1); color: var(--muted); text-align: center; }
+
+/* spec sheet */
+section.band { padding-block: clamp(56px, 8vw, 110px); border-top: 1px solid var(--line); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; margin-bottom: 48px; align-items: end; }
+.sec-head h2 { font-size: var(--s3); }
+.sec-head p { color: var(--muted); max-width: 58ch; }
+.sheet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.sheet div { padding: 22px 0 22px 20px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sheet dt { font-size: var(--s-1); color: var(--muted); letter-spacing: .08em; }
+.sheet dd { margin: 0; font-family: var(--f-display); font-size: var(--s2); line-height: 1.2; }
+.sheet dd .mono { font-size: 1.35rem; }
+
+/* stone */
+.stone .inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.stone canvas { width: 100%; aspect-ratio: 4/3; max-width: 100%; display: block; }
+.stone-copy { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.stone-copy h2 { font-size: var(--s3); }
+.stone-copy p { max-width: 52ch; }
+.steps { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+.steps li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.steps .mono { color: var(--gold); font-size: .9rem; padding-top: 3px; }
+
+/* ledger */
+.ledger { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 10px; }
+.cell { aspect-ratio: 1; border: 1px solid var(--line); background: transparent; color: var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; font: inherit; padding: 0; transition: border-color .2s, background .2s; }
+.cell .mono { font-size: 1.05rem; }
+.cell small { font-size: .7rem; color: var(--muted); }
+.cell:hover { border-color: var(--gold); }
+.cell[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.cell[aria-pressed="true"] small { color: var(--bg); }
+.cell.sold { cursor: not-allowed; color: var(--sold); border-style: dashed; }
+.cell.sold:hover { border-color: var(--line); }
+.cell.sold small { color: var(--sold); }
+.legend { display: flex; gap: 24px; margin-top: 18px; color: var(--muted); font-size: .9rem; flex-wrap: wrap; }
+
+/* reserve */
+.reserve { background: var(--surface); }
+.reserve .inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); }
+.reserve h2 { font-size: var(--s3); margin-bottom: 18px; }
+.reserve-info { display: flex; flex-direction: column; gap: 14px; color: var(--muted); min-width: 0; }
+form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: var(--s-1); color: var(--muted); letter-spacing: .06em; }
+input, select { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); padding: 12px 14px; border-radius: 0; width: 100%; box-sizing: border-box; }
+.confirm { grid-column: 1 / -1; border: 1px solid var(--gold); padding: 18px 20px; font-family: var(--f-display); font-size: var(--s1); }
+footer.band { padding-block: 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+footer .inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .hero .inner, .stone .inner, .reserve .inner, .sec-head { grid-template-columns: minmax(0, 1fr); }
+  .vitrine { order: -1; }
+  .sheet { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ledger { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  nav { display: none; }
+  .sheet { grid-template-columns: minmax(0, 1fr); }
+  form { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-copy > *:nth-child(2) { animation-delay: .08s; } .hero-copy > *:nth-child(3) { animation-delay: .16s; }
+  .hero-copy > *:nth-child(4) { animation-delay: .24s; } .hero-copy > *:nth-child(5) { animation-delay: .32s; }
+  @keyframes rise { from { transform: translateY(14px); opacity: .001; } }
+}
+</style>
+
+<div class="wrap" dir="rtl" lang="he">
+<header class="band"><div class="inner">
+  <div class="mark">עֵת<small>ATELIER · JERUSALEM</small></div>
+  <nav aria-label="ניווט ראשי"><a href="#caliber">הקליבר</a><a href="#stone">האבן</a><a href="#edition">המהדורה</a><a href="#reserve">צפייה פרטית</a></nav>
+</div></header>
+
+<main>
+<div class="hero band"><div class="inner">
+  <div class="hero-copy">
+    <span class="label">מהדורה מוגבלת · 18 עותקים</span>
+    <h1>ירושלים 38.<br><em>זמן שנחצב באבן.</em></h1>
+    <p class="lede">שעון מכני בעבודת יד, עם לוח שעון מפרוסת אבן ירושלמית בעובי 0.6 מ״מ ומארז זהב 18 קראט.</p>
+    <div class="price-row">
+      <span class="price">₪148,000</span>
+      <span class="price-note">כולל מע״מ · אספקה תוך 14 שבועות</span>
+    </div>
+    <div class="ctas">
+      <a class="btn" href="#reserve">תיאום צפייה פרטית</a>
+      <a class="btn ghost" href="#caliber">למפרט המלא</a>
+    </div>
+  </div>
+  <figure class="vitrine" style="margin:0">
+    <canvas id="watch" width="1040" height="1040" role="img" aria-label="שעון ירושלים 38 מציג את השעה הנוכחית, מחוג שניות נע בשמונה פעימות לשנייה"></canvas>
+    <figcaption>השעה עכשיו, כפי שהשעון מראה אותה. מחוג השניות פועם 8 פעמים בשנייה.</figcaption>
+  </figure>
+</div></div>
+
+<section class="band" id="caliber"><div class="inner">
+  <div class="sec-head">
+    <h2>קליבר ע׳-72</h2>
+    <p>מנגנון בעל מתיחה ידנית שתוכנן והורכב בסדנה. כל גשר מעוטר בפסי ירושלים מוברשים, וכל אבן קשורה ביד. השעון מכויל בחמש תנוחות לפני שהוא יוצא מהסדנה.</p>
+  </div>
+  <dl class="sheet">
+    <div><dt>תדירות</dt><dd><span class="mono">28,800 vph · 4 Hz</span></dd></div>
+    <div><dt>רזרבת כוח</dt><dd><span class="mono">72 h</span></dd></div>
+    <div><dt>אבני מנגנון</dt><dd><span class="mono">21</span></dd></div>
+    <div><dt>מארז</dt><dd>זהב צהוב 18K, <span class="mono">38 mm</span></dd></div>
+    <div><dt>עובי</dt><dd><span class="mono">9.4 mm</span></dd></div>
+    <div><dt>עמידות במים</dt><dd><span class="mono">50 m</span></dd></div>
+    <div><dt>דיוק</dt><dd><span class="mono">−2 / +4 s/d</span></dd></div>
+    <div><dt>זכוכית</dt><dd>ספיר, ציפוי נגד השתקפות</dd></div>
+    <div><dt>רצועה</dt><dd>עור אליגטור, אבזם זהב</dd></div>
+  </dl>
+</div></section>
+
+<section class="band stone" id="stone"><div class="inner">
+  <canvas id="slab" width="1200" height="900" role="img" aria-label="פרוסת אבן ירושלמית עם הסימון של לוח השעון"></canvas>
+  <div class="stone-copy">
+    <span class="label">לוח השעון</span>
+    <h2>כל לוח חתוך מאותו גוש אבן.</h2>
+    <p>גוש אחד של אבן מֶלֶכֶּה מחצבה בהרי יהודה נפרס ל־18 לוחות. בגלל זה אין שני שעונים זהים: הגידים והמאובנים הזעירים בכל לוח שונים, אבל כולם נולדו מאותה אבן.</p>
+    <ol class="steps">
+      <li><span class="mono">0.6mm</span><span>פריסה בחוט יהלום וחיזוק בשרף שקוף מגב הלוח.</span></li>
+      <li><span class="mono">12×</span><span>סימוני שעות מזהב מוצק, כל אחד מוחדר ביד לקדח משלו.</span></li>
+      <li><span class="mono">40h</span><span>זמן העבודה על לוח אחד, מהגוש ועד ההרכבה.</span></li>
+    </ol>
+  </div>
+</div></section>
+
+<section class="band" id="edition"><div class="inner">
+  <div class="sec-head">
+    <h2>פנקס המהדורה</h2>
+    <p>מספר העותק חרוט על גב המארז. בחרו מספר פנוי כדי לשריין אותו לצפייה הפרטית. השריון מוחזק 72 שעות, כמו רזרבת הכוח.</p>
+  </div>
+  <div class="ledger" id="ledger" role="group" aria-label="עותקי המהדורה"></div>
+  <div class="legend"><span><span class="mono" id="freeCount">—</span> עותקים פנויים</span><span>מסגרת מקווקוות: נמכר</span></div>
+</div></section>
+
+<section class="band reserve" id="reserve"><div class="inner">
+  <div class="reserve-info">
+    <h2>צפייה פרטית בסדנה</h2>
+    <p>הצפייה נערכת בסדנה ברחוב שלומציון המלכה בירושלים, ונמשכת כשעה. תוכלו להחזיק את השעון, לראות את המנגנון בהגדלה ולבחור רצועה.</p>
+    <p>ימים א׳–ה׳, בין 10:00 ל־18:00. טלפון הסדנה: <span class="mono">02-555-0138</span></p>
+  </div>
+  <form id="form" novalidate>
+    <div class="field"><label for="name">שם מלא</label><input id="name" required autocomplete="name"></div>
+    <div class="field"><label for="phone">טלפון</label><input id="phone" required inputmode="tel" autocomplete="tel"></div>
+    <div class="field"><label for="date">תאריך מועדף</label><input id="date" type="date" required></div>
+    <div class="field"><label for="piece">עותק מבוקש</label><select id="piece"></select></div>
+    <div class="field full"><label for="wrist">היקף פרק כף היד (ס״מ)</label><input id="wrist" inputmode="decimal" placeholder="למשל 17.5"></div>
+    <div class="field full"><button class="btn" type="submit">שליחת בקשה</button></div>
+    <div class="confirm" id="confirm" hidden></div>
+  </form>
+</div></section>
+</main>
+
+<footer class="band"><div class="inner">
+  <span>עֵת · סדנת שעונים, ירושלים</span>
+  <span>מותג בדיוני להדגמה</span>
+</div></footer>
+</div>
+
+<script>
+(() => {
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Deterministic noise for stone texture
+  let seed = 38;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  function stoneTexture(w, h, dark) {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d'); const img = x.createImageData(w, h);
+    seed = 38;
+    const base = dark ? [176, 160, 128] : [222, 208, 178];
+    const veins = []; for (let i = 0; i < 7; i++) veins.push([rnd() * w, rnd() * 0.6 + 0.2, rnd() * 40 + 20, rnd() * 6]);
+    for (let py = 0; py < h; py++) for (let px = 0; px < w; px++) {
+      let v = (rnd() - .5) * 18;
+      for (const [vx, slope, amp, ph] of veins) {
+        const d = Math.abs(px - (vx + py * slope + Math.sin(py / amp + ph) * amp));
+        if (d < 3) v -= (3 - d) * 9;
+      }
+      const i = (py * w + px) * 4;
+      img.data[i] = base[0] + v; img.data[i+1] = base[1] + v * .95; img.data[i+2] = base[2] + v * .8; img.data[i+3] = 255;
+    }
+    x.putImageData(img, 0, 0);
+    for (let i = 0; i < 60; i++) { // tiny fossils
+      x.fillStyle = `rgba(120,100,70,${.15 + rnd() * .2})`;
+      x.beginPath(); x.arc(rnd() * w, rnd() * h, rnd() * 2.2 + .6, 0, 7); x.fill();
+    }
+    return c;
+  }
+  const isDark = () => css('--bg').toLowerCase() === '#15130f';
+  let tex = null, texDark = null;
+
+  // Watch
+  const cv = document.getElementById('watch'), g = cv.getContext('2d');
+  const S = cv.width, C = S / 2;
+  function hand(angle, len, back, w, color, tip) {
+    g.save(); g.translate(C, C); g.rotate(angle);
+    g.fillStyle = color; g.beginPath();
+    g.moveTo(-w / 2, back); g.lineTo(-w * .35, -len + (tip ? 0 : 20)); g.lineTo(0, -len); g.lineTo(w * .35, -len + (tip ? 0 : 20)); g.lineTo(w / 2, back);
+    g.closePath(); g.fill(); g.restore();
+  }
+  function draw() {
+    const dark = isDark();
+    if (!tex || texDark !== dark) { tex = stoneTexture(420, 420, dark); texDark = dark; }
+    const gold = css('--gold'), goldSoft = css('--gold-soft'), ink = css('--ink');
+    g.clearRect(0, 0, S, S);
+    // shadow
+    g.save(); g.shadowColor = 'rgba(0,0,0,.35)'; g.shadowBlur = 50; g.shadowOffsetY = 24;
+    g.fillStyle = gold; g.beginPath(); g.arc(C, C, 470, 0, 7); g.fill(); g.restore();
+    // case
+    const cg = g.createLinearGradient(0, 0, S, S);
+    cg.addColorStop(0, '#F1D89A'); cg.addColorStop(.45, '#B88A3E'); cg.addColorStop(.55, '#8E6726'); cg.addColorStop(1, '#E6C47C');
+    g.fillStyle = cg; g.beginPath(); g.arc(C, C, 470, 0, 7); g.fill();
+    g.fillStyle = '#7A5820'; g.beginPath(); g.arc(C, C, 432, 0, 7); g.fill();
+    // stone dial
+    g.save(); g.beginPath(); g.arc(C, C, 426, 0, 7); g.clip();
+    g.drawImage(tex, C - 426, C - 426, 852, 852);
+    const vg = g.createRadialGradient(C, C - 120, 60, C, C, 440);
+    vg.addColorStop(0, 'rgba(255,255,255,.12)'); vg.addColorStop(1, 'rgba(0,0,0,.18)');
+    g.fillStyle = vg; g.fillRect(0, 0, S, S); g.restore();
+    // minute track
+    for (let i = 0; i < 60; i++) {
+      const a = i * Math.PI / 30; const big = i % 5 === 0;
+      g.save(); g.translate(C, C); g.rotate(a);
+      if (big) {
+        g.fillStyle = cg; g.fillRect(-7, -400, 14, 62);
+        g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(2, -400, 5, 62);
+      } else { g.fillStyle = 'rgba(40,30,15,.55)'; g.fillRect(-1.5, -404, 3, 16); }
+      g.restore();
+    }
+    // text
+    g.fillStyle = '#3B2E18'; g.textAlign = 'center';
+    g.font = '700 46px "Frank Ruhl Libre", serif'; g.fillText('עֵת', C, C - 170);
+    g.direction = 'ltr';
+    g.font = '500 17px "IBM Plex Mono", monospace'; g.fillText('JERUSALEM · 38', C, C - 138);
+    g.font = '400 15px "IBM Plex Mono", monospace'; g.fillText('MANUEL · 72H', C, C + 210);
+    g.direction = 'rtl';
+    // power reserve arc
+    const pr = .64;
+    g.lineWidth = 6; g.strokeStyle = 'rgba(60,45,20,.25)';
+    g.beginPath(); g.arc(C, C + 120, 70, Math.PI * 1.15, Math.PI * 1.85); g.stroke();
+    g.strokeStyle = '#8E6726'; g.beginPath(); g.arc(C, C + 120, 70, Math.PI * 1.15, Math.PI * (1.15 + .7 * pr)); g.stroke();
+    // time
+    const now = new Date();
+    const ms = now.getMilliseconds(), sec = now.getSeconds() + (reduce ? 0 : Math.floor(ms / 125) / 8);
+    const min = now.getMinutes() + sec / 60, hr = (now.getHours() % 12) + min / 60;
+    hand(hr * Math.PI / 6, 250, 40, 22, '#6E4E19', false);
+    hand(min * Math.PI / 30, 370, 40, 16, '#6E4E19', false);
+    g.save(); g.translate(C, C); g.rotate(sec * Math.PI / 30);
+    g.fillStyle = '#2A2117'; g.fillRect(-2, -395, 4, 470); g.beginPath(); g.arc(0, 60, 12, 0, 7); g.fill(); g.restore();
+    g.fillStyle = cg; g.beginPath(); g.arc(C, C, 16, 0, 7); g.fill();
+    // glass reflection
+    g.save(); g.beginPath(); g.arc(C, C, 426, 0, 7); g.clip();
+    const rg = g.createLinearGradient(C - 300, C - 400, C + 100, C);
+    rg.addColorStop(0, 'rgba(255,255,255,.22)'); rg.addColorStop(.5, 'rgba(255,255,255,0)');
+    g.fillStyle = rg; g.beginPath(); g.ellipse(C - 120, C - 160, 330, 200, -.6, 0, 7); g.fill(); g.restore();
+  }
+  function loop() { draw(); setTimeout(() => requestAnimationFrame(loop), reduce ? 1000 : 125 - (Date.now() % 125)); }
+  document.fonts.ready.then(loop); draw();
+
+  // Slab
+  const sc = document.getElementById('slab'), sg = sc.getContext('2d');
+  function drawSlab() {
+    const dark = isDark(); const t = stoneTexture(400, 300, dark);
+    sg.imageSmoothingEnabled = true; sg.drawImage(t, 0, 0, 1200, 900);
+    sg.strokeStyle = css('--gold'); sg.lineWidth = 2; sg.setLineDash([10, 8]);
+    const cells = [[300, 300], [600, 300], [900, 300], [300, 620], [600, 620], [900, 620]];
+    cells.forEach(([x, y], i) => {
+      sg.beginPath(); sg.arc(x, y, 118, 0, 7); sg.stroke();
+      sg.direction = 'ltr'; sg.fillStyle = 'rgba(40,30,15,.7)'; sg.font = '500 22px "IBM Plex Mono", monospace'; sg.textAlign = 'center';
+      sg.fillText(String(i + 1).padStart(2, '0') + '/18', x, y + 8);
+    });
+    sg.setLineDash([]);
+  }
+  document.fonts.ready.then(drawSlab); drawSlab();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { tex = null; drawSlab(); });
+  new MutationObserver(() => { tex = null; drawSlab(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // Ledger
+  const sold = new Set([1, 2, 3, 5, 7, 8, 11, 12, 14, 16, 17]);
+  const ledger = document.getElementById('ledger'), sel = document.getElementById('piece');
+  let chosen = null;
+  const free = [];
+  for (let n = 1; n <= 18; n++) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'cell' + (sold.has(n) ? ' sold' : '');
+    b.id = 'cell' + n;
+    b.innerHTML = `<span class="mono">${String(n).padStart(2, '0')}</span><small>${sold.has(n) ? 'נמכר' : 'פנוי'}</small>`;
+    if (sold.has(n)) { b.disabled = true; b.setAttribute('aria-label', `עותק ${n}, נמכר`); }
+    else { free.push(n); b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', `עותק ${n}, פנוי`); b.addEventListener('click', () => pick(n)); }
+    ledger.appendChild(b);
+  }
+  document.getElementById('freeCount').textContent = free.length;
+  sel.innerHTML = '<option value="">ללא העדפה</option>' + free.map(n => `<option value="${n}">עותק ${String(n).padStart(2, '0')}/18</option>`).join('');
+  function pick(n) {
+    chosen = chosen === n ? null : n;
+    ledger.querySelectorAll('.cell:not(.sold)').forEach(c => c.setAttribute('aria-pressed', String(c.id === 'cell' + chosen)));
+    sel.value = chosen ?? '';
+  }
+  sel.addEventListener('change', () => { const v = +sel.value || null; if (v !== chosen) pick(v ?? chosen); });
+
+  // Form
+  const dateEl = document.getElementById('date');
+  const d = new Date(); d.setDate(d.getDate() + 3); dateEl.min = new Date().toISOString().slice(0, 10); dateEl.value = d.toISOString().slice(0, 10);
+  document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('name'), phone = document.getElementById('phone');
+    const box = document.getElementById('confirm');
+    if (!name.value.trim() || !phone.value.trim()) { box.hidden = false; box.textContent = 'נא למלא שם וטלפון כדי שנוכל לחזור אליך.'; (name.value.trim() ? phone : name).focus(); return; }
+    const piece = sel.value ? `עותק ${String(sel.value).padStart(2, '0')}/18` : 'עותק לפי בחירה בסדנה';
+    const when = new Date(dateEl.value).toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long' });
+    box.hidden = false;
+    box.textContent = `${name.value.trim()}, הבקשה התקבלה בדף ההדגמה. ${piece} מסומן עבורך ליום ${when}. זהו אתר הדגמה, ולכן לא נשלחה הודעה בפועל.`;
+  });
+})();
+</script>
