@@ -34,7 +34,11 @@ juce_add_plugin(TranceForge
 target_sources(TranceForge
     PRIVATE
         Source/PluginProcessor.cpp
-        Source/PluginEditor.cpp)
+        Source/PluginEditor.cpp
+        Source/LeadVoice.h
+        Source/PhrasePlayer.h
+        Source/SoundDesigns.h
+        Source/TranceFX.h)
 
 target_include_directories(TranceForge PRIVATE Source)
 

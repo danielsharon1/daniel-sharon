@@ -2,48 +2,22 @@
 
 #include <juce_audio_utils/juce_audio_utils.h>
 #include <juce_dsp/juce_dsp.h>
-#include "SupersawVoice.h"
+#include "LeadVoice.h"
+#include "PhrasePlayer.h"
+#include "SoundDesigns.h"
 #include "TranceFX.h"
 
 namespace ParamIDs
 {
-    inline constexpr auto detune     = "detune";
-    inline constexpr auto mix        = "mix";
-    inline constexpr auto sub        = "sub";
-    inline constexpr auto width      = "width";
-    inline constexpr auto octave     = "octave";
-
-    inline constexpr auto cutoff     = "cutoff";
-    inline constexpr auto resonance  = "resonance";
-    inline constexpr auto envAmount  = "envAmount";
-    inline constexpr auto keyTrack   = "keyTrack";
-
-    inline constexpr auto fAttack    = "fAttack";
-    inline constexpr auto fDecay     = "fDecay";
-    inline constexpr auto fSustain   = "fSustain";
-    inline constexpr auto fRelease   = "fRelease";
-
-    inline constexpr auto attack     = "attack";
-    inline constexpr auto decay      = "decay";
-    inline constexpr auto sustain    = "sustain";
-    inline constexpr auto release    = "release";
-
-    inline constexpr auto gateOn     = "gateOn";
-    inline constexpr auto gateRate   = "gateRate";
-    inline constexpr auto gateDepth  = "gateDepth";
-    inline constexpr auto gateLength = "gateLength";
-    inline constexpr auto gateSmooth = "gateSmooth";
-
-    inline constexpr auto delayMix   = "delayMix";
-    inline constexpr auto delayFb    = "delayFeedback";
-    inline constexpr auto delayTime  = "delayTime";
-
-    inline constexpr auto reverbMix  = "reverbMix";
-    inline constexpr auto reverbSize = "reverbSize";
-
-    inline constexpr auto master     = "master";
-
-    inline juce::String gateStep (int i) { return "gateStep" + juce::String (i); }
+    inline constexpr auto sound   = "sound";
+    inline constexpr auto melody  = "melody";
+    inline constexpr auto tone    = "tone";
+    inline constexpr auto width   = "width";
+    inline constexpr auto pluck   = "pluck";
+    inline constexpr auto space   = "space";
+    inline constexpr auto gate    = "gate";
+    inline constexpr auto vibrato = "vibrato";
+    inline constexpr auto volume  = "volume";
 }
 
 //==============================================================================
@@ -66,10 +40,10 @@ public:
     bool acceptsMidi() const override  { return true; }
     bool producesMidi() const override { return false; }
     bool isMidiEffect() const override { return false; }
-    double getTailLengthSeconds() const override { return 4.0; }
+    double getTailLengthSeconds() const override { return 5.0; }
 
     int getNumPrograms() override;
-    int getCurrentProgram() override { return currentProgram; }
+    int getCurrentProgram() override;
     void setCurrentProgram (int index) override;
     const juce::String getProgramName (int index) override;
     void changeProgramName (int, const juce::String&) override {}
@@ -77,30 +51,31 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    /** The gate step currently playing (-1 when the gate is off) - used by the editor. */
     int getCurrentGateStep() const noexcept { return currentGateStep.load(); }
+    const SoundDesign& getCurrentSound() const;
 
     juce::AudioProcessorValueTreeState apvts;
-    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    juce::MidiKeyboardState keyboardState;   // on-screen keyboard in the editor
 
-    static const juce::StringArray gateRateNames;
-    static const juce::StringArray delayTimeNames;
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    static juce::StringArray getSoundNames();
+    static juce::StringArray getMelodyNames();
 
 private:
     float get (const char* id) const { return apvts.getRawParameterValue (id)->load(); }
-    void updateVoiceParams();
+    LeadParams makeLeadParams (const SoundDesign&) const;
 
     juce::Synthesiser synth;
-    TranceGate gate;
+    PhrasePlayer phrasePlayer;
+    TranceGate gateFx;
     PingPongDelay delay;
+    juce::dsp::Chorus<float> chorus;
+    juce::dsp::StateVariableTPTFilter<float> highPass;
     juce::Reverb reverb;
     juce::SmoothedValue<float> masterGain;
 
-    std::array<std::atomic<float>*, TranceGate::numSteps> stepParams {};
     std::atomic<int> currentGateStep { -1 };
-
     double freeRunPpq = 0.0;
-    int currentProgram = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TranceForgeProcessor)
 };

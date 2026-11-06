@@ -64,13 +64,12 @@ void TranceLookAndFeel::drawRotarySlider (juce::Graphics& g, int x, int y, int w
 
 juce::Font TranceLookAndFeel::getTextButtonFont (juce::TextButton&, int buttonHeight)
 {
-    // Fixed size so two-digit gate step numbers (10-16) fit in the narrow step buttons.
-    return juce::Font (juce::FontOptions (juce::jmin (14.0f, (float) buttonHeight * 0.5f), juce::Font::bold));
+    return juce::Font (juce::FontOptions (juce::jmin (18.0f, (float) buttonHeight * 0.5f), juce::Font::bold));
 }
 
-juce::Font TranceLookAndFeel::getComboBoxFont (juce::ComboBox&)
+juce::Font TranceLookAndFeel::getComboBoxFont (juce::ComboBox& box)
 {
-    return juce::Font (juce::FontOptions (14.0f));
+    return juce::Font (juce::FontOptions (juce::jlimit (13.0f, 22.0f, (float) box.getHeight() * 0.48f), juce::Font::bold));
 }
 
 void TranceLookAndFeel::drawButtonBackground (juce::Graphics& g, juce::Button& button, const juce::Colour& bg,
@@ -93,51 +92,53 @@ void TranceLookAndFeel::drawButtonBackground (juce::Graphics& g, juce::Button& b
 
 //==============================================================================
 TranceForgeEditor::TranceForgeEditor (TranceForgeProcessor& p)
-    : AudioProcessorEditor (&p), proc (p)
+    : AudioProcessorEditor (&p), proc (p),
+      keyboard (p.keyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
     setLookAndFeel (&lnf);
     using namespace ParamIDs;
 
-    // Preset selector
-    for (int i = 0; i < proc.getNumPrograms(); ++i)
-        presetBox.addItem (proc.getProgramName (i), i + 1);
-    presetBox.setSelectedId (proc.getCurrentProgram() + 1, juce::dontSendNotification);
-    presetBox.onChange = [this]
-    {
-        if (const auto id = presetBox.getSelectedId(); id > 0)
-            proc.setCurrentProgram (id - 1);
-    };
-    addAndMakeVisible (presetBox);
+    // --- sound selector: picking a sound loads it exactly as designed ---
+    soundBox.addItemList (TranceForgeProcessor::getSoundNames(), 1);
+    soundBox.setJustificationType (juce::Justification::centred);
+    soundBox.onChange = [this] { selectSound (soundBox.getSelectedId() - 1); };
+    addAndMakeVisible (soundBox);
 
-    sections.push_back ({ "OSCILLATOR", { addKnob (detune, "Detune"), addKnob (mix, "Saw Mix"), addKnob (sub, "Sub"),
-                                          addKnob (width, "Width"), addKnob (octave, "Octave") }, {} });
-    sections.push_back ({ "FILTER", { addKnob (cutoff, "Cutoff"), addKnob (resonance, "Reso"),
-                                      addKnob (envAmount, "Env Amt"), addKnob (keyTrack, "Key Trk") }, {} });
-    sections.push_back ({ "MASTER", { addKnob (master, "Volume") }, {} });
+    prevButton.onClick = [this] { selectSound ((proc.getCurrentProgram() + proc.getNumPrograms() - 1) % proc.getNumPrograms()); };
+    nextButton.onClick = [this] { selectSound ((proc.getCurrentProgram() + 1) % proc.getNumPrograms()); };
+    addAndMakeVisible (prevButton);
+    addAndMakeVisible (nextButton);
 
-    sections.push_back ({ "FILTER ENV", { addKnob (fAttack, "Attack"), addKnob (fDecay, "Decay"),
-                                          addKnob (fSustain, "Sustain"), addKnob (fRelease, "Release") }, {} });
-    sections.push_back ({ "AMP ENV", { addKnob (attack, "Attack"), addKnob (decay, "Decay"),
-                                       addKnob (sustain, "Sustain"), addKnob (release, "Release") }, {} });
-    sections.push_back ({ "DELAY / REVERB", { addKnob (delayMix, "Delay"), addKnob (delayFb, "Feedback"),
-                                              addCombo (delayTime, "Time", TranceForgeProcessor::delayTimeNames),
-                                              addKnob (reverbMix, "Reverb"), addKnob (reverbSize, "Size") }, {} });
+    // --- melody player ---
+    melodyBox.addItemList (TranceForgeProcessor::getMelodyNames(), 1);
+    melodyAttachment = std::make_unique<APVTS::ComboBoxAttachment> (proc.apvts, melody, melodyBox);
+    addAndMakeVisible (melodyBox);
 
-    sections.push_back ({ "TRANCE GATE", { addToggle (gateOn, "Gate"),
-                                           addCombo (gateRate, "Rate", TranceForgeProcessor::gateRateNames),
-                                           addKnob (gateDepth, "Depth"), addKnob (gateLength, "Length"),
-                                           addKnob (gateSmooth, "Smooth") }, {} });
+    melodyHint.setText (juce::String::fromUTF8 ("Hold one key - TranceForge plays the melody in that key, in sync with your tempo."),
+                        juce::dontSendNotification);
+    melodyHint.setFont (juce::Font (juce::FontOptions (13.0f)));
+    melodyHint.setColour (juce::Label::textColourId, TranceLookAndFeel::text.withAlpha (0.55f));
+    melodyHint.setJustificationType (juce::Justification::topLeft);
+    addAndMakeVisible (melodyHint);
 
-    for (int i = 0; i < TranceGate::numSteps; ++i)
-    {
-        auto& b = stepButtons[(size_t) i];
-        b.setButtonText (juce::String (i + 1));
-        b.setClickingTogglesState (true);
-        addAndMakeVisible (b);
-        stepAttachments[(size_t) i] = std::make_unique<APVTS::ButtonAttachment> (proc.apvts, gateStep (i), b);
-    }
+    // --- macro knobs ---
+    addMacro (tone,    "TONE",    "dark / bright");
+    addMacro (width,   "WIDTH",   "mono / huge");
+    addMacro (pluck,   "PLUCK",   "soft / snappy");
+    addMacro (space,   "SPACE",   "dry / delay+verb");
+    addMacro (gate,    "GATE",    "off / chopped");
+    addMacro (vibrato, "VIBRATO", "none / wide");
+    addMacro (volume,  "VOLUME",  "");
 
-    setSize (980, 610);
+    // --- playable keyboard ---
+    keyboard.setLowestVisibleKey (48);
+    keyboard.setKeyWidth (26.0f);
+    keyboard.setColour (juce::MidiKeyboardComponent::keyDownOverlayColourId, TranceLookAndFeel::accent);
+    keyboard.setColour (juce::MidiKeyboardComponent::mouseOverKeyOverlayColourId, TranceLookAndFeel::accent2.withAlpha (0.4f));
+    addAndMakeVisible (keyboard);
+
+    setSize (900, 600);
+    timerCallback();
     startTimerHz (30);
 }
 
@@ -147,159 +148,78 @@ TranceForgeEditor::~TranceForgeEditor()
     setLookAndFeel (nullptr);
 }
 
-//==============================================================================
-TranceForgeEditor::Control* TranceForgeEditor::addKnob (const juce::String& paramId, const juce::String& name)
+void TranceForgeEditor::addMacro (const char* paramId, const juce::String& name, const juce::String& hint)
 {
-    auto c = std::make_unique<Control>();
-    auto slider = std::make_unique<juce::Slider> (juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow);
-    slider->setTextBoxStyle (juce::Slider::TextBoxBelow, false, 72, 16);
-    slider->setPopupDisplayEnabled (false, false, nullptr);
-    c->sliderAttachment = std::make_unique<APVTS::SliderAttachment> (proc.apvts, paramId, *slider);
+    auto m = std::make_unique<Macro>();
 
-    // Compact, readable value display (the attachment's default prints 7 decimals).
-    juce::String suffix;
-    bool isInt = false;
-    if (auto* param = proc.apvts.getParameter (paramId))
-    {
-        suffix = param->getLabel();
-        isInt  = dynamic_cast<juce::AudioParameterInt*> (param) != nullptr;
-    }
+    m->knob.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 18);
+    m->knob.setColour (juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
+    m->attachment = std::make_unique<APVTS::SliderAttachment> (proc.apvts, paramId, m->knob);
 
-    slider->textFromValueFunction = [suffix, isInt] (double v)
-    {
-        if (suffix == "Hz")
-            return v >= 1000.0 ? juce::String (v / 1000.0, 1) + " kHz" : juce::String (juce::roundToInt (v)) + " Hz";
-        if (suffix == "s")
-            return v < 0.9995 ? juce::String (juce::roundToInt (v * 1000.0)) + " ms" : juce::String (v, 2) + " s";
-        if (suffix == "ms")
-            return juce::String (v, 1) + " ms";
-        if (suffix == "dB")
-            return juce::String (v, 1) + " dB";
-        return isInt ? juce::String (juce::roundToInt (v)) : juce::String (v, 2);
-    };
-    slider->setColour (juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
-    slider->updateText();
-    c->component = std::move (slider);
+    m->label.setText (name, juce::dontSendNotification);
+    m->label.setFont (juce::Font (juce::FontOptions (15.0f, juce::Font::bold)));
+    m->label.setJustificationType (juce::Justification::centred);
 
-    c->label.setText (name, juce::dontSendNotification);
-    c->label.setJustificationType (juce::Justification::centred);
-    c->label.setFont (juce::Font (juce::FontOptions (13.0f, juce::Font::bold)));
+    m->hint.setText (hint, juce::dontSendNotification);
+    m->hint.setFont (juce::Font (juce::FontOptions (11.0f)));
+    m->hint.setColour (juce::Label::textColourId, TranceLookAndFeel::text.withAlpha (0.45f));
+    m->hint.setJustificationType (juce::Justification::centred);
 
-    addAndMakeVisible (*c->component);
-    addAndMakeVisible (c->label);
-    controls.push_back (std::move (c));
-    return controls.back().get();
+    addAndMakeVisible (m->knob);
+    addAndMakeVisible (m->label);
+    addAndMakeVisible (m->hint);
+    macros.push_back (std::move (m));
 }
 
-TranceForgeEditor::Control* TranceForgeEditor::addCombo (const juce::String& paramId, const juce::String& name,
-                                                         const juce::StringArray& items)
+void TranceForgeEditor::selectSound (int index)
 {
-    auto c = std::make_unique<Control>();
-    auto box = std::make_unique<juce::ComboBox>();
-    box->addItemList (items, 1);
-    c->comboAttachment = std::make_unique<APVTS::ComboBoxAttachment> (proc.apvts, paramId, *box);
-    c->component = std::move (box);
-
-    c->label.setText (name, juce::dontSendNotification);
-    c->label.setJustificationType (juce::Justification::centred);
-    c->label.setFont (juce::Font (juce::FontOptions (13.0f, juce::Font::bold)));
-
-    addAndMakeVisible (*c->component);
-    addAndMakeVisible (c->label);
-    controls.push_back (std::move (c));
-    return controls.back().get();
-}
-
-TranceForgeEditor::Control* TranceForgeEditor::addToggle (const juce::String& paramId, const juce::String& name)
-{
-    auto c = std::make_unique<Control>();
-    auto button = std::make_unique<juce::TextButton> ("ON");
-    button->setClickingTogglesState (true);
-    c->buttonAttachment = std::make_unique<APVTS::ButtonAttachment> (proc.apvts, paramId, *button);
-    c->component = std::move (button);
-
-    c->label.setText (name, juce::dontSendNotification);
-    c->label.setJustificationType (juce::Justification::centred);
-    c->label.setFont (juce::Font (juce::FontOptions (13.0f, juce::Font::bold)));
-
-    addAndMakeVisible (*c->component);
-    addAndMakeVisible (c->label);
-    controls.push_back (std::move (c));
-    return controls.back().get();
+    if (index >= 0 && index != proc.getCurrentProgram())
+        proc.setCurrentProgram (index);
 }
 
 //==============================================================================
-void TranceForgeEditor::layoutSection (Section& s)
-{
-    auto area = s.bounds.reduced (8).withTrimmedTop (22);
-    const auto n = (int) s.controls.size();
-    const auto w = area.getWidth() / juce::jmax (1, n);
-
-    for (auto* c : s.controls)
-    {
-        auto cell = area.removeFromLeft (w).reduced (3, 0);
-        c->label.setBounds (cell.removeFromTop (18));
-
-        if (dynamic_cast<juce::Slider*> (c->component.get()) != nullptr)
-            c->component->setBounds (cell.withSizeKeepingCentre (juce::jmin (cell.getWidth(), 86), cell.getHeight()));
-        else
-            c->component->setBounds (cell.withSizeKeepingCentre (juce::jmin (cell.getWidth(), 84), 28));
-    }
-}
-
 void TranceForgeEditor::resized()
 {
-    auto area = getLocalBounds().reduced (12);
+    auto area = getLocalBounds().reduced (14);
+    area.removeFromTop (52);   // header
 
-    auto top = area.removeFromTop (44);
-    presetBox.setBounds (top.removeFromRight (280).withSizeKeepingCentre (280, 30));
-    area.removeFromTop (8);
+    auto top = area.removeFromTop (110);
+    soundPanel  = top.removeFromLeft (top.getWidth() / 2 - 5);
+    top.removeFromLeft (10);
+    melodyPanel = top;
 
-    const auto rowH = 170;
-    const auto gap  = 10;
-
-    auto layoutRow = [&] (juce::Rectangle<int> row, int first, int count)
     {
-        int totalWeight = 0;
-        for (int i = first; i < first + count; ++i)
-            totalWeight += (int) juce::jmax<size_t> (1, sections[(size_t) i].controls.size());
-
-        const auto available = row.getWidth() - gap * (count - 1);
-        for (int i = first; i < first + count; ++i)
-        {
-            auto& s = sections[(size_t) i];
-            const auto wgt = (int) juce::jmax<size_t> (1, s.controls.size());
-            const auto w = (i == first + count - 1) ? row.getWidth() : available * wgt / totalWeight;
-            s.bounds = row.removeFromLeft (w);
-            row.removeFromLeft (gap);
-            layoutSection (s);
-        }
-    };
-
-    layoutRow (area.removeFromTop (rowH), 0, 3);
-    area.removeFromTop (gap);
-    layoutRow (area.removeFromTop (rowH), 3, 3);
-    area.removeFromTop (gap);
-
-    // Gate row: controls on the left, 16 step buttons on the right.
-    auto& gateSection = sections[6];
-    gateSection.bounds = area;
-    auto inner = area.reduced (8).withTrimmedTop (22);
-    auto controlsArea = inner.removeFromLeft (420);
+        auto r = soundPanel.reduced (12).withTrimmedTop (22);
+        auto row = r.removeFromTop (46);
+        prevButton.setBounds (row.removeFromLeft (46));
+        nextButton.setBounds (row.removeFromRight (46));
+        soundBox.setBounds (row.reduced (8, 0));
+    }
     {
-        // layoutSection() insets by 8px and skips a 22px title strip, so pre-expand accordingly.
-        Section tmp { {}, gateSection.controls,
-                      { controlsArea.getX() - 8, controlsArea.getY() - 30,
-                        controlsArea.getWidth() + 16, controlsArea.getHeight() + 38 } };
-        layoutSection (tmp);
+        auto r = melodyPanel.reduced (12).withTrimmedTop (22);
+        melodyBox.setBounds (r.removeFromTop (34));
+        r.removeFromTop (4);
+        melodyHint.setBounds (r);
     }
 
-    inner.removeFromLeft (16);
-    stepArea = inner.withSizeKeepingCentre (inner.getWidth(), 60);
-    const auto stepW = stepArea.getWidth() / TranceGate::numSteps;
-    auto stepsRow = stepArea.withHeight (44);
-    for (auto& b : stepButtons)
-        b.setBounds (stepsRow.removeFromLeft (stepW).reduced (2, 0));
+    area.removeFromTop (10);
+    macroPanel = area.removeFromTop (220);
+    {
+        auto r = macroPanel.reduced (10).withTrimmedTop (8);
+        const auto w = r.getWidth() / (int) macros.size();
+        for (auto& m : macros)
+        {
+            auto cell = r.removeFromLeft (w);
+            m->label.setBounds (cell.removeFromTop (22));
+            m->hint.setBounds (cell.removeFromBottom (16));
+            m->knob.setBounds (cell.reduced (6, 2));
+        }
+    }
+
+    area.removeFromTop (10);
+    gateStrip = area.removeFromTop (22);
+    area.removeFromTop (10);
+    keyboard.setBounds (area);
 }
 
 void TranceForgeEditor::paint (juce::Graphics& g)
@@ -307,52 +227,73 @@ void TranceForgeEditor::paint (juce::Graphics& g)
     using L = TranceLookAndFeel;
     g.fillAll (L::background);
 
-    // Header
-    auto header = getLocalBounds().reduced (12).removeFromTop (44);
+    auto header = getLocalBounds().reduced (14).removeFromTop (44);
     g.setGradientFill (juce::ColourGradient (L::accent, (float) header.getX(), 0.0f,
-                                             L::accent2, (float) header.getX() + 260.0f, 0.0f, false));
-    g.setFont (juce::Font (juce::FontOptions (30.0f, juce::Font::bold)));
+                                             L::accent2, (float) header.getX() + 270.0f, 0.0f, false));
+    g.setFont (juce::Font (juce::FontOptions (32.0f, juce::Font::bold)));
     g.drawText ("TRANCEFORGE", header, juce::Justification::centredLeft);
-    g.setColour (L::text.withAlpha (0.5f));
-    g.setFont (juce::Font (juce::FontOptions (13.0f)));
-    g.drawText ("supersaw synth + trance gate", header.withTrimmedLeft (265), juce::Justification::centredLeft);
+    g.setColour (L::text.withAlpha (0.55f));
+    g.setFont (juce::Font (juce::FontOptions (14.0f)));
+    g.drawText ("ready-to-play trance lead", header.withTrimmedLeft (280), juce::Justification::centredLeft);
 
-    // Section panels
-    for (const auto& s : sections)
+    auto drawPanel = [&g] (juce::Rectangle<int> r, const juce::String& title)
     {
-        const auto r = s.bounds.toFloat();
         g.setColour (L::panel);
-        g.fillRoundedRectangle (r, 8.0f);
-        g.setColour (L::accent.withAlpha (0.15f));
-        g.drawRoundedRectangle (r.reduced (0.5f), 8.0f, 1.0f);
+        g.fillRoundedRectangle (r.toFloat(), 10.0f);
+        g.setColour (L::accent.withAlpha (0.18f));
+        g.drawRoundedRectangle (r.toFloat().reduced (0.5f), 10.0f, 1.0f);
+        if (title.isNotEmpty())
+        {
+            g.setColour (L::accent);
+            g.setFont (juce::Font (juce::FontOptions (12.0f, juce::Font::bold)));
+            g.drawText (title, r.reduced (12, 8).removeFromTop (14), juce::Justification::centredLeft);
+        }
+    };
 
-        g.setColour (L::accent);
-        g.setFont (juce::Font (juce::FontOptions (12.0f, juce::Font::bold)));
-        g.drawText (s.title, s.bounds.reduced (10, 6).removeFromTop (14), juce::Justification::centredLeft);
-    }
+    drawPanel (soundPanel, "SOUND");
+    drawPanel (melodyPanel, "MELODY PLAYER");
+    drawPanel (macroPanel, {});
 
-    // Playing-step indicator under the gate steps
+    // gate pattern of the current sound, with the playing step lit
+    const auto& sound = proc.getCurrentSound();
+    const auto gateOn = proc.apvts.getRawParameterValue (ParamIDs::gate)->load() > 0.01f;
     const auto step = proc.getCurrentGateStep();
-    const auto stepW = stepArea.getWidth() / TranceGate::numSteps;
+
+    g.setColour (L::text.withAlpha (0.5f));
+    g.setFont (juce::Font (juce::FontOptions (11.0f, juce::Font::bold)));
+    auto strip = gateStrip;
+    g.drawText ("GATE PATTERN", strip.removeFromLeft (100), juce::Justification::centredLeft);
+
+    const auto cellW = strip.getWidth() / TranceGate::numSteps;
     for (int i = 0; i < TranceGate::numSteps; ++i)
     {
-        auto led = juce::Rectangle<int> (stepArea.getX() + i * stepW, stepArea.getY() + 50, stepW, 8)
-                       .reduced (6, 0).toFloat();
-        g.setColour (i == step ? L::accent2 : L::background.brighter (0.2f));
-        g.fillRoundedRectangle (led, 3.0f);
+        auto cell = strip.removeFromLeft (cellW).reduced (3, 5).toFloat();
+        const auto open = sound.gatePattern[i] == 'x';
+        auto c = open ? L::accent.withAlpha (gateOn ? 0.75f : 0.2f) : L::background.brighter (0.15f);
+        if (i == step)
+            c = L::accent2;
+        g.setColour (c);
+        g.fillRoundedRectangle (cell, 3.0f);
     }
 }
 
 void TranceForgeEditor::timerCallback()
 {
-    const auto step = proc.getCurrentGateStep();
-    if (step != lastStep)
+    const auto sound = proc.getCurrentProgram();
+    if (sound != lastSound)
     {
-        lastStep = step;
-        repaint (stepArea.expanded (4));
+        lastSound = sound;
+        soundBox.setSelectedId (sound + 1, juce::dontSendNotification);
+        repaint();
     }
 
-    const auto prog = proc.getCurrentProgram() + 1;
-    if (presetBox.getSelectedId() != prog)
-        presetBox.setSelectedId (prog, juce::dontSendNotification);
+    // the gate strip reflects both the playing step and the GATE knob
+    const auto step = proc.getCurrentGateStep();
+    const auto gateOn = proc.apvts.getRawParameterValue (ParamIDs::gate)->load() > 0.01f;
+    if (step != lastStep || gateOn != lastGateOn)
+    {
+        lastStep = step;
+        lastGateOn = gateOn;
+        repaint (gateStrip.expanded (2));
+    }
 }

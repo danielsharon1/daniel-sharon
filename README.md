@@ -1,34 +1,43 @@
 # TranceForge 🎹⚡
 
-**פלאגין סינתיסייזר למוזיקת טראנס** – VST3 / AU / Standalone, כתוב ב-C++ עם [JUCE](https://juce.com).
+**סאונד ליד מוכן לטראנס** – פלאגין VST3 / AU / Standalone. בוחרים סאונד, מנגנים, וזה כבר נשמע כמו טראק.
 
 ![TranceForge](docs/screenshot.png)
 
-A trance-focused synth plugin: 7-voice **supersaw**, resonant filter, a 16-step tempo-synced **trance gate**, ping-pong delay and reverb – all in one instrument.
+A ready-to-play trance lead instrument. No oscillators to program – pick a sound, play, done.
 
 ---
 
-## מה יש בפנים / Features
+## איך משתמשים
+1. **בוחרים סאונד** (חיצים `<` `>` או הרשימה) – כל סאונד מגיע מעוצב ומעובד במלואו: סופרסו, שכבת אוקטבה, "ביס" בהתקפה, פילטר, כורוס, דילאי ו-reverb.
+2. **מנגנים** – מקלדת MIDI, ה-piano roll של ה-DAW, או המקלדת שבתוך הפלאגין.
+3. **רוצים מלודיה מוכנה?** בוחרים מלודיה ב-**Melody Player**, ולוחצים על **מקש אחד** – הפלאגין מנגן מלודיית טראנס שלמה בסולם של המקש, מסונכרנת לטמפו של ה-DAW.
 
-| חלק | תיאור |
+### 6 סאונדים מוכנים
+| סאונד | אופי |
 |---|---|
-| **Supersaw Oscillator** | 7 גלי מסור מכוונים-לא-מכוונים (anti-aliased PolyBLEP), שליטה ב-Detune, Saw Mix, פריסת סטריאו (Width), Sub-oscillator (סינוס אוקטבה מתחת), Octave ±2 |
-| **Filter** | Low-pass רזוננטי (TPT State-Variable), Env Amount דו-כיווני, Key Tracking |
-| **2 × ADSR** | מעטפת לפילטר ומעטפת לווליום |
-| **Trance Gate** | 16 צעדים מסונכרנים לטמפו של ה-DAW, קצבים 1/8, 1/16, 1/32, 1/8T, 1/16T, עם Depth / Length / Smooth, ונורית שמראה את הצעד הנוכחי |
-| **Ping-Pong Delay** | מסונכרן לטמפו (1/16 … 1/2 כולל dotted), feedback עם דעיכה כהה |
-| **Reverb** | חלל גדול לליד ופאדים |
-| **Master** | ווליום + soft-clipper למניעת קליפינג |
-| **8 voices** | פוליפוני, תומך ב-pitch bend (±2) ו-velocity |
+| **Uplifting Lead** | הליד הקלאסי של uplifting trance – רחב, בוהק, עם דילאי dotted |
+| **Euphoric Supersaw** | ענק ורחב, התקפה רכה – לרגעי השיא אחרי הברייקדאון |
+| **Pluck Lead** | פלאק חד עם פילטר מהיר ודילאי – למלודיות מהירות |
+| **Gated Trance Lead** | סופרסו עם trance gate מובנה (`x.xx.x.xx.xx.x.x`) – מנגנים אקורד ארוך והוא "קוצץ" לבד |
+| **Psy Lead** | ליד פסיכדלי רזוננטי עם ויברטו |
+| **Bright Solo Lead** | ליד סולו בוהק עם ויברטו מושהה |
 
-### Presets מובנים
-1. **Uplifting Supersaw Lead** – הליד הקלאסי של uplifting trance
-2. **Gated Trance Pad** – פאד עם trance gate בדפוס `x.xx.x.xx.xx.x.x`
-3. **Psy Pluck** – פלאק פסיכדלי עם פילטר מהיר ו-delay
-4. **Rolling Bass** – בס מתגלגל (off-beat) בעזרת ה-gate
-5. **Hands Up Stab** – סטאב רחב לאקורדים
+### 5 מלודיות מובנות (Melody Player)
+`Uplifting Roll` · `Anthem Hook` · `Rising Arp` · `Call & Answer` · `Offbeat Stabs`
+– כולן מקוריות, בסולם מינורי, ומתנגנות בכל סולם לפי המקש שלוחצים (התו הנמוך ביותר שנלחץ = הטוניקה).
 
-> ה-gate וה-delay מסתנכרנים אוטומטית לטמפו של ה-DAW. כשאין טרנספורט פועל (למשל ב-Standalone) הם רצים על 138 BPM.
+### 6 כפתורים בלבד
+| כפתור | מה זה עושה |
+|---|---|
+| **TONE** | כהה ↔ בוהק |
+| **WIDTH** | מונו ↔ ענק ורחב (detune + סטריאו + כורוס) |
+| **PLUCK** | רך ↔ חד וקצר |
+| **SPACE** | יבש ↔ דילאי ו-reverb גדולים |
+| **GATE** | כבוי ↔ trance gate מלא, מסונכרן לטמפו |
+| **VIBRATO** | בלי ↔ ויברטו רחב |
+
+ב-50% כל סאונד נשמע בדיוק כמו שעוצב. ה-gate וה-melody player מסתנכרנים לטמפו של ה-DAW (וב-Standalone רצים על 138 BPM).
 
 ---
 
@@ -72,12 +81,14 @@ sudo apt install libasound2-dev libfreetype-dev libfontconfig1-dev libx11-dev \
 
 ```
 Source/
-  SupersawVoice.h      – הקול: 7 מסורים + sub + פילטר SVF + 2 ADSR
+  SoundDesigns.h       – 6 הסאונדים המוכנים (כל ההגדרות הפנימיות)
+  LeadVoice.h          – מנוע הליד: 7 מסורים + שכבת אוקטבה + sub + pluck + פילטר + ויברטו
+  PhrasePlayer.h       – נגן המלודיות המסונכרן לטמפו
   TranceFX.h           – Trance Gate + Ping-Pong Delay
-  PluginProcessor.*    – פרמטרים, presets, שרשרת האודיו, סנכרון טמפו
-  PluginEditor.*       – הממשק הגרפי (נושא כהה/ניאון)
+  PluginProcessor.*    – פרמטרים, מאקרו, שרשרת האודיו
+  PluginEditor.*       – הממשק הגרפי + מקלדת
 ```
 
-שרשרת האודיו: `Synth (8 voices) → Trance Gate → Ping-Pong Delay → Reverb → Master + Soft Clip`
+שרשרת האודיו: `Melody Player → Lead (8 voices) → High-pass → Trance Gate → Chorus → Ping-Pong Delay → Reverb → Volume + Soft Clip`
 
 ה-gate נמצא *לפני* האפקטים, כך שההדים וה-reverb "נושמים" עם הריתם – בדיוק כמו בטראנס.

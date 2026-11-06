@@ -11,10 +11,8 @@ public:
 
     void drawRotarySlider (juce::Graphics&, int x, int y, int width, int height, float sliderPos,
                            float rotaryStartAngle, float rotaryEndAngle, juce::Slider&) override;
-
     void drawButtonBackground (juce::Graphics&, juce::Button&, const juce::Colour& backgroundColour,
                                bool isMouseOverButton, bool isButtonDown) override;
-
     juce::Font getComboBoxFont (juce::ComboBox&) override;
     juce::Font getTextButtonFont (juce::TextButton&, int buttonHeight) override;
 
@@ -35,40 +33,32 @@ public:
 private:
     using APVTS = juce::AudioProcessorValueTreeState;
 
-    struct Control
+    struct Macro
     {
-        std::unique_ptr<juce::Component> component;
-        juce::Label label;
-        std::unique_ptr<APVTS::SliderAttachment> sliderAttachment;
-        std::unique_ptr<APVTS::ComboBoxAttachment> comboAttachment;
-        std::unique_ptr<APVTS::ButtonAttachment> buttonAttachment;
-    };
-
-    struct Section
-    {
-        juce::String title;
-        std::vector<Control*> controls;
-        juce::Rectangle<int> bounds;
+        juce::Slider knob { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
+        juce::Label label, hint;
+        std::unique_ptr<APVTS::SliderAttachment> attachment;
     };
 
     void timerCallback() override;
-
-    Control* addKnob (const juce::String& paramId, const juce::String& name);
-    Control* addCombo (const juce::String& paramId, const juce::String& name, const juce::StringArray& items);
-    Control* addToggle (const juce::String& paramId, const juce::String& name);
-    void layoutSection (Section&);
+    void addMacro (const char* paramId, const juce::String& name, const juce::String& hint);
+    void selectSound (int index);
 
     TranceForgeProcessor& proc;
     TranceLookAndFeel lnf;
 
-    juce::ComboBox presetBox;
-    std::vector<std::unique_ptr<Control>> controls;
-    std::vector<Section> sections;
+    juce::ComboBox soundBox, melodyBox;
+    juce::TextButton prevButton { "<" }, nextButton { ">" };
+    std::unique_ptr<APVTS::ComboBoxAttachment> melodyAttachment;
+    juce::Label melodyHint;
 
-    std::array<juce::TextButton, TranceGate::numSteps> stepButtons;
-    std::array<std::unique_ptr<APVTS::ButtonAttachment>, TranceGate::numSteps> stepAttachments;
-    juce::Rectangle<int> stepArea;
-    int lastStep = -2;
+    std::vector<std::unique_ptr<Macro>> macros;
+
+    juce::MidiKeyboardComponent keyboard;
+
+    juce::Rectangle<int> soundPanel, melodyPanel, macroPanel, gateStrip;
+    int lastStep = -2, lastSound = -1;
+    bool lastGateOn = false;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TranceForgeEditor)
 };

@@ -1,94 +1,31 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-const juce::StringArray TranceForgeProcessor::gateRateNames  { "1/8", "1/16", "1/32", "1/8T", "1/16T" };
-const juce::StringArray TranceForgeProcessor::delayTimeNames { "1/16", "1/8", "1/8 D", "1/4", "1/4 D", "1/2" };
-
-static constexpr double gateRateBeats[]  { 0.5, 0.25, 0.125, 1.0 / 3.0, 1.0 / 6.0 };
-static constexpr double delayTimeBeats[] { 0.25, 0.5, 0.75, 1.0, 1.5, 2.0 };
-
-//==============================================================================
-namespace
-{
-    struct Preset
-    {
-        const char* name;
-        std::vector<std::pair<const char*, float>> values;
-        const char* gatePattern; // 16 chars, 'x' = open
-    };
-
-    const std::vector<Preset>& getPresets()
-    {
-        using namespace ParamIDs;
-        static const std::vector<Preset> presets {
-            { "Uplifting Supersaw Lead",
-              { { detune, 0.45f }, { mix, 0.75f }, { sub, 0.15f }, { width, 0.9f }, { octave, 0.0f },
-                { cutoff, 7000.0f }, { resonance, 0.15f }, { envAmount, 0.25f }, { keyTrack, 0.5f },
-                { fAttack, 0.001f }, { fDecay, 0.5f }, { fSustain, 0.4f }, { fRelease, 0.4f },
-                { attack, 0.005f }, { decay, 0.4f }, { sustain, 0.85f }, { release, 0.45f },
-                { gateOn, 0.0f }, { gateRate, 1.0f }, { gateDepth, 1.0f }, { gateLength, 0.7f }, { gateSmooth, 3.0f },
-                { delayMix, 0.25f }, { delayFb, 0.35f }, { delayTime, 2.0f },
-                { reverbMix, 0.3f }, { reverbSize, 0.85f }, { master, -6.0f } },
-              "x.xx.x.xx.xx.x.x" },
-
-            { "Gated Trance Pad",
-              { { detune, 0.55f }, { mix, 0.85f }, { sub, 0.1f }, { width, 1.0f }, { octave, 0.0f },
-                { cutoff, 3500.0f }, { resonance, 0.2f }, { envAmount, 0.0f }, { keyTrack, 0.3f },
-                { fAttack, 0.5f }, { fDecay, 1.0f }, { fSustain, 0.6f }, { fRelease, 1.0f },
-                { attack, 0.35f }, { decay, 1.0f }, { sustain, 0.9f }, { release, 1.5f },
-                { gateOn, 1.0f }, { gateRate, 1.0f }, { gateDepth, 1.0f }, { gateLength, 0.75f }, { gateSmooth, 4.0f },
-                { delayMix, 0.2f }, { delayFb, 0.3f }, { delayTime, 2.0f },
-                { reverbMix, 0.4f }, { reverbSize, 0.9f }, { master, -6.0f } },
-              "x.xx.x.xx.xx.x.x" },
-
-            { "Psy Pluck",
-              { { detune, 0.2f }, { mix, 0.45f }, { sub, 0.25f }, { width, 0.6f }, { octave, 0.0f },
-                { cutoff, 350.0f }, { resonance, 0.55f }, { envAmount, 0.75f }, { keyTrack, 0.6f },
-                { fAttack, 0.001f }, { fDecay, 0.16f }, { fSustain, 0.0f }, { fRelease, 0.12f },
-                { attack, 0.001f }, { decay, 0.25f }, { sustain, 0.0f }, { release, 0.15f },
-                { gateOn, 0.0f }, { gateRate, 1.0f }, { gateDepth, 1.0f }, { gateLength, 0.6f }, { gateSmooth, 2.0f },
-                { delayMix, 0.3f }, { delayFb, 0.45f }, { delayTime, 2.0f },
-                { reverbMix, 0.2f }, { reverbSize, 0.6f }, { master, -6.0f } },
-              "xxxxxxxxxxxxxxxx" },
-
-            { "Rolling Bass",
-              { { detune, 0.08f }, { mix, 0.2f }, { sub, 0.8f }, { width, 0.0f }, { octave, -1.0f },
-                { cutoff, 220.0f }, { resonance, 0.35f }, { envAmount, 0.45f }, { keyTrack, 0.5f },
-                { fAttack, 0.001f }, { fDecay, 0.12f }, { fSustain, 0.1f }, { fRelease, 0.08f },
-                { attack, 0.001f }, { decay, 0.2f }, { sustain, 0.6f }, { release, 0.06f },
-                { gateOn, 1.0f }, { gateRate, 1.0f }, { gateDepth, 1.0f }, { gateLength, 0.8f }, { gateSmooth, 1.5f },
-                { delayMix, 0.0f }, { delayFb, 0.2f }, { delayTime, 1.0f },
-                { reverbMix, 0.0f }, { reverbSize, 0.3f }, { master, -6.0f } },
-              ".xxx.xxx.xxx.xxx" },
-
-            { "Hands Up Stab",
-              { { detune, 0.6f }, { mix, 0.9f }, { sub, 0.0f }, { width, 1.0f }, { octave, 0.0f },
-                { cutoff, 2500.0f }, { resonance, 0.25f }, { envAmount, 0.5f }, { keyTrack, 0.4f },
-                { fAttack, 0.001f }, { fDecay, 0.3f }, { fSustain, 0.2f }, { fRelease, 0.2f },
-                { attack, 0.001f }, { decay, 0.35f }, { sustain, 0.2f }, { release, 0.3f },
-                { gateOn, 0.0f }, { gateRate, 1.0f }, { gateDepth, 1.0f }, { gateLength, 0.7f }, { gateSmooth, 3.0f },
-                { delayMix, 0.25f }, { delayFb, 0.4f }, { delayTime, 2.0f },
-                { reverbMix, 0.35f }, { reverbSize, 0.8f }, { master, -6.0f } },
-              "x.xx.x.xx.xx.x.x" },
-        };
-        return presets;
-    }
-}
-
 //==============================================================================
 TranceForgeProcessor::TranceForgeProcessor()
     : AudioProcessor (BusesProperties().withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       apvts (*this, nullptr, "TranceForge", createParameterLayout())
 {
     for (int i = 0; i < 8; ++i)
-        synth.addVoice (new SupersawVoice());
+        synth.addVoice (new LeadVoice());
 
-    synth.addSound (new TranceSound());
+    synth.addSound (new LeadSound());
+}
 
-    for (int i = 0; i < TranceGate::numSteps; ++i)
-        stepParams[(size_t) i] = apvts.getRawParameterValue (ParamIDs::gateStep (i));
+juce::StringArray TranceForgeProcessor::getSoundNames()
+{
+    juce::StringArray names;
+    for (const auto& s : getSoundDesigns())
+        names.add (s.name);
+    return names;
+}
 
-    setCurrentProgram (0);
+juce::StringArray TranceForgeProcessor::getMelodyNames()
+{
+    juce::StringArray names { "Off - play it yourself" };
+    for (const auto& p : getPhrases())
+        names.add (p.name);
+    return names;
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout TranceForgeProcessor::createParameterLayout()
@@ -98,105 +35,101 @@ juce::AudioProcessorValueTreeState::ParameterLayout TranceForgeProcessor::create
 
     std::vector<std::unique_ptr<RangedAudioParameter>> p;
 
-    auto addFloat = [&p] (const char* id, const char* name, NormalisableRange<float> range, float def,
-                          const char* suffix = "")
+    p.push_back (std::make_unique<AudioParameterChoice> (ParameterID { sound, 1 }, "Sound", getSoundNames(), 0));
+    p.push_back (std::make_unique<AudioParameterChoice> (ParameterID { melody, 1 }, "Melody", getMelodyNames(), 0));
+
+    auto macro = [&p] (const char* id, const char* name, float def)
     {
-        p.push_back (std::make_unique<AudioParameterFloat> (ParameterID { id, 1 }, name, range, def,
-                                                            AudioParameterFloatAttributes().withLabel (suffix)));
+        p.push_back (std::make_unique<AudioParameterFloat> (
+            ParameterID { id, 1 }, name, NormalisableRange<float> (0.0f, 1.0f), def,
+            AudioParameterFloatAttributes().withStringFromValueFunction (
+                [] (float v, int) { return String (roundToInt (v * 100.0f)) + "%"; })));
     };
 
-    auto timeRange = [] (float max) { return NormalisableRange<float> (0.001f, max, 0.0f, 0.3f); };
+    macro (tone,    "Tone",    0.5f);
+    macro (width,   "Width",   0.5f);
+    macro (pluck,   "Pluck",   0.5f);
+    macro (space,   "Space",   0.5f);
+    macro (gate,    "Gate",    0.0f);
+    macro (vibrato, "Vibrato", 0.5f);
 
-    // Oscillator
-    addFloat (detune, "Detune", { 0.0f, 1.0f }, 0.45f);
-    addFloat (mix,    "Saw Mix", { 0.0f, 1.0f }, 0.75f);
-    addFloat (sub,    "Sub", { 0.0f, 1.0f }, 0.15f);
-    addFloat (width,  "Width", { 0.0f, 1.0f }, 0.9f);
-    p.push_back (std::make_unique<AudioParameterInt> (ParameterID { octave, 1 }, "Octave", -2, 2, 0));
-
-    // Filter
-    addFloat (cutoff,    "Cutoff", { 20.0f, 20000.0f, 0.0f, 0.25f }, 7000.0f, "Hz");
-    addFloat (resonance, "Resonance", { 0.0f, 1.0f }, 0.15f);
-    addFloat (envAmount, "Env Amount", { -1.0f, 1.0f }, 0.25f);
-    addFloat (keyTrack,  "Key Track", { 0.0f, 1.0f }, 0.5f);
-
-    addFloat (fAttack,  "Filter Attack",  timeRange (5.0f), 0.001f, "s");
-    addFloat (fDecay,   "Filter Decay",   timeRange (5.0f), 0.5f, "s");
-    addFloat (fSustain, "Filter Sustain", { 0.0f, 1.0f }, 0.4f);
-    addFloat (fRelease, "Filter Release", timeRange (8.0f), 0.4f, "s");
-
-    // Amp
-    addFloat (attack,  "Attack",  timeRange (5.0f), 0.005f, "s");
-    addFloat (decay,   "Decay",   timeRange (5.0f), 0.4f, "s");
-    addFloat (sustain, "Sustain", { 0.0f, 1.0f }, 0.85f);
-    addFloat (release, "Release", timeRange (8.0f), 0.45f, "s");
-
-    // Trance gate
-    p.push_back (std::make_unique<AudioParameterBool> (ParameterID { gateOn, 1 }, "Gate On", false));
-    p.push_back (std::make_unique<AudioParameterChoice> (ParameterID { gateRate, 1 }, "Gate Rate", gateRateNames, 1));
-    addFloat (gateDepth,  "Gate Depth",  { 0.0f, 1.0f }, 1.0f);
-    addFloat (gateLength, "Gate Length", { 0.05f, 1.0f }, 0.7f);
-    addFloat (gateSmooth, "Gate Smooth", { 0.5f, 30.0f, 0.0f, 0.5f }, 3.0f, "ms");
-
-    for (int i = 0; i < TranceGate::numSteps; ++i)
-        p.push_back (std::make_unique<AudioParameterBool> (ParameterID { gateStep (i), 1 },
-                                                           "Gate Step " + String (i + 1), true));
-
-    // FX
-    addFloat (delayMix, "Delay Mix", { 0.0f, 1.0f }, 0.25f);
-    addFloat (delayFb,  "Delay Feedback", { 0.0f, 0.9f }, 0.35f);
-    p.push_back (std::make_unique<AudioParameterChoice> (ParameterID { delayTime, 1 }, "Delay Time", delayTimeNames, 2));
-    addFloat (reverbMix,  "Reverb Mix",  { 0.0f, 1.0f }, 0.3f);
-    addFloat (reverbSize, "Reverb Size", { 0.0f, 1.0f }, 0.85f);
-
-    addFloat (master, "Master", { -36.0f, 6.0f }, -6.0f, "dB");
+    p.push_back (std::make_unique<AudioParameterFloat> (
+        ParameterID { volume, 1 }, "Volume", NormalisableRange<float> (-36.0f, 6.0f), -4.0f,
+        AudioParameterFloatAttributes().withStringFromValueFunction (
+            [] (float v, int) { return String (v, 1) + " dB"; })));
 
     return { p.begin(), p.end() };
 }
 
 //==============================================================================
-void TranceForgeProcessor::prepareToPlay (double sampleRate, int)
+const SoundDesign& TranceForgeProcessor::getCurrentSound() const
+{
+    const auto& sounds = getSoundDesigns();
+    return sounds[(size_t) juce::jlimit (0, (int) sounds.size() - 1, (int) get (ParamIDs::sound))];
+}
+
+/** The macro knobs sit at 50% for the sound exactly as designed and bend it from there. */
+LeadParams TranceForgeProcessor::makeLeadParams (const SoundDesign& s) const
+{
+    using namespace ParamIDs;
+    const auto t = get (tone), w = get (width), pl = get (pluck), v = get (vibrato);
+
+    LeadParams lp;
+    lp.detune      = juce::jlimit (0.0f, 1.0f, s.detune * (0.4f + 1.2f * w));
+    lp.width       = juce::jlimit (0.0f, 1.0f, s.width * 2.0f * w);
+    lp.sawMix      = s.sawMix;
+    lp.octaveLayer = s.octaveLayer;
+    lp.sub         = s.sub;
+
+    lp.cutoff      = s.cutoff * std::pow (2.0f, (t - 0.5f) * 4.0f);
+    lp.resonance   = s.resonance;
+    lp.envAmount   = s.envAmount * (0.5f + pl);
+
+    lp.pluck       = s.pluck * 2.0f * pl;
+    lp.pluckDecay  = s.pluckDecay;
+
+    lp.vibrato     = s.vibrato * 2.0f * v + juce::jmax (0.0f, v - 0.5f) * 0.3f;
+
+    const auto softAttack = juce::jmax (0.0f, 0.5f - pl) * 0.3f;          // PLUCK low = softer attack
+    const auto shorter    = 1.0f - juce::jmax (0.0f, pl - 0.5f) * 1.4f;    // PLUCK high = shorter, snappier
+    lp.ampEnv    = { s.A + softAttack, s.D, s.S * shorter, s.R };
+    lp.filterEnv = { s.fA, s.fD, s.fS, s.fR };
+    return lp;
+}
+
+//==============================================================================
+void TranceForgeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     synth.setCurrentPlaybackSampleRate (sampleRate);
     for (int i = 0; i < synth.getNumVoices(); ++i)
-        if (auto* v = dynamic_cast<SupersawVoice*> (synth.getVoice (i)))
+        if (auto* v = dynamic_cast<LeadVoice*> (synth.getVoice (i)))
             v->prepare (sampleRate);
 
-    gate.prepare (sampleRate);
+    const juce::dsp::ProcessSpec spec { sampleRate, (juce::uint32) samplesPerBlock, 2 };
+
+    chorus.prepare (spec);
+    chorus.setRate (0.6f);
+    chorus.setDepth (0.25f);
+    chorus.setCentreDelay (8.0f);
+    chorus.setFeedback (0.0f);
+
+    highPass.prepare (spec);
+    highPass.setType (juce::dsp::StateVariableTPTFilterType::highpass);
+
+    phrasePlayer.reset();
+    gateFx.prepare (sampleRate);
     delay.prepare (sampleRate);
     reverb.setSampleRate (sampleRate);
     reverb.reset();
 
     masterGain.reset (sampleRate, 0.05);
-    masterGain.setCurrentAndTargetValue (juce::Decibels::decibelsToGain (get (ParamIDs::master)));
+    masterGain.setCurrentAndTargetValue (juce::Decibels::decibelsToGain (get (ParamIDs::volume)));
     freeRunPpq = 0.0;
 }
 
 bool TranceForgeProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
     return layouts.getMainOutputChannelSet() == juce::AudioChannelSet::stereo();
-}
-
-void TranceForgeProcessor::updateVoiceParams()
-{
-    using namespace ParamIDs;
-
-    VoiceParams vp;
-    vp.detune    = get (detune);
-    vp.mix       = get (mix);
-    vp.sub       = get (sub);
-    vp.width     = get (width);
-    vp.octave    = (int) get (octave);
-    vp.cutoff    = get (cutoff);
-    vp.resonance = get (resonance);
-    vp.envAmount = get (envAmount);
-    vp.keyTrack  = get (keyTrack);
-    vp.ampEnv    = { get (attack),  get (decay),  get (sustain),  get (release) };
-    vp.filterEnv = { get (fAttack), get (fDecay), get (fSustain), get (fRelease) };
-
-    for (int i = 0; i < synth.getNumVoices(); ++i)
-        if (auto* v = dynamic_cast<SupersawVoice*> (synth.getVoice (i)))
-            v->setParams (vp);
 }
 
 void TranceForgeProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midi)
@@ -208,75 +141,87 @@ void TranceForgeProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce:
     const auto sr = getSampleRate();
     buffer.clear();
 
-    // --- tempo / position from the host (falls back to a free-running 138 BPM clock) ---
-    double bpm = 138.0;
-    double ppq = freeRunPpq;
-    bool playing = false;
+    // notes played on the editor's on-screen keyboard
+    keyboardState.processNextMidiBuffer (midi, 0, numSamples, true);
 
+    // --- tempo & position (free-running 138 BPM when the host isn't playing) ---
+    double bpm = 138.0, ppq = freeRunPpq;
+    bool playing = false;
     if (auto* ph = getPlayHead())
-    {
         if (auto pos = ph->getPosition())
         {
-            if (auto b = pos->getBpm())
-                bpm = *b;
-
+            if (auto b = pos->getBpm()) bpm = *b;
             playing = pos->getIsPlaying();
             if (playing)
-                if (auto p = pos->getPpqPosition())
-                    ppq = *p;
+                if (auto p = pos->getPpqPosition()) ppq = *p;
         }
-    }
     bpm = juce::jlimit (20.0, 999.0, bpm);
     const auto ppqPerSample = bpm / 60.0 / sr;
-
-    // --- synth ---
-    updateVoiceParams();
-    synth.renderNextBlock (buffer, midi, 0, numSamples);
-
-    // --- trance gate (before the FX so echoes and reverb follow the rhythm) ---
-    std::array<bool, TranceGate::numSteps> steps {};
-    for (size_t i = 0; i < steps.size(); ++i)
-        steps[i] = stepParams[i]->load() > 0.5f;
-
-    const auto gateEnabled = get (gateOn) > 0.5f;
-    const auto stepBeats   = gateRateBeats[juce::jlimit (0, 4, (int) get (gateRate))];
-    const auto depth       = get (gateDepth);
-    const auto length      = get (gateLength);
-    const auto smooth      = get (gateSmooth);
-
-    auto* L = buffer.getWritePointer (0);
-    auto* R = buffer.getWritePointer (1);
-
-    for (int n = 0; n < numSamples; ++n)
-    {
-        const auto g = gate.process (ppq + n * ppqPerSample, gateEnabled, stepBeats, depth, length, smooth, steps);
-        L[n] *= g;
-        R[n] *= g;
-    }
-    currentGateStep.store (gate.getCurrentStep());
-
     if (! playing)
         freeRunPpq = ppq + numSamples * ppqPerSample;
 
-    // --- ping-pong delay ---
-    delay.process (buffer, bpm, delayTimeBeats[juce::jlimit (0, 5, (int) get (delayTime))],
-                   get (delayMix), get (delayFb));
+    const auto& sound = getCurrentSound();
 
-    // --- reverb ---
-    const auto revMix = get (reverbMix);
+    // --- melody player ---
+    const auto melodyIndex = (int) get (melody);
+    const auto& phrases = getPhrases();
+    const Phrase* phrase = juce::isPositiveAndBelow (melodyIndex - 1, (int) phrases.size())
+                               ? &phrases[(size_t) (melodyIndex - 1)] : nullptr;
+    phrasePlayer.process (midi, numSamples, ppq, ppqPerSample, phrase);
+
+    // --- the lead ---
+    const auto lp = makeLeadParams (sound);
+    for (int i = 0; i < synth.getNumVoices(); ++i)
+        if (auto* v = dynamic_cast<LeadVoice*> (synth.getVoice (i)))
+            v->setParams (lp);
+
+    synth.renderNextBlock (buffer, midi, 0, numSamples);
+
+    juce::dsp::AudioBlock<float> block (buffer);
+    juce::dsp::ProcessContextReplacing<float> ctx (block);
+
+    highPass.setCutoffFrequency (sound.highPass);
+    highPass.process (ctx);
+
+    // --- trance gate ---
+    std::array<bool, TranceGate::numSteps> steps {};
+    for (size_t i = 0; i < steps.size(); ++i)
+        steps[i] = sound.gatePattern[i] == 'x';
+
+    const auto gateAmount = get (gate);
+    auto* L = buffer.getWritePointer (0);
+    auto* R = buffer.getWritePointer (1);
+    for (int n = 0; n < numSamples; ++n)
+    {
+        const auto g = gateFx.process (ppq + n * ppqPerSample, gateAmount > 0.01f, sound.gateStepBeats,
+                                       gateAmount, 0.72f, 3.0f, steps);
+        L[n] *= g;
+        R[n] *= g;
+    }
+    currentGateStep.store (gateFx.getCurrentStep());
+
+    // --- chorus / delay / reverb ---
+    const auto w = get (width), sp = get (space);
+
+    chorus.setMix (juce::jlimit (0.0f, 0.8f, sound.chorus * 2.0f * w));
+    chorus.process (ctx);
+
+    delay.process (buffer, bpm, sound.delayBeats,
+                   juce::jlimit (0.0f, 0.8f, sound.delayMix * 2.0f * sp), sound.delayFeedback);
+
+    const auto revMix = juce::jlimit (0.0f, 0.9f, sound.reverbMix * 2.0f * sp);
     juce::Reverb::Parameters rp;
-    rp.roomSize   = get (reverbSize);
-    rp.damping    = 0.45f;
-    rp.wetLevel   = revMix * 0.6f;
-    rp.dryLevel   = 1.0f - revMix * 0.4f;
-    rp.width      = 1.0f;
-    rp.freezeMode = 0.0f;
+    rp.roomSize = juce::jlimit (0.0f, 0.98f, sound.reverbSize + (sp - 0.5f) * 0.2f);
+    rp.damping  = 0.4f;
+    rp.wetLevel = revMix * 0.6f;
+    rp.dryLevel = 1.0f - revMix * 0.4f;
+    rp.width    = 1.0f;
     reverb.setParameters (rp);
     if (revMix > 0.0001f)
         reverb.processStereo (L, R, numSamples);
 
-    // --- master gain + soft clipper ---
-    masterGain.setTargetValue (juce::Decibels::decibelsToGain (get (master)));
+    // --- volume + soft clip ---
+    masterGain.setTargetValue (juce::Decibels::decibelsToGain (get (volume)));
     for (int n = 0; n < numSamples; ++n)
     {
         const auto g = masterGain.getNextValue();
@@ -286,55 +231,47 @@ void TranceForgeProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce:
 }
 
 //==============================================================================
-int TranceForgeProcessor::getNumPrograms()
-{
-    return (int) getPresets().size();
-}
+// Host "programs" = the ready-made sounds.
+int TranceForgeProcessor::getNumPrograms()     { return (int) getSoundDesigns().size(); }
+int TranceForgeProcessor::getCurrentProgram()  { return (int) get (ParamIDs::sound); }
 
 const juce::String TranceForgeProcessor::getProgramName (int index)
 {
-    const auto& presets = getPresets();
-    return juce::isPositiveAndBelow (index, (int) presets.size()) ? presets[(size_t) index].name : "";
+    const auto& sounds = getSoundDesigns();
+    return juce::isPositiveAndBelow (index, (int) sounds.size()) ? sounds[(size_t) index].name : "";
 }
 
 void TranceForgeProcessor::setCurrentProgram (int index)
 {
-    const auto& presets = getPresets();
-    if (! juce::isPositiveAndBelow (index, (int) presets.size()))
+    const auto& sounds = getSoundDesigns();
+    if (! juce::isPositiveAndBelow (index, (int) sounds.size()))
         return;
 
-    currentProgram = index;
-    const auto& preset = presets[(size_t) index];
-
-    for (const auto& [id, value] : preset.values)
+    auto set = [this] (const char* id, float value)
+    {
         if (auto* param = apvts.getParameter (id))
             param->setValueNotifyingHost (param->convertTo0to1 (value));
+    };
 
-    for (int i = 0; i < TranceGate::numSteps; ++i)
-        if (auto* param = apvts.getParameter (ParamIDs::gateStep (i)))
-            param->setValueNotifyingHost (preset.gatePattern[i] == 'x' ? 1.0f : 0.0f);
+    // choosing a sound loads it exactly as designed
+    set (ParamIDs::sound, (float) index);
+    for (auto* id : { ParamIDs::tone, ParamIDs::width, ParamIDs::pluck, ParamIDs::space, ParamIDs::vibrato })
+        set (id, 0.5f);
+    set (ParamIDs::gate, sounds[(size_t) index].gateDefault);
 }
 
 //==============================================================================
 void TranceForgeProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    auto state = apvts.copyState();
-    state.setProperty ("program", currentProgram, nullptr);
-    if (auto xml = state.createXml())
+    if (auto xml = apvts.copyState().createXml())
         copyXmlToBinary (*xml, destData);
 }
 
 void TranceForgeProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     if (auto xml = getXmlFromBinary (data, sizeInBytes))
-    {
         if (xml->hasTagName (apvts.state.getType()))
-        {
-            auto state = juce::ValueTree::fromXml (*xml);
-            currentProgram = state.getProperty ("program", 0);
-            apvts.replaceState (state);
-        }
-    }
+            apvts.replaceState (juce::ValueTree::fromXml (*xml));
 }
 
 juce::AudioProcessorEditor* TranceForgeProcessor::createEditor()
