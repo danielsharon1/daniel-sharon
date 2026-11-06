@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700&family=Assistant:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>html,body{margin:0;background:#0F0D0A;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const cv = document.getElementById('c'), X = cv.getContext('2d');
+const W = 1920, H = 1080;
+const IVORY = '#EFE7D6', MUTED = '#A69B85', GOLD = '#D4AF66', GOLD2 = '#8E6726';
+const DISP = '"Frank Ruhl Libre", serif', BODY = '"Assistant", sans-serif', MONO = '"IBM Plex Mono", monospace';
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const eo = t => 1 - Math.pow(1 - clamp(t), 3);
+const eio = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+const back = t => { t = clamp(t); const c = 1.4; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// ---------- deterministic noise + stone texture ----------
+function hash(x, y) { const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); }
+function vnoise(x, y) {
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  return lerp(lerp(hash(xi, yi), hash(xi + 1, yi), u), lerp(hash(xi, yi + 1), hash(xi + 1, yi + 1), u), v);
+}
+function fbm(x, y) { let s = 0, a = .5; for (let i = 0; i < 5; i++) { s += a * vnoise(x, y); x *= 2.03; y *= 2.03; a *= .5; } return s; }
+const STONE = (() => {
+  const N = 512, c = document.createElement('canvas'); c.width = c.height = N;
+  const g = c.getContext('2d'), img = g.createImageData(N, N);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const f = fbm(x / 90, y / 90);
+    const vein = Math.pow(1 - Math.abs(Math.sin((x * .006 + y * .012) * 3 + f * 7)), 18);
+    const grain = (hash(x, y) - .5) * 10;
+    const base = 214 + (f - .5) * 26 + grain - vein * 38;
+    const i = (y * N + x) * 4;
+    img.data[i] = base; img.data[i + 1] = base * .94; img.data[i + 2] = base * .80; img.data[i + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  for (let i = 0; i < 90; i++) { g.fillStyle = `rgba(110,90,60,${.12 + hash(i, 9) * .2})`; g.beginPath(); g.arc(hash(i, 1) * N, hash(i, 2) * N, hash(i, 3) * 2.4 + .5, 0, 7); g.fill(); }
+  return c;
+})();
+
+// ---------- background ----------
+function background(t) {
+  const g = X.createRadialGradient(W / 2, H * .45, 80, W / 2, H / 2, 1150);
+  g.addColorStop(0, '#2A241B'); g.addColorStop(.55, '#17140F'); g.addColorStop(1, '#0B0907');
+  X.fillStyle = g; X.fillRect(0, 0, W, H);
+  for (let i = 0; i < 70; i++) {
+    const sp = .2 + hash(i, 4) * .6;
+    const x = (hash(i, 1) * W + t * 14 * sp) % W, y = (hash(i, 2) * H - t * 22 * sp + H * 10) % H;
+    const a = (.15 + .35 * hash(i, 5)) * (.6 + .4 * Math.sin(t * 1.3 + i));
+    X.fillStyle = `rgba(212,175,102,${a})`; X.beginPath(); X.arc(x, y, .8 + hash(i, 3) * 2.2, 0, 7); X.fill();
+  }
+}
+
+// ---------- RTL text with word-by-word reveal ----------
+function text(str, x, y, o = {}) {
+  const size = o.size || 72, font = `${o.weight || 300} ${size}px ${o.font || DISP}`;
+  X.save(); X.font = font; X.direction = o.ltr ? 'ltr' : 'rtl'; X.textBaseline = 'alphabetic';
+  const words = str.split(' '); const sp = X.measureText(' ').width;
+  const ws = words.map(w => X.measureText(w).width); const total = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1);
+  const align = o.align || 'center';
+  let cur = align === 'center' ? x + total / 2 : align === 'right' ? x : x + total;
+  const lt = o.lt ?? 99, alpha = o.alpha ?? 1;
+  const order = o.ltr ? [...words.keys()].reverse() : [...words.keys()];
+  if (o.ltr) cur = align === 'center' ? x + total / 2 : align === 'right' ? x : x + total;
+  for (const i of order) {
+    const p = eo((lt - (o.delay || 0) - i * (o.stagger ?? .09)) / .6);
+    X.globalAlpha = alpha * p; X.fillStyle = o.color || IVORY;
+    X.textAlign = 'right';
+    X.fillText(words[i], cur, y + (1 - p) * size * .35);
+    cur -= ws[i] + sp;
+  }
+  X.restore();
+}
+function mono(str, x, y, size, color, alpha = 1, align = 'center') {
+  X.save(); X.direction = 'ltr'; X.font = `500 ${size}px ${MONO}`; X.fillStyle = color; X.globalAlpha = alpha; X.textAlign = align; X.fillText(str, x, y); X.restore();
+}
+
+// ---------- watch ----------
+function goldGrad(r) { const g = X.createLinearGradient(-r, -r, r, r); g.addColorStop(0, '#F3DCA0'); g.addColorStop(.45, '#B88A3E'); g.addColorStop(.55, '#8A6324'); g.addColorStop(1, '#E8C77F'); return g; }
+function drawWatch(cx, cy, R, o) {
+  const s = R / 470; X.save(); X.translate(cx, cy); X.scale(s, s);
+  const caseP = o.caseP ?? 1, dialP = o.dialP ?? 1, idx = o.idx ?? 12, handsP = o.handsP ?? 1;
+  if (caseP > 0) {
+    X.save(); X.globalAlpha = caseP; X.shadowColor = 'rgba(0,0,0,.6)'; X.shadowBlur = 80; X.shadowOffsetY = 30;
+    X.fillStyle = goldGrad(470); X.beginPath(); X.arc(0, 0, 470, 0, 7); X.fill(); X.restore();
+    X.globalAlpha = caseP; X.fillStyle = '#6E4F1C'; X.beginPath(); X.arc(0, 0, 432, 0, 7); X.fill(); X.globalAlpha = 1;
+  }
+  if (dialP > 0) {
+    X.save(); X.globalAlpha = dialP; X.beginPath(); X.arc(0, 0, 426, 0, 7); X.clip();
+    X.drawImage(STONE, -426, -426, 852, 852);
+    const vg = X.createRadialGradient(-80, -160, 40, 0, 0, 440); vg.addColorStop(0, 'rgba(255,255,255,.14)'); vg.addColorStop(1, 'rgba(0,0,0,.25)');
+    X.fillStyle = vg; X.fillRect(-470, -470, 940, 940); X.restore();
+    X.save(); X.globalAlpha = dialP * (o.trackA ?? 1);
+    for (let i = 0; i < 60; i++) if (i % 5) { X.save(); X.rotate(i * Math.PI / 30); X.fillStyle = 'rgba(40,30,15,.55)'; X.fillRect(-1.5, -404, 3, 16); X.restore(); }
+    X.restore();
+  }
+  for (let i = 0; i < 12; i++) {
+    const p = clamp(idx - i); if (p <= 0) continue;
+    X.save(); X.rotate(i * Math.PI / 6); const drop = (1 - eo(p)) * -120;
+    X.globalAlpha = eo(p); X.fillStyle = goldGrad(60); X.fillRect(-8, -400 + drop, 16, 64);
+    X.fillStyle = 'rgba(0,0,0,.28)'; X.fillRect(3, -400 + drop, 5, 64);
+    if (p < 1) { X.fillStyle = `rgba(255,240,200,${Math.sin(p * Math.PI) * .9})`; X.beginPath(); X.arc(0, -368 + drop, 26 * Math.sin(p * Math.PI), 0, 7); X.fill(); }
+    X.restore();
+  }
+  if (o.label ?? dialP > .5) {
+    X.save(); X.globalAlpha = clamp(dialP * 2 - 1) * (o.labelA ?? 1); X.fillStyle = '#3B2E18'; X.textAlign = 'center';
+    X.direction = 'rtl'; X.font = `700 50px ${DISP}`; X.fillText('עֵת', 0, -170);
+    X.direction = 'ltr'; X.font = `500 18px ${MONO}`; X.fillText('JERUSALEM · 38', 0, -136);
+    X.font = `400 15px ${MONO}`; X.fillText('MANUEL · 72H', 0, 215); X.restore();
+  }
+  if (handsP > 0) {
+    const tm = o.time || { h: 10, m: 9, s: 30 };
+    const hand = (a, len, w) => { X.save(); X.rotate(a); X.fillStyle = '#5E4214'; X.beginPath(); X.moveTo(-w / 2, 40); X.lineTo(-w * .35, -len + 20); X.lineTo(0, -len); X.lineTo(w * .35, -len + 20); X.lineTo(w / 2, 40); X.closePath(); X.fill(); X.restore(); };
+    X.save(); X.globalAlpha = clamp(handsP * 3);
+    hand(tm.h * Math.PI / 6, 250, 22); hand(tm.m * Math.PI / 30, 372, 16);
+    X.save(); X.rotate(tm.s * Math.PI / 30); X.fillStyle = '#231B12'; X.fillRect(-2, -398, 4, 470); X.beginPath(); X.arc(0, 60, 12, 0, 7); X.fill(); X.restore();
+    X.fillStyle = goldGrad(20); X.beginPath(); X.arc(0, 0, 17, 0, 7); X.fill(); X.restore();
+  }
+  if (o.shine != null) {
+    X.save(); X.beginPath(); X.arc(0, 0, 426, 0, 7); X.clip();
+    const sx = lerp(-900, 900, o.shine); const sg = X.createLinearGradient(sx - 200, -200, sx + 200, 200);
+    sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(.5, 'rgba(255,250,235,.32)'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+    X.fillStyle = sg; X.fillRect(-470, -470, 940, 940); X.restore();
+  }
+  X.restore();
+}
+
+// ---------- gears ----------
+function gear(cx, cy, r, teeth, ang, color, hole = .35) {
+  X.save(); X.translate(cx, cy); X.rotate(ang); X.fillStyle = color; X.beginPath();
+  const tooth = r * .12;
+  for (let i = 0; i < teeth * 2; i++) {
+    const a0 = i * Math.PI / teeth, a1 = (i + 1) * Math.PI / teeth, rr = i % 2 ? r : r + tooth;
+    X.arc(0, 0, rr, a0 + (i % 2 ? 0 : .08), a1 - (i % 2 ? 0 : .08));
+  }
+  X.closePath(); X.fill();
+  X.globalCompositeOperation = 'destination-out';
+  for (let k = 0; k < 5; k++) { X.beginPath(); const a = k * Math.PI * 2 / 5; X.ellipse(Math.cos(a) * r * .55, Math.sin(a) * r * .55, r * .2, r * .13, a, 0, 7); X.fill(); }
+  X.globalCompositeOperation = 'source-over';
+  X.fillStyle = '#9B2F3A'; X.beginPath(); X.arc(0, 0, r * .1, 0, 7); X.fill();
+  X.restore();
+}
+
+// ---------- scenes ----------
+const SC = [
+  [0, 5.5, s1], [5.2, 12.7, s2], [12.4, 20, s3], [19.7, 28, s4], [27.7, 34, s5], [33.7, 40, s6], [39.7, 47, s7]
+];
+const DUR = 47;
+function render(t) {
+  X.globalAlpha = 1; background(t);
+  for (const [a, b, f] of SC) if (t >= a && t < b) {
+    const lt = t - a, d = b - a;
+    const alpha = Math.min(eo(lt / .5), t > DUR - .1 ? 1 : eo((d - lt) / .5));
+    X.save(); X.globalAlpha = 1; f(lt, alpha, d); X.restore();
+  }
+  // vignette + letterbox feel
+  const v = X.createRadialGradient(W / 2, H / 2, 500, W / 2, H / 2, 1200); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)');
+  X.globalAlpha = 1; X.fillStyle = v; X.fillRect(0, 0, W, H);
+  if (t > DUR - 1.2) { X.fillStyle = `rgba(11,9,7,${eio((t - (DUR - 1.2)) / 1.2)})`; X.fillRect(0, 0, W, H); }
+  if (t < .6) { X.fillStyle = `rgba(11,9,7,${1 - eo(t / .6)})`; X.fillRect(0, 0, W, H); }
+}
+function caption(n, total, label, lt, alpha) { // chapter marker, top right
+  X.save(); X.globalAlpha = alpha * eo((lt - .2) / .6);
+  mono(`${String(n).padStart(2, '0')} / ${String(total).padStart(2, '0')}`, W - 120, 110, 22, GOLD, 1, 'right');
+  X.restore();
+  text(label, W - 260, 110, { size: 26, font: BODY, weight: 600, color: MUTED, align: 'right', lt, alpha, delay: .3 });
+}
+
+// 1. opening
+function s1(lt, alpha) {
+  const p = eio(lt / 2.2);
+  X.save(); X.globalAlpha = alpha; X.strokeStyle = GOLD; X.lineWidth = 2;
+  X.beginPath(); X.arc(W / 2, H / 2 - 40, 230, -Math.PI / 2, -Math.PI / 2 + p * Math.PI * 2); X.stroke();
+  // ticking second dot travelling the ring, 8 beats per second
+  const beat = Math.floor(lt * 8) / 8; const a = -Math.PI / 2 + beat * Math.PI * 2 / 60 * 6;
+  X.fillStyle = GOLD; X.beginPath(); X.arc(W / 2 + Math.cos(a) * 230, H / 2 - 40 + Math.sin(a) * 230, 7, 0, 7); X.fill();
+  X.restore();
+  X.save(); X.globalAlpha = alpha * eo((lt - .6) / 1.2);
+  X.direction = 'rtl'; X.textAlign = 'center'; X.fillStyle = IVORY; X.font = `700 190px ${DISP}`;
+  X.fillText('עֵת', W / 2, H / 2 + 20); X.restore();
+  mono('ATELIER · JERUSALEM', W / 2, H / 2 + 90, 22, MUTED, alpha * eo((lt - 1.2) / 1));
+  text('איך נולד שעון ירושלים 38', W / 2, H - 170, { size: 64, lt, alpha, delay: 2 });
+}
+
+// 2. one block of stone
+function s2(lt, alpha, d) {
+  caption(1, 5, 'האבן', lt, alpha);
+  text('הכול מתחיל בגוש אבן אחד', W / 2, 250, { size: 76, lt, alpha, delay: .2 });
+  const bw = 760, bh = 380, bx = W / 2 - bw / 2, by = 420, depth = 70;
+  const cut = clamp((lt - 2) / 2.2), spread = eio((lt - 4.4) / 1.6), N = 18;
+  X.save(); X.globalAlpha = alpha * eo((lt - .3) / .8);
+  for (let i = 0; i < N; i++) {
+    const sw = bw / N, off = (i - (N - 1) / 2) * spread * 18;
+    const x = bx + i * sw + off, lift = spread * Math.sin(i / (N - 1) * Math.PI) * -26;
+    X.save(); X.beginPath(); X.rect(x, by + lift, sw + (spread > 0 ? 0 : .6), bh); X.clip();
+    X.drawImage(STONE, (i * sw) % 300, 60, sw * 1.2, 300, x, by + lift, sw + 1, bh); X.restore();
+    X.fillStyle = '#E9DFC9'; X.beginPath(); X.moveTo(x, by + lift); X.lineTo(x + depth, by + lift - depth * .6); X.lineTo(x + sw + depth, by + lift - depth * .6); X.lineTo(x + sw, by + lift); X.closePath(); X.fill();
+    if (i === N - 1 || spread > .02) { X.fillStyle = '#B8A889'; X.beginPath(); X.moveTo(x + sw, by + lift); X.lineTo(x + sw + depth, by + lift - depth * .6); X.lineTo(x + sw + depth, by + lift + bh - depth * .6); X.lineTo(x + sw, by + lift + bh); X.closePath(); X.fill(); }
+    // cut lines
+    if (i > 0 && cut * N > N - i && spread < .05) { X.strokeStyle = 'rgba(60,45,25,.55)'; X.lineWidth = 1.5; X.beginPath(); X.moveTo(x, by); X.lineTo(x, by + bh); X.stroke(); }
+  }
+  // diamond wire
+  if (cut > 0 && cut < 1) {
+    const wx = bx + bw - cut * bw;
+    const wg = X.createLinearGradient(wx - 30, 0, wx + 30, 0); wg.addColorStop(0, 'rgba(255,230,170,0)'); wg.addColorStop(.5, 'rgba(255,236,190,1)'); wg.addColorStop(1, 'rgba(255,230,170,0)');
+    X.fillStyle = wg; X.fillRect(wx - 30, by - 90, 60, bh + 160);
+    X.strokeStyle = '#FFF4D6'; X.lineWidth = 2; X.beginPath(); X.moveTo(wx, by - 100); X.lineTo(wx, by + bh + 80); X.stroke();
+    for (let k = 0; k < 14; k++) { const yy = by + hash(k, Math.floor(lt * 30)) * bh; X.fillStyle = 'rgba(240,225,190,.8)'; X.fillRect(wx + hash(k, 3) * 40 - 20, yy, 2.5, 2.5); }
+  }
+  X.restore();
+  const n = Math.round(clamp(cut) * 18);
+  mono(`${n} / 18`, W / 2 + 260, 920, 56, GOLD, alpha * eo((lt - 2) / .5));
+  text('פרוסות', W / 2 + 260, 980, { size: 34, font: BODY, color: MUTED, lt, alpha, delay: 2 });
+  mono('0.6 mm', W / 2 - 260, 920, 56, GOLD, alpha * eo((lt - 4.6) / .5));
+  text('עובי כל פרוסה', W / 2 - 260, 980, { size: 34, font: BODY, color: MUTED, lt, alpha, delay: 4.6 });
+}
+
+// 3. slice becomes a dial
+function s3(lt, alpha) {
+  caption(2, 5, 'לוח השעון', lt, alpha);
+  text('כל פרוסה הופכת ללוח שעון', W / 2, 200, { size: 76, lt, alpha, delay: .2 });
+  const m = eio((lt - .4) / 1.6), R = 330, cx = W / 2 + 260 * eio((lt - 2.6) / 1.2), cy = 610;
+  X.save(); X.globalAlpha = alpha;
+  // morph slice -> circle
+  const w = lerp(60, R * 2, m), h = lerp(420, R * 2, m), rad = lerp(4, R, m);
+  X.save(); X.beginPath(); X.roundRect(cx - w / 2, cy - h / 2, w, h, rad); X.clip();
+  X.drawImage(STONE, cx - R, cy - R, R * 2, R * 2);
+  const vg = X.createRadialGradient(cx - 60, cy - 120, 30, cx, cy, R); vg.addColorStop(0, 'rgba(255,255,255,.14)'); vg.addColorStop(1, 'rgba(0,0,0,.25)');
+  X.fillStyle = vg; X.fillRect(cx - R, cy - R, R * 2, R * 2); X.restore();
+  if (m >= 1) drawWatch(cx, cy, R * 470 / 426, { caseP: 0, dialP: 0, idx: (lt - 3.2) * 4.2, handsP: 0, label: false });
+  X.restore();
+  const k = Math.min(12, Math.max(0, Math.floor((lt - 3.2) * 4.2 + .5)));
+  const tx = W / 2 - 160;
+  mono(String(k).padStart(2, '0'), tx, 560, 150, GOLD, alpha * eo((lt - 3) / .5), 'right');
+  text('סימוני שעות מזהב מוצק', tx, 650, { size: 46, align: 'right', lt, alpha, delay: 3.2 });
+  text('כל אחד מוחדר ביד לקדח משלו', tx, 715, { size: 34, font: BODY, color: MUTED, align: 'right', lt, alpha, delay: 3.6 });
+  mono('40 h', tx - 0, 830, 46, GOLD, alpha * eo((lt - 5.2) / .5), 'right');
+  text('עבודה על לוח אחד', tx - 150, 830, { size: 34, font: BODY, color: MUTED, align: 'right', lt, alpha, delay: 5.2 });
+}
+
+// 4. the caliber
+function s4(lt, alpha) {
+  caption(3, 5, 'המנגנון', lt, alpha);
+  text('הלב: קליבר ע׳-72', W / 2, 200, { size: 76, lt, alpha, delay: .2 });
+  const a = eo((lt - .3) / 1), rot = lt * .7;
+  X.save(); X.globalAlpha = alpha * a;
+  const gx = 620, gy = 610;
+  // plate
+  X.fillStyle = '#2B261E'; X.beginPath(); X.arc(gx, gy, 360, 0, 7); X.fill();
+  X.strokeStyle = 'rgba(212,175,102,.25)'; X.lineWidth = 2; for (let r = 60; r < 360; r += 22) { X.beginPath(); X.arc(gx, gy, r, 0, 7); X.stroke(); }
+  gear(gx - 70, gy + 40, 150, 40, rot, '#C9A45C');
+  gear(gx + 128, gy - 120, 75, 20, -rot * 2 + .08, '#B88A3E');
+  gear(gx + 150, gy + 150, 60, 16, -rot * 2.5, '#A57B35');
+  gear(gx - 150, gy - 200, 50, 14, -rot * 3, '#D9BC7C');
+  // balance wheel (slow motion)
+  const bxp = gx + 40, byp = gy - 260, osc = Math.sin(lt * Math.PI * 2 * .9) * 2.2;
+  X.save(); X.translate(bxp, byp); X.rotate(osc);
+  X.strokeStyle = '#E8C77F'; X.lineWidth = 10; X.beginPath(); X.arc(0, 0, 70, 0, 7); X.stroke();
+  X.lineWidth = 6; for (let k = 0; k < 3; k++) { X.beginPath(); const aa = k * Math.PI * 2 / 3; X.moveTo(0, 0); X.lineTo(Math.cos(aa) * 70, Math.sin(aa) * 70); X.stroke(); }
+  X.strokeStyle = 'rgba(232,199,127,.6)'; X.lineWidth = 2; X.beginPath();
+  for (let q = 0; q < 6 * Math.PI; q += .1) { const rr = 8 + q * 2.4; X.lineTo(Math.cos(q - osc * .8) * rr * .9, Math.sin(q - osc * .8) * rr * .9); } X.stroke();
+  X.restore();
+  // jewels
+  [[gx - 70, gy + 40], [gx + 128, gy - 120], [gx + 150, gy + 150], [gx - 150, gy - 200], [bxp, byp], [gx + 260, gy - 20], [gx - 260, gy + 120]].forEach(([x, y]) => { X.fillStyle = '#B4323F'; X.beginPath(); X.arc(x, y, 10, 0, 7); X.fill(); X.fillStyle = 'rgba(255,200,200,.6)'; X.beginPath(); X.arc(x - 3, y - 3, 3, 0, 7); X.fill(); });
+  X.restore();
+  mono('SLOW MOTION ×4', gx, 1010, 18, MUTED, alpha * a * .8);
+  const stats = [[28800, 'פעימות בכל שעה', 1.4], [21, 'אבני מנגנון', 2.6], [72, 'שעות פעולה בלי מתיחה', 3.8]];
+  stats.forEach(([v, label, dl], i) => {
+    const y = 470 + i * 190, p = eo((lt - dl) / 1.4);
+    const val = Math.round(v * p).toLocaleString('en-US');
+    mono(val, W - 200, y, 96, GOLD, alpha * eo((lt - dl) / .4), 'right');
+    text(label, W - 200, y + 60, { size: 36, font: BODY, color: MUTED, align: 'right', lt, alpha, delay: dl + .2 });
+    X.save(); X.globalAlpha = alpha * .4 * p; X.fillStyle = MUTED; X.fillRect(W - 200 - 640 * p, y + 95, 640 * p, 1); X.restore();
+  });
+}
+
+// 5. eight beats per second
+function s5(lt, alpha) {
+  caption(4, 5, 'הקצב', lt, alpha);
+  text('8 פעימות בכל שנייה', W / 2, 200, { size: 84, lt, alpha, delay: .2 });
+  text('לכן מחוג השניות נראה כמעט זורם', W / 2, 280, { size: 38, font: BODY, color: MUTED, lt, alpha, delay: .8 });
+  const beat = Math.floor(lt * 8), secF = beat / 8;
+  X.save(); X.globalAlpha = alpha * eo((lt - .4) / .8);
+  // big arc segment of dial
+  const cx = W / 2, cy = 1450, R = 900;
+  X.save(); X.beginPath(); X.arc(cx, cy, R, 0, 7); X.clip(); X.drawImage(STONE, cx - R, cy - R, R * 2, R * 2); X.fillStyle = 'rgba(0,0,0,.18)'; X.fillRect(0, 0, W, H); X.restore();
+  for (let i = -12; i <= 12; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 30 / 1;
+    for (let q = 0; q < 8; q++) {
+      const aa = a + q * Math.PI / 30 / 8, big = q === 0;
+      X.save(); X.translate(cx, cy); X.rotate(aa + Math.PI / 2);
+      X.fillStyle = big ? '#3B2E18' : 'rgba(59,46,24,.4)'; X.fillRect(big ? -2.5 : -1, -R + 18, big ? 5 : 2, big ? 54 : 22); X.restore();
+    }
+  }
+  const ha = -Math.PI / 2 + (secF - 2.5) * Math.PI / 30;
+  X.save(); X.translate(cx, cy); X.rotate(ha + Math.PI / 2); X.fillStyle = '#1E1710'; X.fillRect(-4, -R + 8, 8, R); X.restore();
+  X.restore();
+  // beat dots
+  for (let q = 0; q < 8; q++) {
+    const on = beat % 8 >= q, x = W / 2 + (3.5 - q) * 70;
+    X.save(); X.globalAlpha = alpha * eo((lt - .8) / .6); X.fillStyle = on ? GOLD : 'rgba(212,175,102,.18)';
+    X.beginPath(); X.arc(x, 400, on && beat % 8 === q ? 16 : 11, 0, 7); X.fill(); X.restore();
+  }
+  mono('28,800 vph = 4 Hz', W / 2, 470, 26, MUTED, alpha * eo((lt - 1.4) / .6));
+}
+
+// 6. assembly
+function s6(lt, alpha) {
+  caption(5, 5, 'ההרכבה', lt, alpha);
+  const cx = W / 2 + 330, cy = 560, R = 400;
+  const caseP = eo((lt - .2) / 1), dialP = eo((lt - .6) / 1), handsP = eo((lt - 1.6) / 1.4);
+  const ang = lerp(-2.6, 0, eio((lt - 1.6) / 1.8));
+  const sc = lerp(1.25, 1, eio(lt / 1.6));
+  X.save(); X.globalAlpha = alpha;
+  drawWatch(cx, cy, R * sc, { caseP, dialP, idx: 12, handsP, time: { h: 10 + 9 / 60 + ang, m: 9 + ang * 12, s: 30 + lt * 6 - 6 }, shine: lt > 3.4 ? eio((lt - 3.4) / 1.6) : null });
+  X.restore();
+  text('ירושלים 38', W / 2 - 160, 470, { size: 120, align: 'right', lt, alpha, delay: 1.2 });
+  const specs = [['18K', 'מארז זהב צהוב'], ['38 mm', 'קוטר'], ['50 m', 'עמידות במים']];
+  specs.forEach(([v, l], i) => {
+    const y = 600 + i * 90, dl = 2.2 + i * .35;
+    mono(v, W / 2 - 160, y, 42, GOLD, alpha * eo((lt - dl) / .5), 'right');
+    text(l, W / 2 - 400, y, { size: 36, font: BODY, color: MUTED, align: 'right', lt, alpha, delay: dl });
+  });
+}
+
+// 7. edition + price
+function s7(lt, alpha, d) {
+  const sold = new Set([1, 2, 3, 5, 7, 8, 11, 12, 14, 16, 17]);
+  const phase2 = eio((lt - 3.6) / 1);
+  text('רק 18 עותקים בעולם', W / 2, 200 - phase2 * 40, { size: 80, lt, alpha: alpha * (1 - phase2), delay: .1 });
+  const cw = 130, gap = 18, gx = W / 2 + (9 * cw + 8 * gap) / 2;
+  for (let n = 1; n <= 18; n++) {
+    const i = n - 1, col = i % 9, row = Math.floor(i / 9);
+    const x = gx - (col + 1) * cw - col * gap, y = 340 + row * (cw + gap);
+    const ap = eo((lt - .4 - i * .05) / .5), sp = sold.has(n) ? eo((lt - 1.6 - i * .06) / .4) : 0;
+    X.save(); X.globalAlpha = alpha * ap * (1 - phase2);
+    X.strokeStyle = sold.has(n) ? `rgba(166,155,133,${1 - sp * .6})` : GOLD; X.lineWidth = 2;
+    if (sold.has(n)) X.setLineDash(sp > .5 ? [8, 6] : []);
+    X.strokeRect(x, y, cw, cw); X.setLineDash([]);
+    if (!sold.has(n) && lt > 2.6) { X.fillStyle = `rgba(212,175,102,${.14 + .1 * Math.sin(lt * 4 + n)})`; X.fillRect(x, y, cw, cw); }
+    X.restore();
+    mono(String(n).padStart(2, '0'), x + cw / 2, y + cw / 2 + 4, 38, sold.has(n) ? `rgba(166,155,133,${1 - sp * .55})` : IVORY, alpha * ap * (1 - phase2));
+    text(sold.has(n) ? 'נמכר' : 'פנוי', x + cw / 2, y + cw / 2 + 42, { size: 22, font: BODY, color: sold.has(n) ? MUTED : GOLD, lt, alpha: alpha * ap * (1 - phase2) * (sold.has(n) ? sp : eo((lt - 2.4) / .4)) });
+  }
+  text('נשארו 7 עותקים', W / 2, 760, { size: 56, color: GOLD, lt, alpha: alpha * (1 - phase2), delay: 2.4 });
+  // final card
+  if (phase2 > 0) {
+    drawWatch(W / 2, 420 + (1 - phase2) * 60, 230, { time: { h: 10.15, m: 9, s: 30 + Math.floor((lt - 3.6) * 8) / 8 }, shine: null });
+    X.save(); X.globalAlpha = phase2;
+    X.direction = 'rtl'; X.textAlign = 'center'; X.fillStyle = IVORY; X.font = `400 96px ${DISP}`;
+    X.fillText('₪148,000', W / 2, 800); X.restore();
+    text('צפייה פרטית בסדנה, ירושלים', W / 2, 880, { size: 44, font: BODY, color: MUTED, lt, alpha: phase2, delay: 4.2 });
+    mono('02-555-0138', W / 2, 950, 30, GOLD, eo((lt - 4.8) / .6));
+    text('מותג בדיוני להדגמה', W / 2, 1040, { size: 20, font: BODY, color: 'rgba(166,155,133,.6)', lt, alpha: phase2, delay: 5 });
+  }
+}
+window.render = render; window.DUR = DUR;
+window.ready = Promise.all([document.fonts.load(`300 72px ${DISP}`), document.fonts.load(`700 72px ${DISP}`), document.fonts.load(`400 72px ${DISP}`), document.fonts.load(`400 40px ${BODY}`), document.fonts.load(`600 40px ${BODY}`), document.fonts.load(`500 40px ${MONO}`), document.fonts.load(`400 40px ${MONO}`)]).then(() => document.fonts.ready);
+</script></body></html>
