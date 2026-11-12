@@ -41,7 +41,7 @@ Gmail (IMAP) ──► סינון מקדים (מילות מפתח + אנשי ק�
 
 ## הרצה
 
-### אפשרות א': GitHub Actions (מומלץ – רץ בענן כל 15 דקות, בלי מחשב דלוק)
+### אפשרות א': GitHub Actions (התזמון האוטומטי כבוי כרגע – ראה הערה בקובץ ה-workflow)
 1. ב-GitHub: Settings ← Secrets and variables ← Actions ← New repository secret, והוסף:
    `GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `ANTHROPIC_API_KEY`,
    `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` (ו/או `ALERT_EMAIL_TO`).

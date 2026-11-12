@@ -1,8 +1,10 @@
 name: Apartment email agent
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"   # every 15 minutes (GitHub may delay scheduled runs a bit)
+  # Automatic schedule turned off at the owner's request. To turn it back on (after
+  # adding the repository secrets listed in the README), add:
+  #   schedule:
+  #     - cron: "*/15 * * * *"
   workflow_dispatch: {}
 
 concurrency:
