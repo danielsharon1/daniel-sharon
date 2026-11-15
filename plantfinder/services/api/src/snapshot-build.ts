@@ -159,7 +159,11 @@ const { meta, bytes } = await encodeSnapshot(index, passphrase);
 mkdirSync(join(out, "data"), { recursive: true });
 writeFileSync(join(out, "data", "meta.json"), JSON.stringify(meta, null, 1));
 writeFileSync(join(out, "data", "index.bin"), bytes);
-console.log(`snapshot: ${listings.length} listings from ${runs.filter((r) => r.listings.length).length}/${runs.length} sources, ${(bytes.length / 1024).toFixed(0)} KB${meta.encryption ? " (encrypted)" : ""} → ${join(out, "data")}`);
+const fresh = runs.filter((r) => r.status === "ok").length;
+const carried = runs.filter((r) => r.status === "carried_over").length;
+console.log(
+  `snapshot: ${listings.length} listings; ${fresh}/${runs.length} sources fresh, ${carried} carried over; ${(bytes.length / 1024).toFixed(0)} KB${meta.encryption ? " (encrypted)" : ""} → ${join(out, "data")}`
+);
 
 const healthFile = arg("health");
 if (healthFile) {
@@ -181,5 +185,10 @@ if (healthFile) {
   );
 }
 
-const failed = runs.filter((r) => r.status === "error" || r.status === "blocked");
-if (failed.length) console.warn(`warning: ${failed.length} source(s) failed: ${failed.map((f) => f.id).join(", ")}`);
+const failed = runs.filter((r) => r.status !== "ok");
+if (failed.length) console.warn(`warning: ${failed.length} source(s) not refreshed: ${failed.map((f) => `${f.id} (${f.status})`).join(", ")}`);
+if (fresh === 0) {
+  // Nothing new: fail the job so the owner is notified; the last published site stays online.
+  console.error("No source could be refreshed in this run.");
+  process.exit(1);
+}
