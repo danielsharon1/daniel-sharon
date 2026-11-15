@@ -1,0 +1,105 @@
+{
+ "n": 56,
+ "accuracy": 0.786,
+ "nConfidentLabels": 56,
+ "accuracyConfidentLabels": 0.786,
+ "unsafeErrorRate": 0.018,
+ "errors": [
+  {
+   "title": "סינגוניום אוריאה מגוון | בייבי",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סינגוניום גריי גוסט | בינוני",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סינגוניום מוחיטו | בינוני",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סינגוניום פיקסי | בינוני",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סינגוניום ורוד",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סינגוניום מריה",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סינגוניום פיקסי",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "יוקה על גזע",
+   "expected": "yucca-gigantea",
+   "predicted": "yucca-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "סחלב פלנופסיס 2 עמודים",
+   "expected": "phalaenopsis",
+   "predicted": "orchidaceae",
+   "level": "genus",
+   "label": "high",
+   "safe": false
+  },
+  {
+   "title": "סינגוניום ורוד (pink Syngonium)",
+   "expected": "syngonium-podophyllum",
+   "predicted": "syngonium-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "יוקה גזע",
+   "expected": "yucca-gigantea",
+   "predicted": "yucca-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  },
+  {
+   "title": "קרסולה – עץ האושר",
+   "expected": "crassula-ovata",
+   "predicted": "crassula-sp",
+   "level": "genus",
+   "label": "medium",
+   "safe": true
+  }
+ ]
+}

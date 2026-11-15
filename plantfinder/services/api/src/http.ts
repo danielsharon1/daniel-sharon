@@ -39,6 +39,8 @@ export interface LiveTransportOptions {
   timeoutMs?: number;
   minIntervalMs?: number;
   maxBytes?: number;
+  /** Max requests waiting per host before new ones are refused (protects sources). */
+  maxQueuePerHost?: number;
   fetchImpl?: typeof fetch;
 }
 
@@ -56,12 +58,17 @@ export class LiveTransport implements Transport {
   private readonly lastAt = new Map<string, number>();
   private readonly circuit = new Map<string, { until: number; reason: string }>();
   private readonly fetchImpl: typeof fetch;
+  private readonly pending = new Map<string, number>();
 
   constructor(private readonly opts: LiveTransportOptions) {
     this.fetchImpl = opts.fetchImpl ?? fetch;
   }
 
   private async throttled<T>(host: string, fn: () => Promise<T>): Promise<T> {
+    // Never let a burst of user searches turn into a burst against a source: cap the queue.
+    const waiting = this.pending.get(host) ?? 0;
+    if (waiting >= (this.opts.maxQueuePerHost ?? 12)) throw new BlockedError(`Too many queued requests for ${host}; try again shortly`);
+    this.pending.set(host, waiting + 1);
     const prev = this.queues.get(host) ?? Promise.resolve();
     const run = prev.catch(() => undefined).then(async () => {
       const wait = (this.lastAt.get(host) ?? 0) + (this.opts.minIntervalMs ?? 700) - Date.now();
@@ -73,7 +80,7 @@ export class LiveTransport implements Transport {
       }
     });
     this.queues.set(host, run);
-    return run;
+    return run.finally(() => this.pending.set(host, (this.pending.get(host) ?? 1) - 1));
   }
 
   private async rawGet(url: URL, accept: string): Promise<{ status: number; text: string; headers: Record<string, string> }> {

@@ -101,6 +101,11 @@ describe("product kind", () => {
     expect(detectProductKind("עמוד טיפוס למונסטרה", [], classifyText("עמוד טיפוס למונסטרה"))).toBe("accessory");
     expect(detectProductKind("כד מרובע גלים | פלסטיק", ["עציצים ואדניות > כדים דקורטיביים"], classifyText("כד"))).toBe("accessory");
   });
+  it("detects empty pots and potting mixes (holdout #2 findings)", () => {
+    for (const t of ["עציץ זכוכית לסחלב", "תערובת שתילה לסוקולנטים וקקטוסים | 10 ליטר", "עציץ פלסטיק 30"])
+      expect(detectProductKind(t, [], classifyText(t)), t).toBe("accessory");
+    for (const t of ["תערובת סחלבים", "עציץ מונסטרה", "עציץ פוטוס תלוי"]) expect(detectProductKind(t, [], classifyText(t)), t).toBe("plant");
+  });
   it("keeps plant arrangements and plants", () => {
     expect(detectProductKind("קערת סוקולנטים XL", [], classifyText("קערת סוקולנטים"))).toBe("plant");
     expect(detectProductKind("מונסטרה", ["כל הצמחים"], classifyText("מונסטרה"))).toBe("plant");

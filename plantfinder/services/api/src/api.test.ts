@@ -71,6 +71,21 @@ describe("LiveTransport (polite client)", () => {
     await expect(t.getJson("https://cf.test/api")).rejects.toThrow(/Circuit open/);
     expect(calls.filter((c) => c.endsWith("/api"))).toHaveLength(1);
   });
+  it("caps the per-host queue instead of piling requests onto a source", async () => {
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    const slowFetch = (async (input: string | URL) => {
+      if (String(input).endsWith("/robots.txt")) return new Response("", { status: 200 });
+      await gate;
+      return new Response("[]", { status: 200 });
+    }) as typeof fetch;
+    const t = new LiveTransport({ userAgent: "x", minIntervalMs: 0, maxQueuePerHost: 3, fetchImpl: slowFetch });
+    const inflight = [1, 2, 3].map((n) => t.getJson(`https://q.test/${n}`));
+    await expect(t.getJson("https://q.test/4")).rejects.toBeInstanceOf(BlockedError);
+    release();
+    await Promise.all(inflight);
+    await expect(t.getJson("https://q.test/5")).resolves.toBeTruthy();
+  });
   it("only allows https", async () => {
     const t = new LiveTransport({ userAgent: "x", fetchImpl: mockFetch({}) });
     await expect(t.getJson("http://shop.test/x")).rejects.toThrow(/https/);

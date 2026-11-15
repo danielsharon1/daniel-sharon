@@ -1,4 +1,4 @@
-import { findPhrase, tokenize, type Listing } from "@plantfinder/shared";
+import { classifyText, findPhrase, getTaxon, tokenize, type Listing } from "@plantfinder/shared";
 import type { Transport } from "../http.js";
 import type { SourceDef } from "../sources/registry.js";
 import { buildListing, groupVariantsBySize, type AdapterResult, type SourceAdapter, type VariantLike } from "./common.js";
@@ -69,11 +69,19 @@ export class ShopifyAdapter implements SourceAdapter {
     }
 
     const termTokens = terms.map((t) => tokenize(t)).filter((t) => t.length > 0);
+    // The whole catalog is local, so also match by classified genus: catches common names that the
+    // search terms do not contain (e.g. "ציפור גן עדן ניקולאי" for a Strelitzia search).
+    const genusOf = (text: string) => {
+      const id = classifyText(text).taxonId;
+      return id ? getTaxon(id)?.genus ?? null : null;
+    };
+    const termGenera = new Set(terms.map(genusOf).filter((g): g is string => g !== null));
     const demo = this.transport.kind === "fixture";
     const listings: Listing[] = [];
     for (const { p, fetchedAt, endpoint } of products) {
       const titleTokens = tokenize(p.title);
-      if (!termTokens.some((tt) => findPhrase(titleTokens, tt) >= 0)) continue;
+      const byTerm = termTokens.some((tt) => findPhrase(titleTokens, tt) >= 0);
+      if (!byTerm && !(termGenera.size > 0 && termGenera.has(genusOf(p.title) ?? ""))) continue;
       const tags = Array.isArray(p.tags) ? p.tags : String(p.tags ?? "").split(",").map((t) => t.trim()).filter(Boolean);
       const categories = [p.product_type, ...tags].filter(Boolean);
       const image = p.images?.[0]?.src ?? null;

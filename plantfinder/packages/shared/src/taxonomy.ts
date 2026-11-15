@@ -73,17 +73,23 @@ const GENERIC_FOLLOWERS = new Set(
     "נאה", "יפה", "יפהפיה", "גדולה", "גדול", "קטנה", "קטן", "בינונית", "בינוני", "ענקית", "ענק", "בייבי", "מיני",
     "מבצע", "בעציץ", "עציץ", "בכלי", "כלי", "בכד", "כד", "קוטר", "גובה", "צמח", "ירוקה", "ירוק", "מטפסת", "מטפס",
     "לבית", "בית", "עם", "כולל", "חדש", "חדשה", "מומלץ", "מומלצת", "זן", "מקורית", "אמיתית", "בשלה", "בוגרת",
+    "מגוון", "מגוונת", "לבן", "לבנה", "גבוה", "גבוהה", "נמוך", "נמוכה", "מנומר", "מנומרת", "צהוב", "צהובה",
+    "ורוד", "ורודה", "אדום", "אדומה", "כתום", "כתומה", "סגול", "סגולה", "שחור", "שחורה", "כסוף", "כסופה", "זהוב", "זהובה",
+    "על", "גזע", "גזעים", "ענפים", "רפואית", "רפואי",
     "של", "או", "את", "גם", "לבחירה", "במגוון", "גדלים", "צבעים", "מתנה", "למשרד", "לבית",
     "דלי", "שתיל", "ענף", "ייחור", "מושרש", "עודפים", "יבוא", "מקומי", "ליטר", "סמ", "מ",
     "plant", "in", "pot", "large", "small", "medium", "big", "baby", "mini", "xs", "s", "m", "l", "xl", "xxl", "the", "with"
   ].map((w) => tokenize(w)[0] ?? w)
 );
 
-function followerIsUnknown(tokens: string[], start: number, length: number): boolean {
+function followerIsUnknown(tokens: string[], start: number, length: number, taxon: TaxonDef): boolean {
   const next = tokens[start + length];
   if (next === undefined) return false;
   if (/^\d/.test(next)) return false;
-  return !GENERIC_FOLLOWERS.has(next);
+  if (GENERIC_FOLLOWERS.has(next)) return false;
+  // A synonym of the same plant ("כידונן (סנסיווריה)") does not introduce a new epithet.
+  const synonyms = [...taxon.he, ...taxon.en, ...(taxon.defaultNames ?? [])].map((n) => tokenize(n)).filter((t) => t.length === 1);
+  return !synonyms.some((t) => t[0] === next);
 }
 
 export function getTaxon(id: string): TaxonDef | undefined {
@@ -163,10 +169,12 @@ export function classifyText(text: string): Classification {
     const pos = findPhrase(tokens, entry.tokens);
     if (pos < 0) continue;
     const level = levelFor(entry.taxon, entry.kind);
+    const rankOrder = (t: TaxonDef) => (t.rank === "species" ? 2 : t.rank === "genus" ? 1 : 0);
     if (
       !best ||
       LEVEL_RANK[level] > LEVEL_RANK[best.level] ||
-      (LEVEL_RANK[level] === LEVEL_RANK[best.level] && pos < best.pos)
+      (LEVEL_RANK[level] === LEVEL_RANK[best.level] && rankOrder(entry.taxon) > rankOrder(best.taxon)) ||
+      (LEVEL_RANK[level] === LEVEL_RANK[best.level] && rankOrder(entry.taxon) === rankOrder(best.taxon) && pos < best.pos)
     ) {
       best = { taxon: entry.taxon, raw: entry.raw, pos, level, length: entry.tokens.length, kind: entry.kind };
     }
@@ -190,7 +198,7 @@ export function classifyText(text: string): Classification {
   if (!best) return NONE;
 
   // Generic name + unknown epithet (and no recognised cultivar): only the genus is known.
-  if (!cultivar && best.kind === "default" && followerIsUnknown(tokens, best.pos, best.length)) {
+  if (!cultivar && best.kind === "default" && followerIsUnknown(tokens, best.pos, best.length, best.taxon)) {
     const genusTaxon = TAXA.find((g) => g.rank === "genus" && g.genus === best!.taxon.genus) ?? BY_ID.get(genusSpId(best.taxon.genus));
     if (genusTaxon) {
       return {
@@ -217,10 +225,13 @@ export function classifyText(text: string): Classification {
 /** Terms sent to source-side search endpoints for a taxon (broad on purpose; results are re-classified locally). */
 export function sourceSearchTerms(taxon: TaxonDef): string[] {
   if (taxon.searchTerms?.length) return [...taxon.searchTerms];
-  const hebrew = [...taxon.he, ...(taxon.defaultNames ?? [])].filter((n) => /[א-ת]/.test(n));
-  const shortestHe = hebrew.sort((a, b) => a.length - b.length)[0];
+  const isHe = (n: string) => /[א-ת]/.test(n);
+  // Broad recall: query stores by the genus name when we know it, then classify results locally.
+  const genusTaxon = taxon.rank === "species" ? TAXA.find((g) => g.rank === "genus" && g.genus === taxon.genus) : undefined;
+  // Primary names only — alternative spellings in the lists exist for matching, not for querying stores.
+  const primaryHe = genusTaxon?.he.find(isHe) ?? taxon.defaultNames?.find(isHe) ?? taxon.he.find(isHe);
   const terms = new Set<string>();
-  if (shortestHe) terms.add(shortestHe);
+  if (primaryHe) terms.add(primaryHe);
   if (taxon.rank !== "family") terms.add(taxon.genus.toLowerCase());
   return [...terms];
 }

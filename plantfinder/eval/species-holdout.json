@@ -1,0 +1,479 @@
+{
+ "description": "Species classification HOLDOUT set: real titles from seven plant groups (Aglaonema, Philodendron, Hoya, Peperomia, Schefflera, Dracaena, Begonia) recorded 2026-11-15, excluding every dev-set title. Labeled blind (titles only, no classifier output shown) before the first and only evaluation run; the taxonomy was not tuned on these titles. Same labeling rules as species-dev.json. null = plant not in the taxonomy (e.g. Cordyline sold as 'דרצנה').",
+ "items": [
+  {
+   "source": "netaplants",
+   "title": "אגלונמה עלה צר – סילבר",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "אגלונמה פרידמן – רחב עלים",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "בת שבע (הויה Hoya)",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "בת שבע לב (הויה Hoya Kerrii)",
+   "expected": "hoya-kerrii",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "דרצנה למון טורנדו",
+   "expected": "dracaena-fragrans",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "netaplants",
+   "title": "פפרומיה מגוונת",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "פפרומיה מגניפוליה",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "שפלרה מגוונת",
+   "expected": "schefflera-arboricola",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "אגלונמה אדומה",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "אגלונמה מריה",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "אגלונמה סילבר קווין עלה צר",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "דרצנה אוסטרלית אדומה 4ל",
+   "expected": null,
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "דרצנה גמייקה שלישיה",
+   "expected": "dracaena",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "דרצנה דורדו",
+   "expected": "dracaena",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "דרצנה למון",
+   "expected": "dracaena",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "דרצנה מרגינטה על גזע",
+   "expected": "dracaena-marginata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פפרומיה מגניפוליה לבנה",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פפרומיה מגנפוליה",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פפרומיה מנגפוליה ירוק",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פפרומיה ריין דרופ",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "שפלרה עצית-מקרינה",
+   "expected": "schefflera-sp",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "Hoya Acuta silver heart si | ביייבי",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אגלונמה פולר ספרינג טיים | בינוני",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "בגוניה שיחית | בינוני",
+   "expected": "begonia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "דרצנה מרגינטה | בינוני",
+   "expected": "dracaena-marginata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה אוסטרליס בלונדי | בינוני",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה אריטרינה | בינוני",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה ברוטוניה מגוונת | בייבי",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה וויטי מגוונת | גדול",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה ליניאריס | בייבי",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה מיטרטה סילבר | בייבי | מבצע מבצע",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה פיטצ׳י | בייבי מבצע",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה קומפקטה מאונה | בייבי",
+   "expected": "hoya-carnosa",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה קלמינסרייום דארק ליף | בינוני",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה קריספיטיולטה ספלאש | בייבי",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "הויה רטוסה | בייבי מבצע",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סנסיוויריה טוג׳ ליידי | בינוני",
+   "expected": "dracaena",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "rootine",
+   "title": "סנסיווריה האני ספירל סטאר | בייבי",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פילודנדרון אורנג׳ פרינסס מגוון | בייבי",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פילודנדרון בליטיאיי מגוון",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פילודנדרון כרמל מרבל | בינוני",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פילודנדרון מקולי | בינוני",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פילודנדרון פרינס אוף אורנג’ | בינוני",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פפרומיה ונילה | בינוני",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פפרומיה רוסו | בייבי",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אגלונמה ורודה (קוקומלון)",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אגלונמה לבנה",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אגלונמה סילבר קווין",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "בת שבע הויה",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "בת שבע הויה מגוונת",
+   "expected": "hoya",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה במבוק/ גולדן",
+   "expected": "dracaena",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה דרגו",
+   "expected": "dracaena",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה למונליים",
+   "expected": "dracaena-fragrans",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה מסינגנה",
+   "expected": "dracaena-fragrans",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה מסנג'נה 7 ליטר",
+   "expected": "dracaena-fragrans",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה מרגינטה",
+   "expected": "dracaena-marginata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "דרצנה קורדליין",
+   "expected": null,
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פילודנדרון ביפי",
+   "expected": "thaumatophyllum-bipinnatifidum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פילודנדרון בירקין",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פילודנדרון מיקנס",
+   "expected": "philodendron-hederaceum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פילודנדרון סקוואמי",
+   "expected": "philodendron",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה אבטיח",
+   "expected": "peperomia-argyreia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה אנג'ולטה",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה הופ",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה זוחלת",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה לליאן",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה מגוונת (אובטיפן ביקולור)",
+   "expected": "peperomia-obtusifolia",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה פפרספוט",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה פרוסטרטה",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה רובי גלואו",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה רוסו",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה ריינדרופ",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פפרומיה שומי",
+   "expected": "peperomia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "שפלרה מקרינה עץ",
+   "expected": "schefflera-sp",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "שפלרה שיחית",
+   "expected": "schefflera-arboricola",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "grdntlv",
+   "title": "אגלונמה אדומה כהה",
+   "expected": "aglaonema",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "בגוניה מקולטה מנוקדת",
+   "expected": "begonia-maculata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "בגוניה רקס",
+   "expected": "begonia-rex",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "דרצנה טורנדו למון ליים",
+   "expected": "dracaena-fragrans",
+   "labelConfidence": "high"
+  }
+ ]
+}

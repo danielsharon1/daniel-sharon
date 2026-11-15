@@ -1,0 +1,35 @@
+name: PlantFinder
+
+on:
+  push:
+    paths: ["plantfinder/**", ".github/workflows/plantfinder.yml"]
+  pull_request:
+    paths: ["plantfinder/**", ".github/workflows/plantfinder.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: plantfinder
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: plantfinder/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      # E2E runs against recorded source snapshots (fixture mode): no network access to the nurseries needed.
+      - run: pnpm test:e2e

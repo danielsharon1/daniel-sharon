@@ -18,9 +18,20 @@ const PLANT_ARRANGEMENT = ["סוקולנט", "סוקולנטים", "צמחים",
 const PLANT_CATEGORY = /צמח|צמחי|שתיל|עצי|עצים|בונסאי|סוקולנט|קקטוס|תבלין|פרחים|plant|tree|bonsai|succulent/i;
 const ACCESSORY_CATEGORY = /כדים|כלים|עציצים ריקים|עציצים ואדניות|אדניות|אביזר|דשן|אדמה|השקיה|ציוד|כלי עבודה|גיפט|כרטיס|pots|planters|accessor/i;
 
+/** "עציץ" alone usually means a potted plant; with a material or "for <plant>" it is an empty pot. */
+const POT_MATERIALS = new Set(["זכוכית", "פלסטיק", "קרמיקה", "טרקוטה", "בטון", "חרס", "פיבר", "מתכת", "עץ", "קש", "נצרים", "ריק", "ריקה"].map((w) => tokenize(w)[0]!));
+const POT_HEADS = new Set(["עציץ", "עציצי"].map((w) => tokenize(w)[0]!)); // tokens are normalized (ץ -> צ)
+const MIX_HEAD = tokenize("תערובת")[0];
+const SUBSTRATE_WORDS = new Set(["שתילה", "אדמה", "מצע", "דשן", "קומפוסט"].map((w) => tokenize(w)[0]!));
+
 export function detectProductKind(title: string, categories: string[], classification: Classification): ProductKind {
   const tokens = tokenize(title);
   const head = tokens[0];
+  if (head && POT_HEADS.has(head)) {
+    const next = tokens[1];
+    if (next && (POT_MATERIALS.has(next) || next.startsWith("ל"))) return "accessory";
+  }
+  if (head === MIX_HEAD && tokens.slice(1, 3).some((t) => SUBSTRATE_WORDS.has(t))) return "accessory";
   if (head && ACCESSORY_HEADS.has(head)) {
     const arrangement = tokens.slice(1, 4).some((t) => PLANT_ARRANGEMENT.includes(t));
     if (!arrangement) return "accessory";

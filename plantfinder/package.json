@@ -12,10 +12,11 @@
     "dev": "pnpm --parallel --filter @plantfinder/api --filter @plantfinder/web dev",
     "build": "pnpm --filter @plantfinder/web build && pnpm --filter @plantfinder/api build && pnpm --filter @plantfinder/extension build",
     "start": "node services/api/dist/server.js",
-    "typecheck": "pnpm -r typecheck",
+    "typecheck": "pnpm -r typecheck && tsc -p tsconfig.json",
     "test": "vitest run",
     "test:e2e": "playwright test --trace off",
-    "eval": "tsx eval/run-eval.ts",
+    "eval": "NODE_USE_ENV_PROXY=1 tsx eval/run-eval.ts",
+    "eval:species": "tsx eval/species-eval.ts eval/species-holdout2.json",
     "gazetteer": "tsx scripts/build-gazetteer.ts",
     "check": "pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e"
   },

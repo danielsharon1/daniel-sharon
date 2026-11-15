@@ -75,7 +75,8 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Monstera karstenianum",
     rank: "species",
     genus: "Monstera",
-    he: ["מונסטרה פרו", "מונסטרה פרו", "מונסטרה קרסטניאנום"],
+    // Widely sold as "Monstera obliqua Peru", but the plant in trade is M. karstenianum.
+    he: ["מונסטרה פרו", "מונסטרה קרסטניאנום", "מונסטרה אובליקה פרו", "מונסטרה אובליקווה פרו"],
     en: ["Monstera peru", "Monstera karstenianum", "monstera sp peru"],
     searchTerms: ["מונסטרה", "monstera"]
   },
@@ -128,7 +129,7 @@ export const TAXA: TaxonDef[] = [
       { name: "Manjula", aliases: ["מנגולה", "מנג'ולה", "מאנג'ולה", "manjula"] },
       { name: "Marble Queen", aliases: ["מרבל קווין", "מרבל קוין", "marble queen"] },
       { name: "N'Joy", aliases: ["אנגוי", "אנג'וי", "njoy", "n joy"] },
-      { name: "Neon", aliases: ["נאון", "neon"] },
+      { name: "Neon", aliases: ["נאון", "ניאון", "neon"] },
       { name: "Global Green", aliases: ["גלובל גרין", "global green"] }
     ]
   },
@@ -137,7 +138,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Scindapsus pictus",
     rank: "species",
     genus: "Scindapsus",
-    he: ["סקינדפסוס", "סקינדפסוס פיקטוס", "פוטוס כסוף", "פוטוס סאטן"],
+    he: ["סקינדפסוס", "סקינדפסוס פיקטוס", "פוטוס כסוף", "פוטוס סאטן", "פיקטוס", "פוטוס תאילנדי"],
     en: ["Scindapsus pictus", "satin pothos", "silver pothos", "scindapsus"]
   },
   {
@@ -145,7 +146,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Philodendron hederaceum",
     rank: "species",
     genus: "Philodendron",
-    he: ["פילודנדרון מטפס", "פילודנדרון הדרציאום", "פילודנדרון סקנדנס", "פילודנדרון ברזיל", "פילודנדרון לב"],
+    he: ["פילודנדרון מטפס", "פילודנדרון הדרציאום", "פילודנדרון סקנדנס", "פילודנדרון ברזיל", "פילודנדרון לב", "פילודנדרון מיקנס"],
     en: ["Philodendron hederaceum", "heartleaf philodendron", "philodendron scandens", "philodendron brasil", "philodendron micans"]
   },
   {
@@ -153,7 +154,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Thaumatophyllum bipinnatifidum",
     rank: "species",
     genus: "Thaumatophyllum",
-    he: ["פילודנדרון סלואום", "פילודנדרון סלו", "פילודנדרון ביפינטיפידום", "פילודנדרון סלום"],
+    he: ["פילודנדרון סלואום", "פילודנדרון סלו", "פילודנדרון ביפינטיפידום", "פילודנדרון סלום", "פילודנדרון ביפי"],
     en: ["Thaumatophyllum bipinnatifidum", "Philodendron bipinnatifidum", "philodendron selloum", "tree philodendron"]
   },
   {
@@ -171,6 +172,7 @@ export const TAXA: TaxonDef[] = [
     genus: "Zamioculcas",
     he: ["זמיוקולקס", "זמיוקולקוס", "זמיוקולקס זמיפוליה", "זמיה"],
     en: ["Zamioculcas zamiifolia", "zz plant", "zanzibar gem", "zamioculcas"],
+    searchTerms: ["זמיה", "זמיוקולקס", "zamioculcas"], // stores mostly use the colloquial "זמיה"
     cultivars: [
       { name: "Raven", aliases: ["רייבן", "ריוון", "raven", "זמיה שחורה"] },
       { name: "Zenzi", aliases: ["זנזי", "זאנזי", "zenzi"] }
@@ -280,7 +282,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Ficus benjamina",
     rank: "species",
     genus: "Ficus",
-    he: ["פיקוס בנימינה", "פיקוס בנגמינה", "פיקוס בנג'מינה", "פיקוס בנימין"],
+    he: ["פיקוס בנימינה", "פיקוס בנגמינה", "פיקוס בנג'מינה", "פיקוס בנימין", "פיקוס בנימיני"],
     en: ["Ficus benjamina", "weeping fig"],
     searchTerms: ["פיקוס", "ficus"]
   },
@@ -309,12 +311,13 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Dracaena trifasciata",
     rank: "species",
     genus: "Dracaena",
-    he: ["לשון חמות", "סנסוויריה טריפסציאטה", "דרצנה טריפסציאטה"],
+    he: ["לשון חמות", "סנסוויריה טריפסציאטה", "דרצנה טריפסציאטה", "כידונן חרבות", "כידונן משולש"],
     en: ["Dracaena trifasciata", "Sansevieria trifasciata", "snake plant", "mother in law's tongue", "mother in laws tongue"],
-    defaultNames: ["סנסוויריה", "סנסיווריה", "סנסבריה", "סנסווריה", "סנסויריה", "סנסיוויריה", "סנסיויריה", "sansevieria"],
+    // "כידונן" is the Hebrew botanical name of Sansevieria.
+    defaultNames: ["סנסוויריה", "סנסיווריה", "סנסבריה", "סנסווריה", "סנסויריה", "סנסיוויריה", "סנסיויריה", "sansevieria", "כידונן"],
     cultivars: [
-      { name: "Laurentii", aliases: ["לורנטי", "לורנטיי", "laurentii"] },
-      { name: "Moonshine", aliases: ["מונשיין", "moonshine"] },
+      { name: "Laurentii", aliases: ["לורנטי", "לורנטיי", "laurentii", "פס צהוב"] },
+      { name: "Moonshine", aliases: ["מונשיין", "מון שיין", "moonshine"] },
       { name: "Hahnii", aliases: ["האני", "hahnii"] }
     ],
     searchTerms: ["סנסוויריה", "סנסיווריה", "sansevieria"]
@@ -324,7 +327,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Dracaena angolensis",
     rank: "species",
     genus: "Dracaena",
-    he: ["סנסוויריה גלילית", "סנסוויריה צילינדריקה", "סנסוויריה סילינדריקה"],
+    he: ["סנסוויריה גלילית", "סנסיווריה גלילית", "סנסוויריה צילינדריקה", "סנסוויריה סילינדריקה", "כידונן גלילני", "כידונן גליני", "כידונן גלילי"],
     en: ["Dracaena angolensis", "Sansevieria cylindrica", "cylindrical snake plant"],
     searchTerms: ["סנסוויריה", "סנסיווריה", "sansevieria"]
   },
@@ -350,14 +353,33 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Dracaena fragrans",
     rank: "species",
     genus: "Dracaena",
-    he: ["דרצנה פרגרנס", "דרצנה מסנגיאנה", "דרצנה מסנג'יאנה", "דרצנה ריחנית"],
+    he: ["דרצנה פרגרנס", "דרצנה מסנגיאנה", "דרצנה מסנג'יאנה", "דרצנה מסנגנה", "דרצנה מסנג'נה", "דרצנה מסינגנה", "דרצנה ריחנית"],
     en: ["Dracaena fragrans", "corn plant", "dracaena massangeana", "dracaena deremensis"],
     cultivars: [
-      { name: "Lemon Lime", aliases: ["למון ליים", "לימון ליים", "lemon lime"] },
+      { name: "Lemon Lime", aliases: ["למון ליים", "לימון ליים", "למונליים", "lemon lime"] },
       { name: "Janet Craig", aliases: ["ג'נט קרייג", "גנט קרייג", "janet craig"] },
       { name: "Compacta", aliases: ["קומפקטה", "compacta"] }
     ],
     searchTerms: ["דרצנה", "dracaena"]
+  },
+  {
+    id: "dracaena-sanderiana",
+    scientificName: "Dracaena sanderiana",
+    rank: "species",
+    genus: "Dracaena",
+    he: ["דרצנה במבוק", "במבוק המזל", "לאקי במבוק", "לאקי במבו", "עץ המזל"],
+    en: ["Dracaena sanderiana", "lucky bamboo"],
+    searchTerms: ["דרצנה", "במבוק", "dracaena"]
+  },
+  {
+    // Cordyline is a different genus that Israeli stores often sell as "דרצנה".
+    id: "cordyline",
+    scientificName: "Cordyline",
+    rank: "genus",
+    genus: "Cordyline",
+    he: ["קורדילינה", "קורדליין", "קורדילין", "דרצנה קורדליין", "דרצנה קורדילינה", "דרצנה אוסטרלית"],
+    en: ["Cordyline", "ti plant", "cabbage tree"],
+    searchTerms: ["קורדילינה", "cordyline"]
   },
   {
     id: "yucca-gigantea",
@@ -392,7 +414,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Goeppertia orbifolia",
     rank: "species",
     genus: "Goeppertia",
-    he: ["קלתאה אורביפוליה", "קלתיאה אורביפוליה"],
+    he: ["קלתאה אורביפוליה", "קלתיאה אורביפוליה", "קלתאה אורבופוליה"],
     en: ["Goeppertia orbifolia", "Calathea orbifolia"],
     searchTerms: ["קלתאה", "calathea"]
   },
@@ -401,7 +423,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Goeppertia makoyana",
     rank: "species",
     genus: "Goeppertia",
-    he: ["קלתאה מקויאנה", "קלתיאה מקויאנה"],
+    he: ["קלתאה מקויאנה", "קלתיאה מקויאנה", "קלתאה מקיויאנה"],
     en: ["Goeppertia makoyana", "Calathea makoyana", "peacock plant"],
     searchTerms: ["קלתאה", "calathea"]
   },
@@ -419,8 +441,18 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Ctenanthe",
     rank: "genus",
     genus: "Ctenanthe",
-    he: ["קטננטה", "קטנאנטה"],
-    en: ["Ctenanthe"]
+    // Ctenanthe oppenheimiana is commonly sold as a "Calathea".
+    he: ["קטננטה", "קטנאנטה", "קלתאה אופנהיימינה", "קלתאה אופנהיימיאנה", "קטננטה אופנהיימיאנה"],
+    en: ["Ctenanthe", "Ctenanthe oppenheimiana"]
+  },
+  {
+    // Stromanthe 'Triostar' is commonly sold as "Calathea Triostar".
+    id: "stromanthe-sanguinea",
+    scientificName: "Stromanthe sanguinea",
+    rank: "species",
+    genus: "Stromanthe",
+    he: ["סטרומנטה", "סטרומנטה טריוסטאר", "קלתאה טריוסטאר", "קלתיאה טריוסטאר"],
+    en: ["Stromanthe sanguinea", "Stromanthe thalia", "stromanthe triostar", "calathea triostar"]
   },
 
   // ---- Other foliage --------------------------------------------------------------------------
@@ -437,26 +469,29 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Strelitzia nicolai",
     rank: "species",
     genus: "Strelitzia",
-    he: ["סטרליציה ניקולאי", "סטרליציה ניקולאיי", "סטרליציה לבנה"],
+    he: ["סטרליציה ניקולאי", "סטרליציה ניקולאיי", "סטרליציה לבנה", "ציפור גן עדן ניקולאי", "ציפור גן עדן לבנה"],
     en: ["Strelitzia nicolai", "white bird of paradise", "giant bird of paradise"],
-    searchTerms: ["סטרליציה", "strelitzia"]
+    searchTerms: ["סטרליציה", "ציפור גן עדן", "strelitzia"]
   },
   {
     id: "strelitzia-reginae",
     scientificName: "Strelitzia reginae",
     rank: "species",
     genus: "Strelitzia",
-    he: ["סטרליציה רגינה", "סטרליציה מלכותית", "ציפור גן עדן"],
-    en: ["Strelitzia reginae", "bird of paradise", "crane flower"],
-    searchTerms: ["סטרליציה", "strelitzia"]
+    he: ["סטרליציה רגינה", "סטרליציה מלכותית", "ציפור גן עדן כתומה"],
+    en: ["Strelitzia reginae", "crane flower", "orange bird of paradise"],
+    searchTerms: ["סטרליציה", "ציפור גן עדן", "strelitzia"]
   },
   {
+    // "ציפור גן עדן" (bird of paradise) is used in Israeli trade for both S. reginae and S. nicolai,
+    // so on its own it only identifies the genus.
     id: "strelitzia",
     scientificName: "Strelitzia",
     rank: "genus",
     genus: "Strelitzia",
-    he: ["סטרליציה", "סטרלציה"],
-    en: ["Strelitzia"]
+    he: ["סטרליציה", "סטרלציה", "ציפור גן עדן"],
+    en: ["Strelitzia", "bird of paradise"],
+    searchTerms: ["סטרליציה", "ציפור גן עדן", "strelitzia"]
   },
   {
     id: "peperomia",
@@ -574,7 +609,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Hoya",
     rank: "genus",
     genus: "Hoya",
-    he: ["הויה", "הוייה"],
+    he: ["הויה", "הוייה", "בת שבע"], // "בת שבע" is the Hebrew common name of Hoya
     en: ["Hoya", "wax plant"]
   },
   {
@@ -582,7 +617,7 @@ export const TAXA: TaxonDef[] = [
     scientificName: "Hoya carnosa",
     rank: "species",
     genus: "Hoya",
-    he: ["הויה קרנוזה", "הויה קרנוסה"],
+    he: ["הויה קרנוזה", "הויה קרנוסה", "הויה קומפקטה"], // H. carnosa 'Compacta' is sold as "Hoya compacta"
     en: ["Hoya carnosa"],
     searchTerms: ["הויה", "hoya"]
   },
@@ -680,7 +715,8 @@ export const TAXA: TaxonDef[] = [
     rank: "species",
     genus: "Aloe",
     he: ["אלוורה", "אלוי ורה", "אלוה ורה", "אלווה ורה"],
-    en: ["Aloe vera", "aloe barbadensis"]
+    en: ["Aloe vera", "aloe barbadensis"],
+    searchTerms: ["אלוורה", "אלוי", "aloe"]
   },
   {
     id: "aloe",

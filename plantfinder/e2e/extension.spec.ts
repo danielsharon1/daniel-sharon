@@ -1,8 +1,13 @@
 import { test, expect, chromium, type BrowserContext } from "@playwright/test";
-import { readFileSync } from "node:fs";
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+
+// The `chrome` API exists inside the extension service worker where sw.evaluate() runs.
+declare const chrome: {
+  contextMenus: { create(props: Record<string, unknown>, cb: () => void): void };
+  runtime: { lastError?: unknown };
+};
 
 const EXT = join(process.cwd(), "apps/extension/build");
 const API = "http://127.0.0.1:8788";
