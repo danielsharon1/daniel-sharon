@@ -177,7 +177,8 @@ const he = {
   unlocking: "פותח…",
   lock: "נעילה",
   lockHint: "מחיקת הסיסמה מהמכשיר הזה",
-  snapshotBanner: (d: string) => `הנתונים נאספו מהמשתלות ב־${d} ומתעדכנים אוטומטית שלוש פעמים ביום.`
+  snapshotBanner: (d: string) => `הנתונים נאספו מהמשתלות ב־${d} ומתעדכנים אוטומטית שלוש פעמים ביום.`,
+  previewBanner: (d: string) => `תצוגה מקדימה: הנתונים נאספו מהמשתלות ב־${d} ולא מתעדכנים כאן. באתר עצמו הם מתעדכנים שלוש פעמים ביום. תמונות המוצרים לא נטענות בתצוגה הזו.`
 };
 
 type Dict = typeof he;
@@ -352,7 +353,8 @@ const en: Dict = {
   unlocking: "Unlocking…",
   lock: "Lock",
   lockHint: "Remove the passphrase from this device",
-  snapshotBanner: (d: string) => `Data collected from the nurseries on ${d}; refreshed automatically three times a day.`
+  snapshotBanner: (d: string) => `Data collected from the nurseries on ${d}; refreshed automatically three times a day.`,
+  previewBanner: (d: string) => `Preview: data collected from the nurseries on ${d} and not refreshed here. The real site refreshes three times a day. Product images do not load in this preview.`
 };
 
 export const DICTS: Record<Lang, Dict> = { he, en };

@@ -106,7 +106,11 @@ export function App() {
     async (p: SearchParams) => {
       const url = new URL(window.location.href);
       url.search = p.q.trim() ? toQuery(p, lang).toString() : "";
-      window.history.replaceState(null, "", url);
+      try {
+        window.history.replaceState(null, "", url); // shareable URL; some embedded viewers forbid it
+      } catch {
+        /* ignore: search still runs */
+      }
       if (!p.q.trim()) {
         setResult(null);
         return;
@@ -224,7 +228,7 @@ export function App() {
       )}
       {meta?.dataMode === "snapshot" && result?.snapshotGeneratedAt && (
         <p className="banner" role="note">
-          {t.snapshotBanner(formatDateTime(result.snapshotGeneratedAt, lang))}
+          {(import.meta.env.VITE_PF_PREVIEW === "1" ? t.previewBanner : t.snapshotBanner)(formatDateTime(result.snapshotGeneratedAt, lang))}
         </p>
       )}
 

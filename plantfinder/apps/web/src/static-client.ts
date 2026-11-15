@@ -57,13 +57,27 @@ export function isUnlocked(): boolean {
   return loaded !== null;
 }
 
+/**
+ * The snapshot is published as binary (data/index.bin). Hosts that only serve text types get a base64
+ * copy instead (data/index.b64.txt); both decode to the same bytes.
+ */
+async function loadIndexBytes(): Promise<Uint8Array> {
+  const bin = await fetch("data/index.bin", { cache: "no-cache" }).catch(() => null);
+  if (bin?.ok) return new Uint8Array(await bin.arrayBuffer());
+  const txt = await fetch("data/index.b64.txt", { cache: "no-cache" }).catch(() => null);
+  if (!txt?.ok) throw new ApiError("snapshot_unavailable", txt?.status ?? bin?.status ?? 0);
+  const s = atob((await txt.text()).trim());
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+  return out;
+}
+
 /** Decrypt and load the snapshot. Throws ApiError("passphrase_required" | "wrong_passphrase" | ...). */
 export async function unlock(passphrase: string | null, remember: boolean): Promise<void> {
   const m = await loadMeta();
-  const res = await fetch("data/index.bin", { cache: "no-cache" }).catch(() => null);
-  if (!res?.ok) throw new ApiError("snapshot_unavailable", res?.status ?? 0);
+  const bytes = await loadIndexBytes();
   try {
-    const index = await decodeSnapshot(m, new Uint8Array(await res.arrayBuffer()), passphrase);
+    const index = await decodeSnapshot(m, bytes, passphrase);
     loaded = { index, listings: hydrateListings(index) };
   } catch (e) {
     if (e instanceof SnapshotPassphraseError) throw new ApiError(e.code, 401);
