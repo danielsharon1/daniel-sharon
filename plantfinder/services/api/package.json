@@ -1,0 +1,25 @@
+{
+  "name": "@plantfinder/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_USE_ENV_PROXY=1 tsx watch src/server.ts",
+    "build": "node build.mjs",
+    "start": "NODE_USE_ENV_PROXY=1 node dist/server.js",
+    "record-fixtures": "NODE_USE_ENV_PROXY=1 tsx src/record-fixtures.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.4.3",
+    "@fastify/multipart": "^10.1.8",
+    "@fastify/rate-limit": "^11.2.2",
+    "@fastify/static": "^10.1.11",
+    "@plantfinder/shared": "workspace:*",
+    "fastify": "^5.12.8",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "plantfinder",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Israel-first plant discovery and price comparison: web app, Chrome MV3 extension and shared API.",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": { "node": ">=20.11" },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @plantfinder/api --filter @plantfinder/web dev",
+    "build": "pnpm --filter @plantfinder/web build && pnpm --filter @plantfinder/api build && pnpm --filter @plantfinder/extension build",
+    "start": "node services/api/dist/server.js",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "test:e2e": "playwright test --trace off",
+    "eval": "tsx eval/run-eval.ts",
+    "gazetteer": "tsx scripts/build-gazetteer.ts",
+    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.20.0",
+    "typescript": "5.9.3",
+    "vitest": "^4.1.12"
+  }
+}
