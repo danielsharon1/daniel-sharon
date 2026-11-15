@@ -141,7 +141,11 @@ const he = {
     rate_limited: "יותר מדי חיפושים בדקה. נסו שוב בעוד רגע.",
     network: "אין חיבור לשרת. בדקו את החיבור ונסו שוב.",
     internal_error: "שגיאה בשרת. נסו שוב.",
-    geolocation: "לא התקבלה הרשאה למיקום. אפשר להקליד עיר."
+    geolocation: "לא התקבלה הרשאה למיקום. אפשר להקליד עיר.",
+    wrong_passphrase: "הסיסמה שגויה.",
+    passphrase_required: "צריך להזין סיסמה.",
+    snapshot_unavailable: "לא הצלחנו לטעון את הנתונים. נסו לרענן את הדף.",
+    locked: "צריך להזין סיסמה."
   } as Record<string, string>,
   photoTitle: "זיהוי צמח מתמונה",
   photoBody: "התמונה נשלחת לזיהוי ולא נשמרת. הזיהוי הוא הערכה, ולכן צריך לאשר את הצמח לפני החיפוש.",
@@ -153,17 +157,27 @@ const he = {
   noMatch: "לא נמצא צמח מתאים בתמונה.",
   searchThis: "חיפוש הצמח הזה",
   notInCatalog: "לא במילון שלנו, נחפש לפי השם",
-  photoUnavailable: "זיהוי מתמונה לא מופעל בשרת הזה (חסר מפתח Pl@ntNet). אפשר לחפש לפי שם.",
+  photoUnavailable: "זיהוי מתמונה לא מופעל כאן (חסר מפתח Pl@ntNet). אפשר לחפש לפי שם.",
   photoErrors: {
     unsupported_image_type: "סוג הקובץ לא נתמך. אפשר JPEG, PNG או WebP.",
     image_too_large: "התמונה גדולה מ־6MB.",
     identify_quota_exceeded: "נגמרה מכסת הזיהויים היומית. נסו מחר.",
+    identify_provider_error: "שירות הזיהוי לא ענה. נסו שוב מאוחר יותר.",
     default: "הזיהוי נכשל. נסו תמונה אחרת."
   } as Record<string, string>,
   cancel: "ביטול",
   footer: "PlantFinder מציג רק הצעות ממקורות אמיתיים עם קישור למקור. מחיר, מלאי ומשלוח נקבעים באתר המוכר.",
   attribution: "נתוני יישובים: GeoNames (CC BY 4.0). זיהוי צמחים: Pl@ntNet.",
-  skip: "דילוג לתוצאות"
+  skip: "דילוג לתוצאות",
+  unlockTitle: "הכניסה מוגנת בסיסמה",
+  unlockBody: "הנתונים מהמשתלות מוצפנים, כי תנאי השימוש שלהן לא מתירים פרסום פתוח. הזינו את הסיסמה שהגדרתם ב-GitHub.",
+  passphrase: "סיסמה",
+  rememberDevice: "לזכור במכשיר הזה",
+  unlock: "כניסה",
+  unlocking: "פותח…",
+  lock: "נעילה",
+  lockHint: "מחיקת הסיסמה מהמכשיר הזה",
+  snapshotBanner: (d: string) => `הנתונים נאספו מהמשתלות ב־${d} ומתעדכנים אוטומטית שלוש פעמים ביום.`
 };
 
 type Dict = typeof he;
@@ -302,7 +316,11 @@ const en: Dict = {
     rate_limited: "Too many searches this minute. Try again shortly.",
     network: "Cannot reach the server. Check your connection and retry.",
     internal_error: "Server error. Try again.",
-    geolocation: "Location permission was not granted. Type a city instead."
+    geolocation: "Location permission was not granted. Type a city instead.",
+    wrong_passphrase: "Wrong passphrase.",
+    passphrase_required: "Enter the passphrase.",
+    snapshot_unavailable: "Could not load the data. Try reloading the page.",
+    locked: "Enter the passphrase."
   },
   photoTitle: "Identify a plant from a photo",
   photoBody: "The photo is sent for identification and not stored. Identification is an estimate, so confirm the plant before searching.",
@@ -314,17 +332,27 @@ const en: Dict = {
   noMatch: "No plant was recognised in this photo.",
   searchThis: "Search this plant",
   notInCatalog: "Not in our dictionary; searching by name",
-  photoUnavailable: "Photo identification is not enabled on this server (no Pl@ntNet key). Search by name instead.",
+  photoUnavailable: "Photo identification is not enabled here (no Pl@ntNet key). Search by name instead.",
   photoErrors: {
     unsupported_image_type: "Unsupported file. Use JPEG, PNG or WebP.",
     image_too_large: "The image is larger than 6 MB.",
     identify_quota_exceeded: "Daily identification quota used up. Try tomorrow.",
+    identify_provider_error: "The identification service did not respond. Try again later.",
     default: "Identification failed. Try another photo."
   },
   cancel: "Cancel",
   footer: "PlantFinder shows only offers from real sources, linked to the source. Price, stock and delivery are set on the seller's site.",
   attribution: "Locality data: GeoNames (CC BY 4.0). Plant identification: Pl@ntNet.",
-  skip: "Skip to results"
+  skip: "Skip to results",
+  unlockTitle: "Passphrase required",
+  unlockBody: "The nurseries' data is encrypted because their terms do not allow open publication. Enter the passphrase you set in GitHub.",
+  passphrase: "Passphrase",
+  rememberDevice: "Remember on this device",
+  unlock: "Unlock",
+  unlocking: "Unlocking…",
+  lock: "Lock",
+  lockHint: "Remove the passphrase from this device",
+  snapshotBanner: (d: string) => `Data collected from the nurseries on ${d}; refreshed automatically three times a day.`
 };
 
 export const DICTS: Record<Lang, Dict> = { he, en };

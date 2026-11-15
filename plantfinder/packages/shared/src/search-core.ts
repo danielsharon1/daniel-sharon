@@ -49,9 +49,14 @@ export function resolveQuery(q: string): { resolved: ResolvedQuery; target: Taxo
   };
 }
 
-type Relevance = { kind: "match"; level: MatchLevel } | { kind: "related" } | { kind: "unrelated" };
+export type Relevance = { kind: "match"; level: MatchLevel } | { kind: "related" } | { kind: "unrelated" };
 
-function relevanceFor(listing: Listing, target: TaxonDef | null, queryTokens: string[]): Relevance {
+/** Query tokens used for text matching when the query is not in the taxonomy. */
+export function textQueryTokens(q: string): string[] {
+  return tokenize(q).filter((t) => t.length >= 2);
+}
+
+export function relevanceFor(listing: Listing, target: TaxonDef | null, queryTokens: string[]): Relevance {
   const c = listing.classification;
   if (!target) {
     if (queryTokens.length === 0) return { kind: "unrelated" };
@@ -143,7 +148,7 @@ export function evaluateListings(
     duplicates: 0
   };
   const counts: Record<Bucket, number> = { match: 0, location_unknown: 0, outside_radius: 0, related_species: 0 };
-  const queryTokens = target ? [] : tokenize(request.q).filter((t) => t.length >= 2);
+  const queryTokens = target ? [] : textQueryTokens(request.q);
   const seen = new Set<string>();
   const items: ResultItem[] = [];
   const staleBefore = now.getTime() - STALE_AFTER_HOURS * 3600_000;

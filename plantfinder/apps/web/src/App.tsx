@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Bucket, ResultItem, SearchResponse, SourcePublicInfo } from "@plantfinder/shared";
 import { DICTS, type Lang } from "./i18n";
-import { api, ApiError, DEFAULT_PARAMS, fromUrl, loadSaved, storeSaved, toQuery, type SavedSearch, type SearchParams } from "./api";
+import { api, ApiError, DEFAULT_PARAMS, fromUrl, IS_STATIC, loadSaved, storeSaved, toQuery, type SavedSearch, type SearchParams } from "./api";
+import { forgetPassphrase, loadMeta, storedPassphrase, unlock } from "./static-client";
+import { formatDateTime } from "./format";
+import { Unlock } from "./components/Unlock";
 import { formatDate, formatPrice } from "./format";
 import { ListingLabel } from "./components/ListingLabel";
 import { DistanceRuler } from "./components/DistanceRuler";
@@ -34,7 +37,11 @@ export function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sources, setSources] = useState<SourcePublicInfo[]>([]);
-  const [meta, setMeta] = useState<{ dataMode: "live" | "fixture"; sourcePolicy: string; identifyAvailable: boolean } | null>(null);
+  const [meta, setMeta] = useState<{ dataMode: "live" | "fixture" | "snapshot"; sourcePolicy: string; identifyAvailable: boolean } | null>(null);
+  // Static (GitHub Pages) build: the encrypted snapshot must be unlocked before anything else runs.
+  const [ready, setReady] = useState(!IS_STATIC);
+  const [lockState, setLockState] = useState<{ encrypted: boolean; busy: boolean; error: string | null }>({ encrypted: false, busy: IS_STATIC, error: null });
+  const [identifyUrl] = useState(() => new URLSearchParams(window.location.search).get("identifyUrl"));
   const [showSources, setShowSources] = useState(false);
   const [showPhoto, setShowPhoto] = useState(false);
   const [saved, setSaved] = useState<SavedSearch[]>(() => loadSaved());
@@ -54,10 +61,35 @@ export function App() {
     }
   }, [lang, t.dir]);
 
+  const tryUnlock = useCallback(async (passphrase: string | null, remember: boolean) => {
+    setLockState((s) => ({ ...s, busy: true, error: null }));
+    try {
+      await unlock(passphrase, remember);
+      setReady(true);
+      setLockState((s) => ({ ...s, busy: false }));
+    } catch (e) {
+      setLockState((s) => ({ ...s, busy: false, error: e instanceof ApiError ? e.code : "snapshot_unavailable" }));
+    }
+  }, []);
+
   useEffect(() => {
+    if (!IS_STATIC) return;
+    loadMeta()
+      .then((m) => {
+        setLockState((s) => ({ ...s, encrypted: !!m.encryption }));
+        const stored = storedPassphrase();
+        if (!m.encryption || stored) void tryUnlock(m.encryption ? stored : null, true);
+        else setLockState((s) => ({ ...s, busy: false }));
+      })
+      .catch(() => setLockState((s) => ({ ...s, busy: false, error: "snapshot_unavailable" })));
+  }, [tryUnlock]);
+
+  useEffect(() => {
+    if (!ready) return;
     api.health().then(setMeta).catch(() => setMeta(null));
     api.sources().then((r) => setSources(r.sources)).catch(() => undefined);
-  }, []);
+    if (identifyUrl) setShowPhoto(true);
+  }, [ready, identifyUrl]);
 
   // Plant name suggestions for the search box.
   useEffect(() => {
@@ -98,9 +130,10 @@ export function App() {
   );
 
   useEffect(() => {
+    if (!ready) return;
     const timer = setTimeout(() => void run(params), 120);
     return () => clearTimeout(timer);
-  }, [params, run]);
+  }, [params, run, ready]);
 
   const update = (patch: Partial<SearchParams>) => setParams((p) => ({ ...p, ...patch }));
   const submit = (q: string) => {
@@ -164,6 +197,18 @@ export function App() {
           <button className="btn btn--quiet" onClick={() => setLang(lang === "he" ? "en" : "he")} lang={lang === "he" ? "en" : "he"}>
             {t.language}
           </button>
+          {IS_STATIC && ready && lockState.encrypted && (
+            <button
+              className="btn btn--quiet"
+              title={t.lockHint}
+              onClick={() => {
+                forgetPassphrase();
+                window.location.reload();
+              }}
+            >
+              {t.lock}
+            </button>
+          )}
         </nav>
       </header>
 
@@ -177,7 +222,16 @@ export function App() {
           {t.pilotBanner}
         </p>
       )}
+      {meta?.dataMode === "snapshot" && result?.snapshotGeneratedAt && (
+        <p className="banner" role="note">
+          {t.snapshotBanner(formatDateTime(result.snapshotGeneratedAt, lang))}
+        </p>
+      )}
 
+      {!ready ? (
+        <Unlock t={t} busy={lockState.busy} error={lockState.error} onUnlock={(p, r) => void tryUnlock(p, r)} />
+      ) : (
+        <>
       <section className="hero">
         <p className="hero__tagline">{t.tagline}</p>
         <form
@@ -389,6 +443,8 @@ export function App() {
           )}
         </main>
       </div>
+        </>
+      )}
 
       <footer className="footer">
         <p>{t.footer}</p>
@@ -399,6 +455,7 @@ export function App() {
       <PhotoSearch
         open={showPhoto}
         available={meta?.identifyAvailable ?? false}
+        initialUrl={identifyUrl}
         t={t}
         onClose={() => setShowPhoto(false)}
         onPick={(q) => {

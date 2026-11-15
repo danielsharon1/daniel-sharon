@@ -5,3 +5,4 @@ export * from "./size.js";
 export * from "./geo.js";
 export * from "./product-kind.js";
 export * from "./search-core.js";
+export * from "./snapshot.js";

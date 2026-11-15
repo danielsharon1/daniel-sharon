@@ -28,6 +28,8 @@ interface WooProduct {
 
 const PER_PAGE = 50;
 const MAX_PAGES = 2;
+/** Safety cap for full-catalog pagination (100 items per page). */
+const MAX_CATALOG_PAGES = 60;
 
 function toMajor(minor: string | undefined, unit: number): number | null {
   if (minor === undefined || minor === null || minor === "") return null;
@@ -107,6 +109,24 @@ export class WooCommerceAdapter implements SourceAdapter {
       }
     }
 
+    const listings = this.toListings(products, variations);
+
+    const result: AdapterResult = {
+      listings,
+      retrievedAt: oldest ?? new Date().toISOString(),
+      fromCache: requests > 0 && allFromCache,
+      requests
+    };
+    if (staleNote) result.warning = `stale cache served: ${staleNote}`;
+    else if (variationErrors.size) result.warning = `variant prices unavailable for ${variationErrors.size} products (showing price ranges)`;
+    return result;
+  }
+
+  /** Map Store API products (+ their variations) to listings, one per plant size. */
+  private toListings(
+    products: Map<number, { p: WooProduct; fetchedAt: string; endpoint: string }>,
+    variations: Map<number, { v: WooProduct; fetchedAt: string; endpoint: string }[]>
+  ): Listing[] {
     const demo = this.transport.kind === "fixture";
     const listings: Listing[] = [];
     for (const { p, fetchedAt, endpoint } of products.values()) {
@@ -177,14 +197,40 @@ export class WooCommerceAdapter implements SourceAdapter {
       if (l) listings.push(l);
     }
 
-    const result: AdapterResult = {
-      listings,
-      retrievedAt: oldest ?? new Date().toISOString(),
-      fromCache: requests > 0 && allFromCache,
-      requests
-    };
-    if (staleNote) result.warning = `stale cache served: ${staleNote}`;
-    else if (variationErrors.size) result.warning = `variant prices unavailable for ${variationErrors.size} products (showing price ranges)`;
-    return result;
+    return listings;
+  }
+
+  /**
+   * Full catalog (for the periodic static-site snapshot): every product page plus every variation page.
+   * Two paginated listings per store instead of one request per search term.
+   */
+  async fetchCatalog(): Promise<AdapterResult> {
+    let requests = 0;
+    let oldest: string | null = null;
+    const products = new Map<number, { p: WooProduct; fetchedAt: string; endpoint: string }>();
+    const variations = new Map<number, { v: WooProduct; fetchedAt: string; endpoint: string }[]>();
+    for (const kind of ["product", "variation"] as const) {
+      for (let page = 1; page <= MAX_CATALOG_PAGES; page++) {
+        const url = this.productsUrl([
+          ["per_page", "100"],
+          ["page", String(page)],
+          ...(kind === "variation" ? ([["type", "variation"]] as [string, string][]) : [])
+        ]);
+        const res = await this.transport.getJson(url);
+        requests++;
+        if (!oldest || res.fetchedAt < oldest) oldest = res.fetchedAt;
+        if (!isWooProductArray(res.json)) throw new Error(`Unexpected Store API payload from ${this.source.id}`);
+        for (const p of res.json) {
+          if (kind === "product") {
+            if (p.type !== "variation" && !products.has(p.id)) products.set(p.id, { p, fetchedAt: res.fetchedAt, endpoint: url });
+          } else {
+            const parent = p.parent ?? 0;
+            variations.set(parent, [...(variations.get(parent) ?? []), { v: p, fetchedAt: res.fetchedAt, endpoint: url }]);
+          }
+        }
+        if (res.json.length < 100) break;
+      }
+    }
+    return { listings: this.toListings(products, variations), retrievedAt: oldest ?? new Date().toISOString(), fromCache: false, requests };
   }
 }

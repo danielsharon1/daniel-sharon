@@ -39,6 +39,8 @@ export interface AdapterResult {
 export interface SourceAdapter {
   readonly source: SourceDef;
   search(terms: string[]): Promise<AdapterResult>;
+  /** Entire public catalog (used by the periodic static-site snapshot). */
+  fetchCatalog(): Promise<AdapterResult>;
 }
 
 export function safeHttpsUrl(u: string | null | undefined, base?: string): string | null {

@@ -52,7 +52,7 @@ export class PlantNetProvider implements IdentifyProvider {
 
   async identify(image: Uint8Array, mime: ImageMime): Promise<IdentifyCandidate[]> {
     const form = new FormData();
-    form.append("images", new Blob([image], { type: mime }), `upload.${mime.split("/")[1]}`);
+    form.append("images", new Blob([image as BlobPart], { type: mime }), `upload.${mime.split("/")[1]}`);
     form.append("organs", "auto");
     const url = `https://my-api.plantnet.org/v2/identify/all?include-related-images=false&nb-results=5&lang=en&api-key=${encodeURIComponent(this.apiKey)}`;
     const ctrl = new AbortController();

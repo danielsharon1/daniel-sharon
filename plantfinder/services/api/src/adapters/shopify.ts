@@ -50,7 +50,7 @@ export class ShopifyAdapter implements SourceAdapter {
     if (!source.apiBase) throw new Error(`Source ${source.id} has no apiBase`);
   }
 
-  async search(terms: string[]): Promise<AdapterResult> {
+  private async loadCatalog() {
     let requests = 0;
     let oldest: string | null = null;
     let allFromCache = true;
@@ -67,6 +67,17 @@ export class ShopifyAdapter implements SourceAdapter {
       for (const p of res.json.products) products.push({ p, fetchedAt: res.fetchedAt, endpoint: url });
       if (res.json.products.length < PAGE_SIZE) break;
     }
+    return { products, requests, oldest, allFromCache, staleNote };
+  }
+
+  /** Full catalog for the periodic static-site snapshot. */
+  async fetchCatalog(): Promise<AdapterResult> {
+    const { products, requests, oldest } = await this.loadCatalog();
+    return { listings: this.toListings(products), retrievedAt: oldest ?? new Date().toISOString(), fromCache: false, requests };
+  }
+
+  async search(terms: string[]): Promise<AdapterResult> {
+    const { products: all, requests, oldest, allFromCache, staleNote } = await this.loadCatalog();
 
     const termTokens = terms.map((t) => tokenize(t)).filter((t) => t.length > 0);
     // The whole catalog is local, so also match by classified genus: catches common names that the
@@ -76,12 +87,19 @@ export class ShopifyAdapter implements SourceAdapter {
       return id ? getTaxon(id)?.genus ?? null : null;
     };
     const termGenera = new Set(terms.map(genusOf).filter((g): g is string => g !== null));
+    const products = all.filter(({ p }) => {
+      const byTerm = termTokens.some((tt) => findPhrase(tokenize(p.title), tt) >= 0);
+      return byTerm || (termGenera.size > 0 && termGenera.has(genusOf(p.title) ?? ""));
+    });
+    const result: AdapterResult = { listings: this.toListings(products), retrievedAt: oldest ?? new Date().toISOString(), fromCache: allFromCache, requests };
+    if (staleNote) result.warning = `stale cache served: ${staleNote}`;
+    return result;
+  }
+
+  private toListings(products: { p: ShopifyProduct; fetchedAt: string; endpoint: string }[]): Listing[] {
     const demo = this.transport.kind === "fixture";
     const listings: Listing[] = [];
     for (const { p, fetchedAt, endpoint } of products) {
-      const titleTokens = tokenize(p.title);
-      const byTerm = termTokens.some((tt) => findPhrase(titleTokens, tt) >= 0);
-      if (!byTerm && !(termGenera.size > 0 && termGenera.has(genusOf(p.title) ?? ""))) continue;
       const tags = Array.isArray(p.tags) ? p.tags : String(p.tags ?? "").split(",").map((t) => t.trim()).filter(Boolean);
       const categories = [p.product_type, ...tags].filter(Boolean);
       const image = p.images?.[0]?.src ?? null;
@@ -120,8 +138,6 @@ export class ShopifyAdapter implements SourceAdapter {
         if (l) listings.push(l);
       }
     }
-    const result: AdapterResult = { listings, retrievedAt: oldest ?? new Date().toISOString(), fromCache: allFromCache, requests };
-    if (staleNote) result.warning = `stale cache served: ${staleNote}`;
-    return result;
+    return listings;
   }
 }

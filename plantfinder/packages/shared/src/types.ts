@@ -140,7 +140,8 @@ export interface SearchRequest {
 
 export interface SourceRunStatus {
   sourceId: string;
-  status: "ok" | "error" | "skipped" | "blocked";
+  /** carried_over = this run failed; the previous snapshot's data for the source was kept (labelled stale). */
+  status: "ok" | "error" | "skipped" | "blocked" | "carried_over";
   message: string | null;
   fetched: number;
   durationMs: number;
@@ -181,7 +182,10 @@ export interface SearchResponse {
   counts: Record<Bucket, number>;
   hidden: HiddenCounts;
   sources: SourceRunStatus[];
-  dataMode: "live" | "fixture";
+  /** live = fetched for this request; snapshot = periodic snapshot (static site); fixture = recorded DEMO data. */
+  dataMode: "live" | "fixture" | "snapshot";
+  /** For snapshot mode: when the snapshot was generated. */
+  snapshotGeneratedAt?: string;
   sourcePolicy: "personal" | "public";
   generatedAt: string;
 }

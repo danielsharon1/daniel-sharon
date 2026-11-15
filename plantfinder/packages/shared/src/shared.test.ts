@@ -255,3 +255,79 @@ describe("strict evaluation (Netanya / 25 km / 150 ILS)", () => {
     expect(r.items[0]!.classification.level).toBe("none");
   });
 });
+
+describe("snapshot (static site data)", () => {
+  async function makeIndex() {
+    const { compactListing } = await import("./snapshot.js");
+    const near = { lat: 32.1631, lon: 34.8742, label: { he: "גבעת חן", en: "Giv'at Hen" }, precision: "address" as const, evidence: "test" };
+    const sellerNear = { name: { he: "א", en: "A" }, type: "nursery" as const, location: near, pickup: "yes" as const, delivery: null };
+    const sellerOnline = { name: { he: "ב", en: "B" }, type: "online_store" as const, location: null, pickup: "no" as const, delivery: null };
+    const src = (id: string, seller: typeof sellerNear | typeof sellerOnline) => ({
+      id,
+      name: { he: id, en: id },
+      homepage: `https://${id}.test/`,
+      platform: "woocommerce",
+      status: "pilot" as const,
+      enabled: true,
+      disabledReason: null,
+      seller,
+      audit: { robots: "", terms: "", permission: "", method: "", checkedAt: "" },
+      lastRefreshedAt: null,
+      run: { status: "ok" as const, message: null, fetchedAt: new Date().toISOString(), listings: 2 }
+    });
+    const ls = [
+      listing({ title: "מונסטרה", sourceId: "near", seller: sellerNear }),
+      listing({ title: "מונסטרה נאה", sourceId: "online", seller: sellerOnline, url: "https://online.test/m" }),
+      listing({ title: "פוטוס", sourceId: "near", seller: sellerNear, url: "https://near.test/p" }),
+      listing({ title: "מונסטרה מאנקי", sourceId: "online", seller: sellerOnline, url: "https://online.test/a" })
+    ];
+    return {
+      version: 1 as const,
+      generatedAt: new Date().toISOString(),
+      sourcePolicy: "personal" as const,
+      dataMode: "live" as const,
+      sources: [src("near", sellerNear), src("online", sellerOnline)],
+      listings: ls.map(compactListing)
+    };
+  }
+
+  it("round-trips encrypted data and rejects missing or wrong passphrases", async () => {
+    const { encodeSnapshot, decodeSnapshot, SnapshotPassphraseError } = await import("./snapshot.js");
+    const index = await makeIndex();
+    const { meta, bytes } = await encodeSnapshot(index, "correct horse battery");
+    expect(meta.encryption?.alg).toBe("AES-GCM");
+    expect(new TextDecoder().decode(bytes)).not.toContain("מונסטרה"); // ciphertext, not readable
+    await expect(decodeSnapshot(meta, bytes, null)).rejects.toBeInstanceOf(SnapshotPassphraseError);
+    await expect(decodeSnapshot(meta, bytes, "wrong passphrase!!")).rejects.toThrow("wrong_passphrase");
+    const back = await decodeSnapshot(meta, bytes, "correct horse battery");
+    expect(back.listings).toHaveLength(4);
+    expect(back.listings[0]).not.toHaveProperty("seller");
+  });
+
+  it("detects tampering and refuses short passphrases", async () => {
+    const { encodeSnapshot, decodeSnapshot } = await import("./snapshot.js");
+    const { meta, bytes } = await encodeSnapshot(await makeIndex(), "correct horse battery");
+    const tampered = bytes.slice();
+    tampered[10] = (tampered[10] ?? 0) ^ 0xff;
+    await expect(decodeSnapshot(meta, tampered, "correct horse battery")).rejects.toThrow("wrong_passphrase");
+    await expect(encodeSnapshot(await makeIndex(), "short")).rejects.toThrow(/12 characters/);
+  });
+
+  it("supports plain (unencrypted) snapshots for partner-only data", async () => {
+    const { encodeSnapshot, decodeSnapshot } = await import("./snapshot.js");
+    const { meta, bytes } = await encodeSnapshot(await makeIndex(), null);
+    expect(meta.encryption).toBeNull();
+    expect((await decodeSnapshot(meta, bytes, null)).listings).toHaveLength(4);
+  });
+
+  it("searches with the same strict rules as the API and only counts relevant listings", async () => {
+    const { hydrateListings, searchSnapshot } = await import("./snapshot.js");
+    const index = await makeIndex();
+    const r = searchSnapshot(index, hydrateListings(index), request());
+    expect(r.dataMode).toBe("snapshot");
+    expect(r.counts).toMatchObject({ match: 1, location_unknown: 1, related_species: 1 });
+    expect(r.items.find((i) => i.bucket === "match")?.seller.location).not.toBeNull();
+    expect(r.hidden.unrelated).toBe(0); // the pothos is not "hidden", it is simply not part of this search
+    expect(r.sources.map((s) => [s.sourceId, s.fetched])).toEqual([["near", 1], ["online", 2]]);
+  });
+});

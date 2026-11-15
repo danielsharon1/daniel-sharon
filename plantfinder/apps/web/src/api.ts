@@ -1,5 +1,6 @@
 import type { IdentifyResponse, SearchResponse, SellerType, SizeClass, SortKey, SourcePublicInfo } from "@plantfinder/shared";
 import type { Lang } from "./i18n";
+import { staticClient } from "./static-client";
 
 export interface SearchParams {
   q: string;
@@ -31,11 +32,8 @@ export const DEFAULT_PARAMS: SearchParams = {
   sort: "price"
 };
 
-export class ApiError extends Error {
-  constructor(readonly code: string, readonly status: number) {
-    super(code);
-  }
-}
+import { ApiError } from "./errors";
+export { ApiError };
 
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
   let res: Response;
@@ -94,21 +92,36 @@ export function fromUrl(search: string): SearchParams & { lang: Lang | null } {
   };
 }
 
-export const api = {
-  search: (p: SearchParams, lang: Lang, signal?: AbortSignal) => request<SearchResponse>(`/api/search?${toQuery(p, lang)}`, { signal }),
-  sources: () => request<{ dataMode: "live" | "fixture"; sourcePolicy: "personal" | "public"; sources: SourcePublicInfo[] }>("/api/sources"),
-  health: () => request<{ dataMode: "live" | "fixture"; sourcePolicy: string; identifyAvailable: boolean }>("/api/health"),
-  suggest: (q: string, signal?: AbortSignal) =>
-    request<{ taxa: { id: string; he: string; en: string; scientificName: string }[]; cities: { id: number; he: string; en: string }[] }>(
-      `/api/suggest?q=${encodeURIComponent(q)}`,
-      { signal }
-    ),
-  identify: (file: File) => {
+type Health = { dataMode: "live" | "fixture" | "snapshot"; sourcePolicy: string; identifyAvailable: boolean };
+type Suggest = { taxa: { id: string; he: string; en: string; scientificName: string }[]; cities: { id: number; he: string; en: string }[] };
+
+export interface Client {
+  search(p: SearchParams, lang: Lang, signal?: AbortSignal): Promise<SearchResponse>;
+  sources(): Promise<{ dataMode: string; sourcePolicy: "personal" | "public"; sources: SourcePublicInfo[] }>;
+  health(): Promise<Health>;
+  suggest(q: string, signal?: AbortSignal): Promise<Suggest>;
+  identify(file: File): Promise<IdentifyResponse>;
+  identifyUrl(imageUrl: string): Promise<IdentifyResponse>;
+}
+
+/** Talks to the PlantFinder API server (self-hosted / local mode). */
+export const serverClient: Client = {
+  search: (p, lang, signal) => request<SearchResponse>(`/api/search?${toQuery(p, lang)}`, { signal }),
+  sources: () => request("/api/sources"),
+  health: () => request<Health>("/api/health"),
+  suggest: (q, signal) => request<Suggest>(`/api/suggest?q=${encodeURIComponent(q)}`, { signal }),
+  identify: (file) => {
     const form = new FormData();
     form.append("image", file);
     return request<IdentifyResponse>("/api/identify", { method: "POST", body: form });
-  }
+  },
+  identifyUrl: (imageUrl) =>
+    request<IdentifyResponse>("/api/identify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ imageUrl }) })
 };
+
+/** Build-time switch: `vite build --mode static` produces the serverless GitHub Pages site. */
+export const IS_STATIC = import.meta.env.VITE_PF_MODE === "static";
+export const api: Client = IS_STATIC ? staticClient : serverClient;
 
 // ---- Saved searches (this browser only) ------------------------------------------------------
 export interface SavedSearch {

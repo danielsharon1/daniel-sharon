@@ -6,12 +6,14 @@ import { api, ApiError } from "../api";
 interface Props {
   open: boolean;
   available: boolean;
+  /** Image URL handed over by the extension (?identifyUrl=…); identified once when the dialog opens. */
+  initialUrl?: string | null;
   t: Dict;
   onClose: () => void;
   onPick: (query: string) => void;
 }
 
-export function PhotoSearch({ open, available, t, onClose, onPick }: Props) {
+export function PhotoSearch({ open, available, initialUrl, t, onClose, onPick }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<IdentifyResponse | null>(null);
@@ -25,7 +27,23 @@ export function PhotoSearch({ open, available, t, onClose, onPick }: Props) {
     if (!open && d.open) d.close();
   }, [open]);
 
-  useEffect(() => () => void (preview && URL.revokeObjectURL(preview)), [preview]);
+  useEffect(() => () => void (preview?.startsWith("blob:") && URL.revokeObjectURL(preview)), [preview]);
+
+  const [urlDone, setUrlDone] = useState(false);
+  useEffect(() => {
+    if (!open || !available || !initialUrl || urlDone) return;
+    setUrlDone(true);
+    setPreview(initialUrl);
+    setBusy(true);
+    api
+      .identifyUrl(initialUrl)
+      .then(setResult)
+      .catch((e: unknown) => {
+        const code = e instanceof ApiError ? e.code : "default";
+        setError(code === "identify_unavailable" ? t.photoUnavailable : t.photoErrors[code] ?? t.photoErrors.default!);
+      })
+      .finally(() => setBusy(false));
+  }, [open, available, initialUrl, urlDone, t]);
 
   async function onFile(file: File | undefined) {
     if (!file) return;
