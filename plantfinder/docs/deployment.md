@@ -12,14 +12,16 @@ Two ways to run PlantFinder:
 
 ## Option 1: free static site on GitHub Pages
 
-How it works: `.github/workflows/plantfinder-site.yml` runs 3 times a day (and on every push to `main`).
+How it works: `.github/workflows/plantfinder-site.yml` runs 3 times a day, and on every push to the
+repository's default branch.
 It runs the unit tests, builds the static web app, fetches the full public catalog of each audited source
 (robots-checked, one request at a time per host, about 100 requests and 3 minutes in total), keeps plants
 only, encrypts the snapshot with your passphrase, and publishes to GitHub Pages. The browser decrypts and
 searches locally, with the same strict rules as the API.
 
 ### One-time setup (about 3 minutes, no payment details)
-1. **Merge** the PlantFinder branch into `main`. Scheduled workflows and Pages deployments run from the default branch.
+1. **Merge** the PlantFinder pull request into the default branch (in this repository:
+   `claude/email-agent-property-alerts-tbcuh9`). Scheduled workflows and Pages deployments run from the default branch only.
 2. GitHub → repository **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. **Settings → Secrets and variables → Actions → New repository secret**:
    - `PF_SNAPSHOT_PASSPHRASE`: required, at least 12 characters (e.g. four random words). You type it once per device.

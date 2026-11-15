@@ -2,6 +2,7 @@
 # publishes the static site to GitHub Pages. No server, no paid service.
 #
 # One-time setup (repository owner):
+#   0. Merge the PlantFinder pull request into the default branch.
 #   1. Settings → Pages → Build and deployment → Source: "GitHub Actions"
 #   2. Settings → Secrets and variables → Actions → New repository secret:
 #        PF_SNAPSHOT_PASSPHRASE  (required, at least 12 characters; you type it once on each device)
@@ -14,7 +15,6 @@ on:
     - cron: "17 3,11,19 * * *" # UTC: about 05:17, 13:17, 21:17 in Israel
   workflow_dispatch:
   push:
-    branches: [main]
     paths: ["plantfinder/**", ".github/workflows/plantfinder-site.yml"]
 
 permissions:
@@ -28,6 +28,9 @@ concurrency:
 
 jobs:
   build:
+    # Deploy only from the repository's default branch (Pages accepts deployments from it only).
+    # Scheduled runs always use the default branch.
+    if: github.event_name == 'schedule' || github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     timeout-minutes: 40
     defaults:
