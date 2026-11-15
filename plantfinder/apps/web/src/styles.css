@@ -1007,3 +1007,19 @@ select {
 .unlock .btn {
   margin-block-start: 0.75rem;
 }
+
+/* Narrow screens: filters, then results, then saved searches (keeps results near the top). */
+@media (max-width: 959px) {
+  .side {
+    display: contents;
+  }
+  .side__filters {
+    order: 1;
+  }
+  .results {
+    order: 2;
+  }
+  .saved {
+    order: 3;
+  }
+}

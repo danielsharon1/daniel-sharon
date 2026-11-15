@@ -10,7 +10,8 @@
 | Static web app: unlock, remember, lock, search, photo (optional key), a11y, mobile | ✅ | 6 E2E tests (`e2e/static.spec.ts`) |
 | Extension against the static site (bundled engine, local decryption) | ✅ | Extension E2E |
 | Workflow `.github/workflows/plantfinder-site.yml` | ✅ written and rehearsed from a clean clone / ⚠️ **not yet run on GitHub** | Needs PR #1 merged into the default branch, Pages enabled, `PF_SNAPSHOT_PASSPHRASE` secret |
-| CI workflow on GitHub (`plantfinder.yml`) | ✅ passed on GitHub | Runs #2 and #3 (2026-11-15), success |
+| CI workflow on GitHub (`plantfinder.yml`) incl. static-site and extension E2E | ✅ passed on GitHub | Runs #2–#7 (2026-11-15), all success |
+| Site workflow guard (deploys only from the default branch) | ✅ verified | "PlantFinder site" run #1 on the feature branch: skipped as intended |
 | Photo identification in static mode | ⚠️ code only: no Pl@ntNet key available to test | — |
 
 ---
@@ -42,7 +43,7 @@ tested end to end. The remaining blockers are permissions and owner actions, lis
 | Accessibility | ✅ automated | axe WCAG 2.1 A/AA: 0 serious/critical on 3 pages (manual screen-reader test not done) |
 | Security review | ✅ done | `security-review.md`; `pnpm audit --prod`: no known vulnerabilities |
 | Build, typecheck, tests | ✅ | `pnpm check`: 91 unit/integration + 16 E2E, all passing |
-| CI | ✅ passed on GitHub (runs #2, #3) | `.github/workflows/plantfinder.yml` |
+| CI | ✅ passed on GitHub (runs #2–#7) | `.github/workflows/plantfinder.yml` |
 | Docker image | ✅ written / ⚠️ not built here (no Docker daemon) | Runtime layout reproduced with `pnpm deploy` and booted |
 | Deployment | ❌ not deployed (needs owner approval) | `deployment.md` |
 
