@@ -101,7 +101,8 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
     },
     methods: ["GET", "POST"]
   });
-  await app.register(rateLimit, { global: true, max: 120, timeWindow: "1 minute" });
+  // Rate-limit API calls only; static assets (fonts, JS) must not consume the budget.
+  await app.register(rateLimit, { global: true, max: 120, timeWindow: "1 minute", allowList: (req) => !req.url.startsWith("/api/") });
   await app.register(multipart, { limits: { fileSize: MAX_IMAGE_BYTES, files: 1, fields: 2, parts: 3 } });
 
   app.setErrorHandler((err: Error & { statusCode?: number; code?: string }, _req, reply) => {
