@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <title>PlantFinder</title>
+    <link rel="stylesheet" href="ui.css" />
+    <style>body { inline-size: 360px; }</style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>PlantFinder</h1>
+      <form id="form" role="search">
+        <label for="q" data-i18n="plant"></label>
+        <input id="q" class="q" type="search" maxlength="80" autocomplete="off" required />
+        <div class="row">
+          <div><label for="city" data-i18n="city"></label><input id="city" autocomplete="off" /></div>
+          <div><label for="radius" data-i18n="radius"></label>
+            <select id="radius"><option>10</option><option>15</option><option selected>25</option><option>40</option><option>60</option></select>
+          </div>
+          <div><label for="max" data-i18n="max"></label><input id="max" type="number" min="0" step="10" inputmode="numeric" /></div>
+        </div>
+        <div class="row">
+          <button class="primary" type="submit" data-i18n="search"></button>
+          <button id="usePage" type="button" data-i18n="usePage"></button>
+        </div>
+      </form>
+      <div id="status" aria-live="polite"></div>
+      <ul id="results" class="results"></ul>
+      <footer>
+        <button id="openAll" class="link" type="button" hidden data-i18n="openAll"></button>
+        <button id="options" class="link" type="button" data-i18n="settings"></button>
+      </footer>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

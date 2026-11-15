@@ -5,7 +5,9 @@
   "description": "Israel-first plant discovery and price comparison: web app, Chrome MV3 extension and shared API.",
   "type": "module",
   "packageManager": "pnpm@10.28.0",
-  "engines": { "node": ">=20.11" },
+  "engines": {
+    "node": ">=20.11"
+  },
   "scripts": {
     "dev": "pnpm --parallel --filter @plantfinder/api --filter @plantfinder/web dev",
     "build": "pnpm --filter @plantfinder/web build && pnpm --filter @plantfinder/api build && pnpm --filter @plantfinder/extension build",
@@ -18,6 +20,7 @@
     "check": "pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "1.63.0",
     "@types/node": "^22.10.0",
     "tsx": "^4.20.0",

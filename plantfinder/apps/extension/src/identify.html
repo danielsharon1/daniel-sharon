@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <title>PlantFinder</title>
+    <link rel="stylesheet" href="ui.css" />
+    <style>main { max-inline-size: 560px; margin-inline: auto; }</style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1 data-i18n="identifyTitle"></h1>
+      <img id="preview" class="preview" alt="" referrerpolicy="no-referrer" hidden />
+      <div id="status" aria-live="polite"></div>
+      <ul id="candidates" class="candidates"></ul>
+      <form id="fallback" hidden>
+        <label for="q" data-i18n="plant"></label>
+        <div class="row"><input id="q" type="search" maxlength="80" /><button class="primary" type="submit" data-i18n="search"></button></div>
+      </form>
+    </main>
+    <script type="module" src="identify.js"></script>
+  </body>
+</html>

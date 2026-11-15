@@ -1,0 +1,8 @@
+{
+  "extName": { "message": "PlantFinder – plant price comparison" },
+  "extDescription": { "message": "Search and compare plant prices from Israeli nurseries right from your browser: by name, selected text or image." },
+  "actionTitle": { "message": "Search a plant on PlantFinder" },
+  "menuImage": { "message": "PlantFinder: identify the plant in this image" },
+  "menuSelection": { "message": "PlantFinder: search \"%s\"" },
+  "menuPage": { "message": "PlantFinder: search the plant on this page" }
+}

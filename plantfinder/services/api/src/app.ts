@@ -1,4 +1,4 @@
-import Fastify, { type FastifyInstance, type FastifyReply } from "fastify";
+import Fastify, { LogController, type FastifyInstance, type FastifyReply } from "fastify";
 import cors from "@fastify/cors";
 import rateLimit from "@fastify/rate-limit";
 import multipart from "@fastify/multipart";
@@ -72,7 +72,7 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
   const app = Fastify({
     logger: deps.logger ? { level: "info", redact: ["req.headers.authorization", "req.headers.cookie"] } : false,
     // Request URLs contain the user's search and possibly coordinates: do not log them by default.
-    disableRequestLogging: true,
+    logController: new LogController({ disableRequestLogging: true }),
     bodyLimit: 64 * 1024,
     trustProxy: process.env.PF_TRUST_PROXY === "1"
   });

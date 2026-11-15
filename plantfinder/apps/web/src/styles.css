@@ -8,7 +8,7 @@
   --moss-ink: #ffffff;
   --sticker: #f3d34a;
   --sticker-ink: #1d2b22;
-  --lichen: #66788a;
+  --lichen: #586a7c; /* 5.2:1 on paper, 4.7:1 on info tint (WCAG AA) */
   --rule: #c9d3c6;
   --error: #a23b3e;
   --error-bg: #f7e6e4;
@@ -144,10 +144,16 @@ i[lang="la"] {
 }
 .masthead {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding-block: 1rem;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
+}
+@media (max-width: 420px) {
+  .masthead__nav .btn {
+    padding-inline: 0.5rem;
+  }
 }
 .brand {
   display: flex;

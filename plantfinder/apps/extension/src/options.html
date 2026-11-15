@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <title>PlantFinder</title>
+    <link rel="stylesheet" href="ui.css" />
+    <style>main { max-inline-size: 520px; }</style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>PlantFinder</h1>
+      <form id="form">
+        <label for="apiBase" data-i18n="apiBase"></label>
+        <div class="row"><input id="apiBase" type="url" dir="ltr" required /><button class="primary" type="submit" data-i18n="save"></button></div>
+      </form>
+      <div id="status" aria-live="polite"></div>
+      <p class="muted small" data-i18n="privacy"></p>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>
