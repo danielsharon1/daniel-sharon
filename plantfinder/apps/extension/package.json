@@ -1,0 +1,16 @@
+{
+  "name": "@plantfinder/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "node --check src/background.js && node --check src/common.js && node --check src/popup.js && node --check src/identify.js && node --check src/options.js && node --check src/strings.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  },
+  "dependencies": {
+    "@plantfinder/shared": "workspace:*"
+  }
+}

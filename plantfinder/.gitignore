@@ -1,0 +1,14 @@
+node_modules/
+.next/
+dist/
+dist-static/
+coverage/
+.env
+.env.local
+*.log
+.DS_Store
+test-results/
+playwright-report/
+services/api/.data/
+apps/extension/build/
+*.zip

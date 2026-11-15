@@ -1,0 +1,57 @@
+{
+ "n": 79,
+ "accuracy": 0.924,
+ "nConfidentLabels": 75,
+ "accuracyConfidentLabels": 0.96,
+ "unsafeErrorRate": 0.038,
+ "errors": [
+  {
+   "title": "דרצנה למון טורנדו",
+   "expected": "dracaena-fragrans",
+   "predicted": "dracaena",
+   "level": "genus",
+   "label": "low",
+   "safe": true
+  },
+  {
+   "title": "דרצנה אוסטרלית אדומה 4ל",
+   "expected": null,
+   "predicted": "cordyline",
+   "level": "genus",
+   "label": "high",
+   "safe": false
+  },
+  {
+   "title": "דרצנה במבוק/ גולדן",
+   "expected": "dracaena",
+   "predicted": "dracaena-sanderiana",
+   "level": "species",
+   "label": "high",
+   "safe": false
+  },
+  {
+   "title": "דרצנה קורדליין",
+   "expected": null,
+   "predicted": "cordyline",
+   "level": "genus",
+   "label": "high",
+   "safe": false
+  },
+  {
+   "title": "פפרומיה מגוונת (אובטיפן ביקולור)",
+   "expected": "peperomia-obtusifolia",
+   "predicted": "peperomia",
+   "level": "genus",
+   "label": "low",
+   "safe": true
+  },
+  {
+   "title": "שפלרה שיחית",
+   "expected": "schefflera-arboricola",
+   "predicted": "schefflera-sp",
+   "level": "genus",
+   "label": "low",
+   "safe": true
+  }
+ ]
+}

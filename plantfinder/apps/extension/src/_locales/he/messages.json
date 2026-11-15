@@ -1,0 +1,8 @@
+{
+  "extName": { "message": "PlantFinder – השוואת מחירי צמחים" },
+  "extDescription": { "message": "חיפוש והשוואת מחירי צמחים ממשתלות בישראל, מתוך הדפדפן: לפי שם, טקסט מסומן או תמונה." },
+  "actionTitle": { "message": "חיפוש צמח ב-PlantFinder" },
+  "menuImage": { "message": "PlantFinder: זיהוי הצמח בתמונה" },
+  "menuSelection": { "message": "PlantFinder: חיפוש \"%s\"" },
+  "menuPage": { "message": "PlantFinder: חיפוש הצמח שבעמוד הזה" }
+}

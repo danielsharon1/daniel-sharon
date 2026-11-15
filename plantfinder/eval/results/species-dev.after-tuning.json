@@ -1,0 +1,25 @@
+{
+ "n": 119,
+ "accuracy": 0.983,
+ "nConfidentLabels": 115,
+ "accuracyConfidentLabels": 0.991,
+ "unsafeErrorRate": 0.008,
+ "errors": [
+  {
+   "title": "פיקוס דניאל – בנימיני",
+   "expected": "ficus-benjamina",
+   "predicted": "ficus",
+   "level": "genus",
+   "label": "high",
+   "safe": true
+  },
+  {
+   "title": "סנסיווריה – כידונן אפרפר",
+   "expected": "dracaena",
+   "predicted": "dracaena-trifasciata",
+   "level": "genus-default",
+   "label": "low",
+   "safe": false
+  }
+ ]
+}

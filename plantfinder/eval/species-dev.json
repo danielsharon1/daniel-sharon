@@ -1,0 +1,719 @@
+{
+ "description": "Species classification dev set: real product titles recorded from the six pilot sources (2026-11-14/15), stratified by source. Labeled manually from the title text (by the implementing engineer, not a botanist) BEFORE looking at classifier output. 'expected' is the most specific taxonomy id that is correct; genus ids (e.g. 'alocasia', 'dracaena', 'monstera-sp') when the species is not stated; a plain generic name follows Israeli market convention (e.g. plain 'מונסטרה' = Monstera deliciosa). labelConfidence=low marks labels the labeler is unsure about.",
+ "items": [
+  {
+   "source": "netaplants",
+   "title": "זמיה קוקוס",
+   "expected": "zamioculcas-zamiifolia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "מונסטרה מאנקי מאסק",
+   "expected": "monstera-adansonii",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "מונסטרה מגוונת אלבו תאי קטנסטליישן",
+   "expected": "monstera-deliciosa",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "מונסטרה נאה",
+   "expected": "monstera-deliciosa",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "netaplants",
+   "title": "סנסיווריה מגוונת",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "netaplants",
+   "title": "פוטוס לבן מגוון",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "פוטוס על מקל מוס",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "פיקוס גומי מגוון",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "פיקוס גומי שיבריאנה",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "פיקוס כינורי מגוון",
+   "expected": "ficus-lyrata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "פיקטוס – פוטוס תאילנדי",
+   "expected": "scindapsus-pictus",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אוזן פיל אלוקסיה וונטי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אוזן פיל אלוקסיה פרוטודורה",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה אוזן פיל",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה בלאק ולווט",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה זברינה",
+   "expected": "alocasia-zebrina",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה לאוטרבכיאנה",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה פולי – אמזוניקה",
+   "expected": "alocasia-amazonica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה פינק דרגון",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה רד סיקרט",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אלוקסיה ריגל שילד קוטר 18",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "זמיה קוקוס ירוקה",
+   "expected": "zamioculcas-zamiifolia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "זמיה קוקוס שחורה",
+   "expected": "zamioculcas-zamiifolia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "מונסטרה דליסיוסה",
+   "expected": "monstera-deliciosa",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "מונסטרה מינימה – רפידופורה טטרספרמה",
+   "expected": "rhaphidophora-tetrasperma",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "מונסטרה סטנדליאנה – פילדנדרון קוברה",
+   "expected": "monstera-standleyana",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "מונסטרה פרו",
+   "expected": "monstera-karstenianum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "מונסטרה קוטר 18",
+   "expected": "monstera-deliciosa",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סנסיווריה גלילית",
+   "expected": "dracaena-angolensis",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סנסיווריה לבנה",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פוטוס זהוב על מוס",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פוטוס לבן",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פוטוס מנג'ולה",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פוטוס משוייש",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פוטוס ניאון",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פוטוס תאילנדי – פיקטוס",
+   "expected": "scindapsus-pictus",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס אומבלטה 15 ליטר",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס גומי",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס גומי מגוון מעוצב גזע",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס גומי שחור קוטר 18",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס גומי שיבריאנה דלי 7 ליטר",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס כינורי",
+   "expected": "ficus-lyrata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "פיקוס סוויט הארט",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה אורבופוליה",
+   "expected": "goeppertia-orbifolia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה אורנטה",
+   "expected": "calathea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה אינסיגניס",
+   "expected": "calathea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה וויט פיוזן",
+   "expected": "calathea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה זברינה",
+   "expected": "calathea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה מג'יק סטאר",
+   "expected": "calathea",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה מקיויאנה",
+   "expected": "goeppertia-makoyana",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קלתאה נטוורק",
+   "expected": "calathea",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "‏‏סנסיווריה ירוקה",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "‏‏סנסיווריה כידונן גלילני",
+   "expected": "dracaena-angolensis",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "‏‏סנסיווריה מון שיין",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה אודורה | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה בלאק וולווט פינק | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה במבינו ורודה | בייבי מבצע",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה דרגון סקייל אלבו | בייבי | מבצע",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה הארט בלון | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה יוקטן פרינסס פינק | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה מקרוריזה ספלאש | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה סוהירמניאנה רד | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה סקאלפרום אוריאה | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה פלטינום | בינוני",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה פריידק מגוונת | בייבי ע.5",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אלוקסיה שטרד גלאס | בייבי",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "זמיה קוקוס שחור | קוטר 17 | גדול | זמיוקולקס",
+   "expected": "zamioculcas-zamiifolia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "מונסטרה אדנסוני אלבו | בינוני",
+   "expected": "monstera-adansonii",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "מונסטרה אובליקה פרו | בייבי מבצע",
+   "expected": "monstera-karstenianum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "מונסטרה אלבו | גדול",
+   "expected": "monstera-deliciosa",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "מונסטרה ויאטיוסה | בייבי | מבצע",
+   "expected": "monstera-sp",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "rootine",
+   "title": "מונסטרה סילטה פיקנה אוריאה | בייבי",
+   "expected": "monstera-siltepecana",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "מונסטרה פרוזן פרקלס | בינוני | מבצע",
+   "expected": "monstera-sp",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "rootine",
+   "title": "סנסוויריה סוואן דנסר | בייבי",
+   "expected": "dracaena",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "סנסיווריה בונסלנסיס | בייבי",
+   "expected": "dracaena",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סנסיווריה האני קורלי גלקסי | בייבי",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פוטוס | גדול",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פוטוס מנגולה | בינוני",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פיקוס בונסאי בכלי | בינוני",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "פיקוס כינורי מגוון | בינוני",
+   "expected": "ficus-lyrata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "קלתאה אורנטה | בינוני",
+   "expected": "calathea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "קלתאה טריוסטאר | גדול",
+   "expected": "stromanthe-sanguinea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "קלתיאה סטלה | בינוני",
+   "expected": "calathea",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "זמיה קוקולוס",
+   "expected": "zamioculcas-zamiifolia",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "מונסטרה",
+   "expected": "monstera-deliciosa",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "מונסטרה מאנקי",
+   "expected": "monstera-adansonii",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "סנסיווריה גבוהה",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "סנסיווריה נמוכה",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "פוטוס זהוב",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פוטוס מרבל קווין",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פוטוס צהוב לימון",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פיקוס אודרי",
+   "expected": "ficus-benghalensis",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פיקוס דניאל – בנימיני",
+   "expected": "ficus-benjamina",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פיקוס כינורי ב-25 ליטר",
+   "expected": "ficus-lyrata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "פיקוס סויט הארט",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "קלתאה מקויאנה",
+   "expected": "goeppertia-makoyana",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "אוזן פיל (אלוקסיה)",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "אלוקסיה דרגון סקייל",
+   "expected": "alocasia",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "אלוקסיה פולי",
+   "expected": "alocasia-amazonica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "מונסטרה מינימה",
+   "expected": "rhaphidophora-tetrasperma",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "סנסיווריה ירוקה",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "grdntlv",
+   "title": "סנסיווריה פרנווד",
+   "expected": "dracaena",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פוטוס",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פוטוס הפי לייף",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פוטוס מגוון",
+   "expected": "epipremnum-aureum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פיקוס בונסאי",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פיקוס גומי מגוון לבן",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פיקוס גומי שחור",
+   "expected": "ficus-elastica",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "פיקוס כינורי XXL",
+   "expected": "ficus-lyrata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "קלתאה אופנהיימינה",
+   "expected": "ctenanthe",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "קלתאה רוזה פיקטה",
+   "expected": "calathea",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "hamashtela",
+   "title": "בונסאי פיקוס",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "hamashtela",
+   "title": "בונסאי פיקוס צר עלים",
+   "expected": "ficus",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "hamashtela",
+   "title": "כידונן (סנסיווריה)",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "hamashtela",
+   "title": "סנסיווריה – כידונן אפרפר",
+   "expected": "dracaena",
+   "labelConfidence": "low"
+  },
+  {
+   "source": "hamashtela",
+   "title": "סנסיווריה – כידונן גליני",
+   "expected": "dracaena-angolensis",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "hamashtela",
+   "title": "סנסיווריה – כידונן חרבות מנומר",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "hamashtela",
+   "title": "סנסיווריה – כידונן חרבות פס צהוב",
+   "expected": "dracaena-trifasciata",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "hamashtela",
+   "title": "פיקוס ג'ינסנג",
+   "expected": "ficus-microcarpa",
+   "labelConfidence": "high"
+  }
+ ]
+}

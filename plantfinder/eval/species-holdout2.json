@@ -1,0 +1,351 @@
+{
+ "description": "Species classification HOLDOUT #2: real titles for eight common searches (orchid, syngonium, anthurium, spathiphyllum, yucca, crassula, aloe vera, cactus) recorded 2026-11-15, excluding all dev and holdout #1 titles. Labeled blind before the single evaluation run; recorded after the fixes derived from holdout #1, which is now treated as development data. Non-plant products are listed separately under 'accessories' and checked with the product-kind detector.",
+ "items": [
+  {
+   "source": "rootine",
+   "title": "אלוורה | בינוני",
+   "expected": "aloe-vera",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום דארק פניקס | בייבי מבצע",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום וויציאיי | בייבי",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום וורקאנום | בייבי",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום לוקשוריאנס | בייבי",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום סילבר בלאש מינט | בייבי",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום פורח | בינוני",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום קווין אוף הארטס | בינוני",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "אנטוריום קרליביום | בינוני",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סחלב אונסידיום | בינוני",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סחלב מולטי 4 ענפים | בינוני",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סחלב פאפיופדלום זוגות | בייבי| מבצע",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סחלב צבע מיוחד פרח כפול| בינוני | 2-4 עמודי פריחה",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "סינגוניום אוריאה מגוון | בייבי",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "סינגוניום גריי גוסט | בינוני",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "סינגוניום מוחיטו | בינוני",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "סינגוניום פיקסי | בינוני",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "rootine",
+   "title": "ספטיפיליום | גדול",
+   "expected": "spathiphyllum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "ספטיפיליום דיימונד | בינוני",
+   "expected": "spathiphyllum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "rootine",
+   "title": "קקטוס מורכב | בינוני",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אנטוריום קלרינרויום",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "אנטוריום שחור שוקולד",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "זיגו קקטוס",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "יוקה",
+   "expected": "yucca-gigantea",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סחלב גדול",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סחלב קטן",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סינגוניום ורוד",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סינגוניום ירוק",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סינגוניום מריה",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "סינגוניום פיקסי",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "קקטוסים",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "gankasumnh",
+   "title": "תערובת סחלבים",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "אלוורה",
+   "expected": "aloe-vera",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "אנטוריום",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "אנטוריום לבן",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "יוקה על גזע",
+   "expected": "yucca-gigantea",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "mermel",
+   "title": "סחלב 2 עמודי פריחה",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "סחלב מיני",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "סחלב עמוד פריחה אחד",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "mermel",
+   "title": "קקטוס מורכב גדול",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "אלוורה רפואית",
+   "expected": "aloe-vera",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "סחלב פלנופסיס 2 עמודים",
+   "expected": "phalaenopsis",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "netaplants",
+   "title": "סינגוניום (Syngonium)",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "netaplants",
+   "title": "סינגוניום ורוד (pink Syngonium)",
+   "expected": "syngonium-podophyllum",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "netaplants",
+   "title": "קרסולה",
+   "expected": "crassula-ovata",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "grdntlv",
+   "title": "אנטוריום ורוד",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "אנטוריום קלרינרביום",
+   "expected": "anthurium",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "יוקה גזע",
+   "expected": "yucca-gigantea",
+   "labelConfidence": "medium"
+  },
+  {
+   "source": "grdntlv",
+   "title": "סחלב מולטי",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "סחלב ענף פריחה אחד",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "סחלב שני ענפי פריחה",
+   "expected": "orchidaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "קקטוס אחינועם",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "קקטוס סבא",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "קקטוס סיריוס",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "grdntlv",
+   "title": "קקטוס קשקשתא",
+   "expected": "cactaceae",
+   "labelConfidence": "high"
+  },
+  {
+   "source": "hamashtela",
+   "title": "קרסולה – עץ האושר",
+   "expected": "crassula-ovata",
+   "labelConfidence": "medium"
+  }
+ ],
+ "accessories": [
+  {
+   "source": "mermel",
+   "title": "עציץ זכוכית לסחלב"
+  },
+  {
+   "source": "mermel",
+   "title": "תערובת שתילה לסוקולנטים וקקטוסים | 10 ליטר"
+  }
+ ]
+}

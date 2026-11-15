@@ -1,0 +1,108 @@
+# PlantFinder free hosting: GitHub Actions collects the nursery catalogs 3x a day, encrypts them, and
+# publishes the static site to GitHub Pages. No server, no paid service.
+#
+# One-time setup (repository owner), in this order:
+#   1. Settings → Pages → Build and deployment → Source: "GitHub Actions"
+#   2. Settings → Secrets and variables → Actions → New repository secret:
+#        PF_SNAPSHOT_PASSPHRASE  (required, at least 12 characters; you type it once on each device)
+#        PLANTNET_API_KEY        (optional, free Pl@ntNet key for photo identification; visible to site visitors)
+#   3. Merge the PlantFinder pull request into the default branch: that push runs this workflow.
+name: PlantFinder site
+
+on:
+  schedule:
+    - cron: "17 3,11,19 * * *" # UTC: about 05:17, 13:17, 21:17 in Israel
+  workflow_dispatch:
+  push:
+    paths: ["plantfinder/**", ".github/workflows/plantfinder-site.yml"]
+
+permissions:
+  contents: write # weekly source-health commit (counts only)
+  pages: write
+  id-token: write
+
+concurrency:
+  group: plantfinder-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # Deploy only from the repository's default branch (Pages accepts deployments from it only).
+    # Scheduled runs always use the default branch.
+    if: github.event_name == 'schedule' || github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: plantfinder
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the weekly report step reads the file's last commit date
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: plantfinder/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+
+      - name: Require the data passphrase
+        env:
+          PF_SNAPSHOT_PASSPHRASE: ${{ secrets.PF_SNAPSHOT_PASSPHRASE }}
+        run: |
+          if [ ${#PF_SNAPSHOT_PASSPHRASE} -lt 12 ]; then
+            echo "::error::Add a repository secret PF_SNAPSHOT_PASSPHRASE (at least 12 characters): Settings → Secrets and variables → Actions. The nurseries' data is only published encrypted."
+            exit 1
+          fi
+
+      - name: Unit tests (no deploy if they fail)
+        run: pnpm test
+
+      - name: Build the static site
+        env:
+          VITE_PLANTNET_KEY: ${{ secrets.PLANTNET_API_KEY }}
+        run: pnpm --filter @plantfinder/web build:static
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Collect catalogs and build the encrypted snapshot
+        env:
+          PF_SNAPSHOT_PASSPHRASE: ${{ secrets.PF_SNAPSHOT_PASSPHRASE }}
+        run: >
+          pnpm --filter @plantfinder/api snapshot
+          --out ../../apps/web/dist-static
+          --previous "${{ steps.pages.outputs.base_url }}/"
+          --health ../../docs/source-health.md
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: plantfinder/apps/web/dist-static
+
+      # GitHub pauses scheduled workflows in public repositories after 60 days without commits.
+      # A weekly report (source names, status and counts only; no catalog content) keeps it running.
+      - name: Weekly source-health report
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        run: |
+          last=$(git log -1 --format=%ct -- docs/source-health.md || true)
+          if [ -z "$last" ] || [ $(( $(date +%s) - last )) -gt 604800 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/source-health.md
+            git commit -m "PlantFinder: weekly source health report"
+            git push
+          fi
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

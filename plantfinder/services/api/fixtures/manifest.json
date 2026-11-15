@@ -1,0 +1,1307 @@
+{
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%9E%D7%95%D7%A0%D7%A1%D7%98%D7%A8%D7%94": {
+  "file": "hamashtela.co.il/8055c376dae05194.json",
+  "fetchedAt": "2026-11-15T05:55:12.630Z",
+  "status": 200
+ },
+ "https://grdntlv.co.il/products.json?limit=250&page=1": {
+  "file": "grdntlv.co.il/12532e6b77ad7b42.json",
+  "fetchedAt": "2026-11-15T06:30:42.516Z",
+  "status": 200
+ },
+ "https://rootine.co.il/products.json?limit=250&page=1": {
+  "file": "rootine.co.il/6e1bdb2cb7c5fb11.json",
+  "fetchedAt": "2026-11-15T06:30:42.273Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%9E%D7%95%D7%A0%D7%A1%D7%98%D7%A8%D7%94": {
+  "file": "gankasumnh.co.il/ab0ffe30ec5458b7.json",
+  "fetchedAt": "2026-11-15T05:55:13.070Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=monstera": {
+  "file": "hamashtela.co.il/6eaeb0b94f526269.json",
+  "fetchedAt": "2026-11-15T05:55:14.363Z",
+  "status": 200
+ },
+ "https://rootine.co.il/products.json?limit=250&page=2": {
+  "file": "rootine.co.il/d761eee1b19dc577.json",
+  "fetchedAt": "2026-11-15T06:30:43.617Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=monstera": {
+  "file": "gankasumnh.co.il/0d78d75df72630a3.json",
+  "fetchedAt": "2026-11-15T05:55:14.651Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%9E%D7%95%D7%A0%D7%A1%D7%98%D7%A8%D7%94": {
+  "file": "netaplants.co.il/c9f576430ba44981.json",
+  "fetchedAt": "2026-11-15T05:55:15.414Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%9E%D7%95%D7%A0%D7%A1%D7%98%D7%A8%D7%94": {
+  "file": "mermel-nursery.co.il/d2abd9e830acb04e.json",
+  "fetchedAt": "2026-11-15T05:55:15.633Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1915&parent%5B%5D=2524&parent%5B%5D=3864": {
+  "file": "gankasumnh.co.il/9a10cd88ac5682da.json",
+  "fetchedAt": "2026-11-15T05:55:16.339Z",
+  "status": 200
+ },
+ "https://rootine.co.il/products.json?limit=250&page=3": {
+  "file": "rootine.co.il/fc864108ba4aa750.json",
+  "fetchedAt": "2026-11-15T06:30:44.967Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=monstera": {
+  "file": "netaplants.co.il/c7b2b1e5337f6636.json",
+  "fetchedAt": "2026-11-15T05:55:17.674Z",
+  "status": 200
+ },
+ "https://rootine.co.il/products.json?limit=250&page=4": {
+  "file": "rootine.co.il/458d004c0c2429d9.json",
+  "fetchedAt": "2026-11-15T06:30:46.274Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=monstera": {
+  "file": "mermel-nursery.co.il/f18f4daedf47cc95.json",
+  "fetchedAt": "2026-11-15T05:55:19.874Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=25372&parent%5B%5D=45168&parent%5B%5D=49118&parent%5B%5D=66147&parent%5B%5D=69397": {
+  "file": "netaplants.co.il/0bdcaaf8d173e259.json",
+  "fetchedAt": "2026-11-15T05:55:21.891Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4835&parent%5B%5D=4840": {
+  "file": "mermel-nursery.co.il/bcb3955f57d0dbaa.json",
+  "fetchedAt": "2026-11-15T05:55:24.208Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%95%D7%98%D7%95%D7%A1": {
+  "file": "gankasumnh.co.il/081f09ad62d7ad66.json",
+  "fetchedAt": "2026-11-15T05:55:25.424Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%95%D7%98%D7%95%D7%A1": {
+  "file": "hamashtela.co.il/065fe90a460eb7db.json",
+  "fetchedAt": "2026-11-15T05:55:25.440Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%95%D7%98%D7%95%D7%A1": {
+  "file": "netaplants.co.il/1b27bbe2f5f7a6ea.json",
+  "fetchedAt": "2026-11-15T05:55:25.816Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=epipremnum": {
+  "file": "gankasumnh.co.il/dc0cf11b4c80d76a.json",
+  "fetchedAt": "2026-11-15T05:55:26.970Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=epipremnum": {
+  "file": "hamashtela.co.il/9f630ca8799087e0.json",
+  "fetchedAt": "2026-11-15T05:55:27.142Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=epipremnum": {
+  "file": "netaplants.co.il/ec313f6e5ea3287b.json",
+  "fetchedAt": "2026-11-15T05:55:28.061Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%95%D7%98%D7%95%D7%A1": {
+  "file": "mermel-nursery.co.il/df6442a6ac231349.json",
+  "fetchedAt": "2026-11-15T05:55:28.575Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1247&parent%5B%5D=1250&parent%5B%5D=1253&parent%5B%5D=1256&parent%5B%5D=1259&parent%5B%5D=4205": {
+  "file": "gankasumnh.co.il/040e1f1ffd5342ae.json",
+  "fetchedAt": "2026-11-15T05:55:28.643Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2171&parent%5B%5D=25963&parent%5B%5D=28436&parent%5B%5D=49827&parent%5B%5D=62998&parent%5B%5D=67016&parent%5B%5D=67025&parent%5B%5D=67029&parent%5B%5D=69397": {
+  "file": "netaplants.co.il/eae905b3d9a839b5.json",
+  "fetchedAt": "2026-11-15T05:55:32.025Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=epipremnum": {
+  "file": "mermel-nursery.co.il/7df8df8a96b3318f.json",
+  "fetchedAt": "2026-11-15T05:55:32.799Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4912": {
+  "file": "mermel-nursery.co.il/124958835496a481.json",
+  "fetchedAt": "2026-11-15T05:55:37.088Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%A7%D7%95%D7%A1": {
+  "file": "gankasumnh.co.il/a97fdb232994d06c.json",
+  "fetchedAt": "2026-11-15T05:55:38.157Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%A7%D7%95%D7%A1": {
+  "file": "netaplants.co.il/54bdc46d7edaa313.json",
+  "fetchedAt": "2026-11-15T05:55:39.682Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=ficus": {
+  "file": "gankasumnh.co.il/674252d5ed397ca7.json",
+  "fetchedAt": "2026-11-15T05:55:39.727Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1265&parent%5B%5D=1268&parent%5B%5D=1389&parent%5B%5D=1395": {
+  "file": "gankasumnh.co.il/49d3b1e20444913f.json",
+  "fetchedAt": "2026-11-15T05:55:41.397Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%A7%D7%95%D7%A1": {
+  "file": "mermel-nursery.co.il/18e9b4ee3d91fc8f.json",
+  "fetchedAt": "2026-11-15T05:55:41.407Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=ficus": {
+  "file": "netaplants.co.il/21c3eb524540a5c0.json",
+  "fetchedAt": "2026-11-15T05:55:42.082Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%A7%D7%95%D7%A1": {
+  "file": "hamashtela.co.il/8b7b6c8fc9a3bd93.json",
+  "fetchedAt": "2026-11-15T05:55:42.803Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=ficus": {
+  "file": "mermel-nursery.co.il/1b97886aaa780baa.json",
+  "fetchedAt": "2026-11-15T05:55:45.684Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=10593&parent%5B%5D=21976&parent%5B%5D=24946&parent%5B%5D=62998&parent%5B%5D=66147&parent%5B%5D=68776&parent%5B%5D=69191": {
+  "file": "netaplants.co.il/682789878fac2d34.json",
+  "fetchedAt": "2026-11-15T05:55:46.097Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=2&search=%D7%A4%D7%99%D7%A7%D7%95%D7%A1": {
+  "file": "hamashtela.co.il/1759a3c6885ae794.json",
+  "fetchedAt": "2026-11-15T05:55:49.075Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4410&parent%5B%5D=4922&parent%5B%5D=22202&parent%5B%5D=22207": {
+  "file": "mermel-nursery.co.il/40e614de2ba5b028.json",
+  "fetchedAt": "2026-11-15T05:55:49.971Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=ficus": {
+  "file": "hamashtela.co.il/18051f462e81a797.json",
+  "fetchedAt": "2026-11-15T05:55:50.797Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%95%D7%95%D7%99%D7%A8%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/b677d31a1822171e.json",
+  "fetchedAt": "2026-11-15T05:59:35.163Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%95%D7%95%D7%99%D7%A8%D7%99%D7%94": {
+  "file": "hamashtela.co.il/6f6879e0b5a1826b.json",
+  "fetchedAt": "2026-11-15T05:59:34.931Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%95%D7%95%D7%99%D7%A8%D7%99%D7%94": {
+  "file": "netaplants.co.il/0298ca35b6686a74.json",
+  "fetchedAt": "2026-11-15T05:59:36.872Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=sansevieria": {
+  "file": "gankasumnh.co.il/a9d57d174a0f9602.json",
+  "fetchedAt": "2026-11-15T05:59:38.357Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%95%D7%95%D7%99%D7%A8%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/8e316acf8d506162.json",
+  "fetchedAt": "2026-11-15T05:59:37.966Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=sansevieria": {
+  "file": "hamashtela.co.il/bd282e62e5f18ff7.json",
+  "fetchedAt": "2026-11-15T05:59:38.348Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=sansevieria": {
+  "file": "netaplants.co.il/6a4d08720c451bde.json",
+  "fetchedAt": "2026-11-15T05:59:42.671Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=sansevieria": {
+  "file": "mermel-nursery.co.il/efcc60e4ac499c2d.json",
+  "fetchedAt": "2026-11-15T05:59:46.744Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/d5d0eb301583b6c0.json",
+  "fetchedAt": "2026-11-15T06:26:00.543Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%94": {
+  "file": "hamashtela.co.il/667b26151fce46c9.json",
+  "fetchedAt": "2026-11-15T06:26:00.469Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%94": {
+  "file": "netaplants.co.il/c8e59e59a02c04d7.json",
+  "fetchedAt": "2026-11-15T06:26:00.690Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=zamioculcas": {
+  "file": "gankasumnh.co.il/f3011e456273e997.json",
+  "fetchedAt": "2026-11-15T06:26:03.804Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=zamioculcas": {
+  "file": "hamashtela.co.il/03377766dacc31f7.json",
+  "fetchedAt": "2026-11-15T06:26:03.894Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=zamioculcas": {
+  "file": "netaplants.co.il/4d78ff74f61afa57.json",
+  "fetchedAt": "2026-11-15T06:26:05.596Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=3852&parent%5B%5D=3854": {
+  "file": "gankasumnh.co.il/651dbbfe00b621aa.json",
+  "fetchedAt": "2026-11-15T06:26:05.396Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/87ad9866c44c609f.json",
+  "fetchedAt": "2026-11-15T06:26:03.910Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2115&parent%5B%5D=66132": {
+  "file": "netaplants.co.il/7739dc9526876d8a.json",
+  "fetchedAt": "2026-11-15T06:26:08.695Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=zamioculcas": {
+  "file": "mermel-nursery.co.il/594929819ed62669.json",
+  "fetchedAt": "2026-11-15T06:26:12.438Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4789": {
+  "file": "mermel-nursery.co.il/eaf4b57e99398d85.json",
+  "fetchedAt": "2026-11-15T06:26:16.766Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%90%D7%94": {
+  "file": "gankasumnh.co.il/6ac7bc8e875b5ac0.json",
+  "fetchedAt": "2026-11-15T05:59:52.084Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%90%D7%94": {
+  "file": "hamashtela.co.il/1f5544b0d44d74e7.json",
+  "fetchedAt": "2026-11-15T05:59:51.932Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%90%D7%94": {
+  "file": "netaplants.co.il/59ae77b4b6227a5b.json",
+  "fetchedAt": "2026-11-15T05:59:53.114Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=goeppertia": {
+  "file": "gankasumnh.co.il/95ea921090296be6.json",
+  "fetchedAt": "2026-11-15T05:56:14.012Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=goeppertia": {
+  "file": "hamashtela.co.il/4693bd2be08aa381.json",
+  "fetchedAt": "2026-11-15T05:56:14.445Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=goeppertia": {
+  "file": "netaplants.co.il/dd6eef1951d424d2.json",
+  "fetchedAt": "2026-11-15T05:56:15.257Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%90%D7%94": {
+  "file": "mermel-nursery.co.il/acdef11325b646f9.json",
+  "fetchedAt": "2026-11-15T05:59:55.294Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=goeppertia": {
+  "file": "mermel-nursery.co.il/6eaa96de74bb8911.json",
+  "fetchedAt": "2026-11-15T05:56:20.013Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=22277&parent%5B%5D=22280&parent%5B%5D=22287": {
+  "file": "mermel-nursery.co.il/b2a2e40f0d865417.json",
+  "fetchedAt": "2026-11-15T06:00:10.025Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%A7%D7%A1%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/d889de2cfa54894a.json",
+  "fetchedAt": "2026-11-15T05:56:25.319Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%A7%D7%A1%D7%99%D7%94": {
+  "file": "hamashtela.co.il/ecb27f3cf4a2c9a7.json",
+  "fetchedAt": "2026-11-15T05:56:25.581Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%A7%D7%A1%D7%99%D7%94": {
+  "file": "netaplants.co.il/e34b6ffb58c7b106.json",
+  "fetchedAt": "2026-11-15T05:56:25.654Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=alocasia": {
+  "file": "gankasumnh.co.il/d8543b84221f7d1a.json",
+  "fetchedAt": "2026-11-15T05:56:26.857Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=alocasia": {
+  "file": "hamashtela.co.il/fc3b9423f0f09f24.json",
+  "fetchedAt": "2026-11-15T05:56:27.281Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=alocasia": {
+  "file": "netaplants.co.il/b5acdd6fca62bf5f.json",
+  "fetchedAt": "2026-11-15T05:56:27.878Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1325&parent%5B%5D=1906&parent%5B%5D=6232": {
+  "file": "gankasumnh.co.il/d87cb4feea0b123a.json",
+  "fetchedAt": "2026-11-15T05:56:28.508Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%A7%D7%A1%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/a73042ae44055cbb.json",
+  "fetchedAt": "2026-11-15T05:56:28.560Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=alocasia": {
+  "file": "mermel-nursery.co.il/4d5717ebe4023215.json",
+  "fetchedAt": "2026-11-15T05:56:32.784Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%99%D7%95%D7%95%D7%A8%D7%99%D7%94": {
+  "file": "hamashtela.co.il/881bd09737b09aae.json",
+  "fetchedAt": "2026-11-15T05:59:36.661Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%99%D7%95%D7%95%D7%A8%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/aeaebcf68396607d.json",
+  "fetchedAt": "2026-11-15T05:59:36.726Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1206&parent%5B%5D=1378&parent%5B%5D=1381&parent%5B%5D=1905": {
+  "file": "gankasumnh.co.il/d853c5c2969f5d65.json",
+  "fetchedAt": "2026-11-15T05:59:39.953Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%99%D7%95%D7%95%D7%A8%D7%99%D7%94": {
+  "file": "netaplants.co.il/d4553177d50db938.json",
+  "fetchedAt": "2026-11-15T05:59:40.319Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A0%D7%A1%D7%99%D7%95%D7%95%D7%A8%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/7497b92888513c1c.json",
+  "fetchedAt": "2026-11-15T05:59:42.227Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2091&parent%5B%5D=25217&parent%5B%5D=62189&parent%5B%5D=62200&parent%5B%5D=66132": {
+  "file": "netaplants.co.il/cd242ab7c3c109ca.json",
+  "fetchedAt": "2026-11-15T05:59:46.813Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4906": {
+  "file": "mermel-nursery.co.il/3b832c9e50031030.json",
+  "fetchedAt": "2026-11-15T05:59:50.980Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%99%D7%90%D7%94": {
+  "file": "hamashtela.co.il/9d0b782edfecd0d6.json",
+  "fetchedAt": "2026-11-15T05:59:53.597Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%99%D7%90%D7%94": {
+  "file": "gankasumnh.co.il/9d7857d272ca4bf9.json",
+  "fetchedAt": "2026-11-15T05:59:53.650Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=calathea": {
+  "file": "hamashtela.co.il/89db2e70a95cbdd6.json",
+  "fetchedAt": "2026-11-15T05:59:55.260Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=calathea": {
+  "file": "gankasumnh.co.il/9bcc58a1b1abe442.json",
+  "fetchedAt": "2026-11-15T05:59:55.322Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%99%D7%90%D7%94": {
+  "file": "netaplants.co.il/50f19d7f168c5626.json",
+  "fetchedAt": "2026-11-15T05:59:55.454Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=calathea": {
+  "file": "netaplants.co.il/018b1f60a35a8059.json",
+  "fetchedAt": "2026-11-15T05:59:57.783Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%9C%D7%AA%D7%99%D7%90%D7%94": {
+  "file": "mermel-nursery.co.il/58abdabc42877fc6.json",
+  "fetchedAt": "2026-11-15T05:59:59.579Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=68079": {
+  "file": "netaplants.co.il/6237ba0d60ff5d95.json",
+  "fetchedAt": "2026-11-15T06:00:00.158Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=calathea": {
+  "file": "mermel-nursery.co.il/9bdf5f314693640f.json",
+  "fetchedAt": "2026-11-15T06:00:05.620Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%92%D7%9C%D7%95%D7%A0%D7%9E%D7%94": {
+  "file": "hamashtela.co.il/ef03995bf18bf86c.json",
+  "fetchedAt": "2026-11-15T06:23:46.991Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%92%D7%9C%D7%95%D7%A0%D7%9E%D7%94": {
+  "file": "gankasumnh.co.il/1c4c726044a92811.json",
+  "fetchedAt": "2026-11-15T06:23:47.187Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aglaonema": {
+  "file": "hamashtela.co.il/6f4978c65eaf1088.json",
+  "fetchedAt": "2026-11-15T06:23:48.685Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aglaonema": {
+  "file": "gankasumnh.co.il/f6c1167f37ae28a6.json",
+  "fetchedAt": "2026-11-15T06:23:48.757Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%92%D7%9C%D7%95%D7%A0%D7%9E%D7%94": {
+  "file": "netaplants.co.il/c10af559c29f23a0.json",
+  "fetchedAt": "2026-11-15T06:23:49.919Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%92%D7%9C%D7%95%D7%A0%D7%9E%D7%94": {
+  "file": "mermel-nursery.co.il/ddb7e3fca8187444.json",
+  "fetchedAt": "2026-11-15T06:23:50.023Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2505&parent%5B%5D=6347": {
+  "file": "gankasumnh.co.il/b1d732919e59922e.json",
+  "fetchedAt": "2026-11-15T06:23:50.432Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aglaonema": {
+  "file": "netaplants.co.il/ef178d3f34c7671f.json",
+  "fetchedAt": "2026-11-15T06:23:52.221Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aglaonema": {
+  "file": "mermel-nursery.co.il/dcb8cc0bbe355ee6.json",
+  "fetchedAt": "2026-11-15T06:23:54.304Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2625&parent%5B%5D=19234&parent%5B%5D=49982": {
+  "file": "netaplants.co.il/2eb829b66d14c953.json",
+  "fetchedAt": "2026-11-15T06:23:55.474Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4525&parent%5B%5D=22262": {
+  "file": "mermel-nursery.co.il/4819416344e19049.json",
+  "fetchedAt": "2026-11-15T06:23:58.566Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%9C%D7%95%D7%93%D7%A0%D7%93%D7%A8%D7%95%D7%9F": {
+  "file": "gankasumnh.co.il/18c2f1b286b2e5e4.json",
+  "fetchedAt": "2026-11-15T06:26:17.634Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%9C%D7%95%D7%93%D7%A0%D7%93%D7%A8%D7%95%D7%9F": {
+  "file": "netaplants.co.il/1ca0b83169619eea.json",
+  "fetchedAt": "2026-11-15T06:26:18.084Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%9C%D7%95%D7%93%D7%A0%D7%93%D7%A8%D7%95%D7%9F": {
+  "file": "hamashtela.co.il/80ac1162d623b101.json",
+  "fetchedAt": "2026-11-15T06:26:18.258Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=philodendron": {
+  "file": "gankasumnh.co.il/49cdec9dacde9bb3.json",
+  "fetchedAt": "2026-11-15T06:26:19.182Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=philodendron": {
+  "file": "hamashtela.co.il/25061a74aec311eb.json",
+  "fetchedAt": "2026-11-15T06:26:19.942Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=philodendron": {
+  "file": "netaplants.co.il/e9b66821d4c65b6c.json",
+  "fetchedAt": "2026-11-15T06:26:20.399Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%99%D7%9C%D7%95%D7%93%D7%A0%D7%93%D7%A8%D7%95%D7%9F": {
+  "file": "mermel-nursery.co.il/83556f58bb73cb56.json",
+  "fetchedAt": "2026-11-15T06:26:21.004Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=67025": {
+  "file": "netaplants.co.il/ad4ab6004484b8f4.json",
+  "fetchedAt": "2026-11-15T06:26:22.642Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=philodendron": {
+  "file": "mermel-nursery.co.il/06cf59a6950f704c.json",
+  "fetchedAt": "2026-11-15T06:26:25.323Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%94%D7%95%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/5c2d8099c3a0be8c.json",
+  "fetchedAt": "2026-11-15T06:24:08.175Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%94%D7%95%D7%99%D7%94": {
+  "file": "hamashtela.co.il/ac356d108fda7f3b.json",
+  "fetchedAt": "2026-11-15T06:24:08.543Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%94%D7%95%D7%99%D7%94": {
+  "file": "netaplants.co.il/041953ed13ecc1e5.json",
+  "fetchedAt": "2026-11-15T06:24:08.582Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=hoya": {
+  "file": "gankasumnh.co.il/a91684bcca96d073.json",
+  "fetchedAt": "2026-11-15T06:24:09.719Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=hoya": {
+  "file": "hamashtela.co.il/f5a6a50c3ab80eb0.json",
+  "fetchedAt": "2026-11-15T06:24:10.250Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=hoya": {
+  "file": "netaplants.co.il/c7696c949d193c48.json",
+  "fetchedAt": "2026-11-15T06:24:11.001Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2503&parent%5B%5D=9471": {
+  "file": "gankasumnh.co.il/1a94345b6497f0f1.json",
+  "fetchedAt": "2026-11-15T06:24:11.393Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%94%D7%95%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/6d5ba3620740cf11.json",
+  "fetchedAt": "2026-11-15T06:24:11.544Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2688&parent%5B%5D=28583": {
+  "file": "netaplants.co.il/48ada798b75b5911.json",
+  "fetchedAt": "2026-11-15T06:24:14.540Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=hoya": {
+  "file": "mermel-nursery.co.il/42201d7118258fbe.json",
+  "fetchedAt": "2026-11-15T06:24:15.786Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%A4%D7%A8%D7%95%D7%9E%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/8e2c9b654c5c4a80.json",
+  "fetchedAt": "2026-11-15T06:24:16.720Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%A4%D7%A8%D7%95%D7%9E%D7%99%D7%94": {
+  "file": "hamashtela.co.il/a95347dcf1dfd990.json",
+  "fetchedAt": "2026-11-15T06:24:16.879Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%A4%D7%A8%D7%95%D7%9E%D7%99%D7%94": {
+  "file": "netaplants.co.il/9d46ce6a00d9146e.json",
+  "fetchedAt": "2026-11-15T06:24:16.987Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=peperomia": {
+  "file": "gankasumnh.co.il/39d44f4decb4790d.json",
+  "fetchedAt": "2026-11-15T06:24:18.265Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=peperomia": {
+  "file": "hamashtela.co.il/bc0b66d454ebfde7.json",
+  "fetchedAt": "2026-11-15T06:24:18.596Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=peperomia": {
+  "file": "netaplants.co.il/0d54ff1d777325ad.json",
+  "fetchedAt": "2026-11-15T06:24:19.283Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1271&parent%5B%5D=2263&parent%5B%5D=2268&parent%5B%5D=3568&parent%5B%5D=4199&parent%5B%5D=4664": {
+  "file": "gankasumnh.co.il/8249219080d29f31.json",
+  "fetchedAt": "2026-11-15T06:24:19.925Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A4%D7%A4%D7%A8%D7%95%D7%9E%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/1efa8361d9fc2b3c.json",
+  "fetchedAt": "2026-11-15T06:24:20.058Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=29829&parent%5B%5D=51574": {
+  "file": "netaplants.co.il/5e3e6d35d916cdb0.json",
+  "fetchedAt": "2026-11-15T06:24:22.482Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=peperomia": {
+  "file": "mermel-nursery.co.il/698c8eb12e1f9252.json",
+  "fetchedAt": "2026-11-15T06:24:24.409Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4930": {
+  "file": "mermel-nursery.co.il/80ba3fa7a9f7232d.json",
+  "fetchedAt": "2026-11-15T06:24:28.702Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%A6%D7%99%D7%94": {
+  "file": "hamashtela.co.il/c1074f5601dad07a.json",
+  "fetchedAt": "2026-11-15T06:24:29.550Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%A6%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/18168fa21a488ef8.json",
+  "fetchedAt": "2026-11-15T06:24:29.782Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%A6%D7%99%D7%94": {
+  "file": "netaplants.co.il/4ab311fa3c5efe02.json",
+  "fetchedAt": "2026-11-15T06:24:30.344Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=strelitzia": {
+  "file": "hamashtela.co.il/341dba7e97473a57.json",
+  "fetchedAt": "2026-11-15T06:27:15.178Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=strelitzia": {
+  "file": "gankasumnh.co.il/a675c166caa99b66.json",
+  "fetchedAt": "2026-11-15T06:27:15.147Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=strelitzia": {
+  "file": "netaplants.co.il/363f2d028abea99a.json",
+  "fetchedAt": "2026-11-15T06:27:18.968Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%A6%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/4f087289f32a9141.json",
+  "fetchedAt": "2026-11-15T06:24:32.991Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=strelitzia": {
+  "file": "mermel-nursery.co.il/fbecb31b2a5d934e.json",
+  "fetchedAt": "2026-11-15T06:27:23.314Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A9%D7%A4%D7%9C%D7%A8%D7%94": {
+  "file": "hamashtela.co.il/5c2048f9eee7871e.json",
+  "fetchedAt": "2026-11-15T06:24:38.040Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A9%D7%A4%D7%9C%D7%A8%D7%94": {
+  "file": "gankasumnh.co.il/fb82bde9cb15fd13.json",
+  "fetchedAt": "2026-11-15T06:24:38.092Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A9%D7%A4%D7%9C%D7%A8%D7%94": {
+  "file": "netaplants.co.il/2137f0d374eb526d.json",
+  "fetchedAt": "2026-11-15T06:24:39.202Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=schefflera": {
+  "file": "gankasumnh.co.il/f290ac8ab74fc9e9.json",
+  "fetchedAt": "2026-11-15T06:24:39.662Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=schefflera": {
+  "file": "hamashtela.co.il/e319bd6251f8a4e2.json",
+  "fetchedAt": "2026-11-15T06:24:39.721Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1398&parent%5B%5D=1401": {
+  "file": "gankasumnh.co.il/45023f771931d623.json",
+  "fetchedAt": "2026-11-15T06:24:41.310Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A9%D7%A4%D7%9C%D7%A8%D7%94": {
+  "file": "mermel-nursery.co.il/354d522827b38edc.json",
+  "fetchedAt": "2026-11-15T06:24:41.454Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=schefflera": {
+  "file": "netaplants.co.il/8da9c881d9365bc1.json",
+  "fetchedAt": "2026-11-15T06:24:41.704Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=50309": {
+  "file": "netaplants.co.il/84a033ddbf79c989.json",
+  "fetchedAt": "2026-11-15T06:24:44.459Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=schefflera": {
+  "file": "mermel-nursery.co.il/8bdfcc2d734af765.json",
+  "fetchedAt": "2026-11-15T06:24:45.743Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=22291&parent%5B%5D=22292": {
+  "file": "mermel-nursery.co.il/b81eee00a9f3ef59.json",
+  "fetchedAt": "2026-11-15T06:24:50.064Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%93%D7%A8%D7%A6%D7%A0%D7%94": {
+  "file": "gankasumnh.co.il/9de3e05001015e2d.json",
+  "fetchedAt": "2026-11-15T06:24:51.033Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%93%D7%A8%D7%A6%D7%A0%D7%94": {
+  "file": "hamashtela.co.il/2d70d50dfba3b4f3.json",
+  "fetchedAt": "2026-11-15T06:24:51.140Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%93%D7%A8%D7%A6%D7%A0%D7%94": {
+  "file": "netaplants.co.il/3c45f027c425d665.json",
+  "fetchedAt": "2026-11-15T06:24:52.221Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=dracaena": {
+  "file": "gankasumnh.co.il/d11d28275916ac2c.json",
+  "fetchedAt": "2026-11-15T06:24:52.579Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=dracaena": {
+  "file": "hamashtela.co.il/5ef39d9683bbe5eb.json",
+  "fetchedAt": "2026-11-15T06:24:52.874Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1178&parent%5B%5D=1347&parent%5B%5D=1350": {
+  "file": "gankasumnh.co.il/a4b2199ae4c3264b.json",
+  "fetchedAt": "2026-11-15T06:24:54.234Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%93%D7%A8%D7%A6%D7%A0%D7%94": {
+  "file": "mermel-nursery.co.il/156b0072f5a7e322.json",
+  "fetchedAt": "2026-11-15T06:24:54.399Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=dracaena": {
+  "file": "netaplants.co.il/37c3f147ac50362d.json",
+  "fetchedAt": "2026-11-15T06:24:54.410Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2111&parent%5B%5D=2698&parent%5B%5D=66245&parent%5B%5D=66253": {
+  "file": "netaplants.co.il/2326d2ec1c5363d4.json",
+  "fetchedAt": "2026-11-15T06:24:57.734Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=dracaena": {
+  "file": "mermel-nursery.co.il/a7b4372168d027f2.json",
+  "fetchedAt": "2026-11-15T06:24:58.690Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4529&parent%5B%5D=4775&parent%5B%5D=4778&parent%5B%5D=4784": {
+  "file": "mermel-nursery.co.il/1d11baf24ca1ef7b.json",
+  "fetchedAt": "2026-11-15T06:25:03.190Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%91%D7%92%D7%95%D7%A0%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/0e6211d2fde42dc4.json",
+  "fetchedAt": "2026-11-15T06:25:04.076Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%91%D7%92%D7%95%D7%A0%D7%99%D7%94": {
+  "file": "hamashtela.co.il/2eaac452097619de.json",
+  "fetchedAt": "2026-11-15T06:25:04.348Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%91%D7%92%D7%95%D7%A0%D7%99%D7%94": {
+  "file": "netaplants.co.il/66e6a82a30fa0aa1.json",
+  "fetchedAt": "2026-11-15T06:25:04.687Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=begonia": {
+  "file": "gankasumnh.co.il/16e4bc1018182fa6.json",
+  "fetchedAt": "2026-11-15T06:25:05.620Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=begonia": {
+  "file": "hamashtela.co.il/5cdc837af9bc70cc.json",
+  "fetchedAt": "2026-11-15T06:25:06.040Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=begonia": {
+  "file": "netaplants.co.il/5c35475eca6ebb9f.json",
+  "fetchedAt": "2026-11-15T06:25:06.901Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%91%D7%92%D7%95%D7%A0%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/5252ef778a34bcd2.json",
+  "fetchedAt": "2026-11-15T06:25:07.489Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=begonia": {
+  "file": "mermel-nursery.co.il/3669eceb733bebbc.json",
+  "fetchedAt": "2026-11-15T06:25:11.747Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%99%D7%A6%D7%99%D7%94": {
+  "file": "gankasumnh.co.il/accb95fd68f8d9ee.json",
+  "fetchedAt": "2026-11-15T06:27:11.950Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%99%D7%A6%D7%99%D7%94": {
+  "file": "hamashtela.co.il/aab43a86a5080af4.json",
+  "fetchedAt": "2026-11-15T06:27:11.833Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%99%D7%A6%D7%99%D7%94": {
+  "file": "netaplants.co.il/390e2adbe2c30073.json",
+  "fetchedAt": "2026-11-15T06:27:14.107Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%98%D7%A8%D7%9C%D7%99%D7%A6%D7%99%D7%94": {
+  "file": "mermel-nursery.co.il/a08c448207378596.json",
+  "fetchedAt": "2026-11-15T06:27:14.666Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%95%D7%A7%D7%95%D7%9C%D7%A7%D7%A1": {
+  "file": "gankasumnh.co.il/b133df0063fdb48c.json",
+  "fetchedAt": "2026-11-15T06:26:02.131Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%95%D7%A7%D7%95%D7%9C%D7%A7%D7%A1": {
+  "file": "hamashtela.co.il/d6407ec25e6e4210.json",
+  "fetchedAt": "2026-11-15T06:26:02.190Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%95%D7%A7%D7%95%D7%9C%D7%A7%D7%A1": {
+  "file": "netaplants.co.il/8b5528f77ea5e995.json",
+  "fetchedAt": "2026-11-15T06:26:03.093Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%96%D7%9E%D7%99%D7%95%D7%A7%D7%95%D7%9C%D7%A7%D7%A1": {
+  "file": "mermel-nursery.co.il/0e17c7d63b54fd71.json",
+  "fetchedAt": "2026-11-15T06:26:08.195Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A6%D7%99%D7%A4%D7%95%D7%A8%20%D7%92%D7%9F%20%D7%A2%D7%93%D7%9F": {
+  "file": "gankasumnh.co.il/24efc12f872285cb.json",
+  "fetchedAt": "2026-11-15T06:27:13.507Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A6%D7%99%D7%A4%D7%95%D7%A8%20%D7%92%D7%9F%20%D7%A2%D7%93%D7%9F": {
+  "file": "hamashtela.co.il/03b5139a3d3d3acb.json",
+  "fetchedAt": "2026-11-15T06:27:13.515Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1388": {
+  "file": "gankasumnh.co.il/495d9c9950d321c5.json",
+  "fetchedAt": "2026-11-15T06:27:16.699Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A6%D7%99%D7%A4%D7%95%D7%A8%20%D7%92%D7%9F%20%D7%A2%D7%93%D7%9F": {
+  "file": "netaplants.co.il/b7816d680049ae4b.json",
+  "fetchedAt": "2026-11-15T06:27:16.706Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A6%D7%99%D7%A4%D7%95%D7%A8%20%D7%92%D7%9F%20%D7%A2%D7%93%D7%9F": {
+  "file": "mermel-nursery.co.il/81978d9f786763b6.json",
+  "fetchedAt": "2026-11-15T06:27:18.962Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2720": {
+  "file": "netaplants.co.il/3389ae0d0893817c.json",
+  "fetchedAt": "2026-11-15T06:27:21.819Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=25652": {
+  "file": "mermel-nursery.co.il/d7a9d385389854f3.json",
+  "fetchedAt": "2026-11-15T06:27:27.641Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%97%D7%9C%D7%91": {
+  "file": "hamashtela.co.il/a3055afccc2fb10a.json",
+  "fetchedAt": "2026-11-15T06:29:19.289Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%97%D7%9C%D7%91": {
+  "file": "gankasumnh.co.il/13c56fcda575c0cb.json",
+  "fetchedAt": "2026-11-15T06:29:21.022Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%97%D7%9C%D7%91": {
+  "file": "netaplants.co.il/ca069026a67f6157.json",
+  "fetchedAt": "2026-11-15T06:29:21.472Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%97%D7%9C%D7%91": {
+  "file": "mermel-nursery.co.il/d1faf54c8fc627d9.json",
+  "fetchedAt": "2026-11-15T06:29:22.378Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4104": {
+  "file": "gankasumnh.co.il/a8350cf05751f72b.json",
+  "fetchedAt": "2026-11-15T06:29:22.685Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=50895&parent%5B%5D=58577&parent%5B%5D=58584&parent%5B%5D=66259": {
+  "file": "netaplants.co.il/707f664872eb48a3.json",
+  "fetchedAt": "2026-11-15T06:29:24.004Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%99%D7%A0%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%9D": {
+  "file": "gankasumnh.co.il/d79ba9a9071e35f5.json",
+  "fetchedAt": "2026-11-15T06:29:24.423Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%99%D7%A0%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%9D": {
+  "file": "hamashtela.co.il/9e91c87e85dd9f34.json",
+  "fetchedAt": "2026-11-15T06:29:25.299Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=syngonium": {
+  "file": "gankasumnh.co.il/3d639087542d212e.json",
+  "fetchedAt": "2026-11-15T06:29:26.077Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%99%D7%A0%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%9D": {
+  "file": "netaplants.co.il/47fb9a4b031853dd.json",
+  "fetchedAt": "2026-11-15T06:29:26.677Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%99%D7%A0%D7%92%D7%95%D7%A0%D7%99%D7%95%D7%9D": {
+  "file": "mermel-nursery.co.il/4a7cc26ae103a557.json",
+  "fetchedAt": "2026-11-15T06:29:27.023Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=syngonium": {
+  "file": "hamashtela.co.il/95203073c87c28d1.json",
+  "fetchedAt": "2026-11-15T06:29:27.066Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1191&parent%5B%5D=1197": {
+  "file": "gankasumnh.co.il/1d388b1cc51a1aee.json",
+  "fetchedAt": "2026-11-15T06:29:27.679Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=syngonium": {
+  "file": "netaplants.co.il/be2894a7f2da5968.json",
+  "fetchedAt": "2026-11-15T06:29:29.027Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=syngonium": {
+  "file": "mermel-nursery.co.il/68c8c4141073ea4e.json",
+  "fetchedAt": "2026-11-15T06:29:31.296Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=47704&parent%5B%5D=63374": {
+  "file": "netaplants.co.il/156ce87354150ed7.json",
+  "fetchedAt": "2026-11-15T06:29:31.792Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%A0%D7%98%D7%95%D7%A8%D7%99%D7%95%D7%9D": {
+  "file": "hamashtela.co.il/0a8f1cdd4e034e33.json",
+  "fetchedAt": "2026-11-15T06:29:32.782Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%A0%D7%98%D7%95%D7%A8%D7%99%D7%95%D7%9D": {
+  "file": "gankasumnh.co.il/59683630a64d9422.json",
+  "fetchedAt": "2026-11-15T06:29:32.947Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%A0%D7%98%D7%95%D7%A8%D7%99%D7%95%D7%9D": {
+  "file": "netaplants.co.il/4b735eac2f2403d2.json",
+  "fetchedAt": "2026-11-15T06:29:34.372Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=anthurium": {
+  "file": "hamashtela.co.il/eb8f132b67c2c8de.json",
+  "fetchedAt": "2026-11-15T06:29:34.431Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=anthurium": {
+  "file": "gankasumnh.co.il/62afcc3a3905f3d6.json",
+  "fetchedAt": "2026-11-15T06:29:34.528Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%A0%D7%98%D7%95%D7%A8%D7%99%D7%95%D7%9D": {
+  "file": "mermel-nursery.co.il/2d5738fa72a20fd1.json",
+  "fetchedAt": "2026-11-15T06:29:35.619Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1160": {
+  "file": "gankasumnh.co.il/764dc6ded5156629.json",
+  "fetchedAt": "2026-11-15T06:29:36.206Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=anthurium": {
+  "file": "netaplants.co.il/08b0553dccb9b002.json",
+  "fetchedAt": "2026-11-15T06:29:36.838Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=anthurium": {
+  "file": "mermel-nursery.co.il/4ecfc72d0ec25a0a.json",
+  "fetchedAt": "2026-11-15T06:29:39.941Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4678": {
+  "file": "mermel-nursery.co.il/0db775385a751e99.json",
+  "fetchedAt": "2026-11-15T06:29:44.207Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A4%D7%98%D7%99%D7%A4%D7%99%D7%9C%D7%95%D7%9D": {
+  "file": "hamashtela.co.il/0d7fa7f5e9380589.json",
+  "fetchedAt": "2026-11-15T06:29:45.356Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A4%D7%98%D7%99%D7%A4%D7%99%D7%9C%D7%95%D7%9D": {
+  "file": "gankasumnh.co.il/c723e1fdf49bc59d.json",
+  "fetchedAt": "2026-11-15T06:29:45.358Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A4%D7%98%D7%99%D7%A4%D7%99%D7%9C%D7%95%D7%9D": {
+  "file": "netaplants.co.il/8c34a20fcc5f062c.json",
+  "fetchedAt": "2026-11-15T06:29:46.077Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=spathiphyllum": {
+  "file": "gankasumnh.co.il/33e2f4832c929bb7.json",
+  "fetchedAt": "2026-11-15T06:29:46.929Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=spathiphyllum": {
+  "file": "hamashtela.co.il/03f1025451d65290.json",
+  "fetchedAt": "2026-11-15T06:29:47.256Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=spathiphyllum": {
+  "file": "netaplants.co.il/2e9837fd84d41bc9.json",
+  "fetchedAt": "2026-11-15T06:29:48.312Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A1%D7%A4%D7%98%D7%99%D7%A4%D7%99%D7%9C%D7%95%D7%9D": {
+  "file": "mermel-nursery.co.il/70703cbcc38b1889.json",
+  "fetchedAt": "2026-11-15T06:29:48.449Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=spathiphyllum": {
+  "file": "mermel-nursery.co.il/7d1cb42fb5da6d5d.json",
+  "fetchedAt": "2026-11-15T06:29:52.689Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%99%D7%95%D7%A7%D7%94": {
+  "file": "gankasumnh.co.il/3bd774f0ca816bb4.json",
+  "fetchedAt": "2026-11-15T06:29:53.651Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%99%D7%95%D7%A7%D7%94": {
+  "file": "hamashtela.co.il/3f645e37c69724c8.json",
+  "fetchedAt": "2026-11-15T06:29:53.724Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%99%D7%95%D7%A7%D7%94": {
+  "file": "netaplants.co.il/512517dc42aaa279.json",
+  "fetchedAt": "2026-11-15T06:29:54.623Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=yucca": {
+  "file": "gankasumnh.co.il/6c557c1a5f05ff26.json",
+  "fetchedAt": "2026-11-15T06:29:55.191Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=yucca": {
+  "file": "hamashtela.co.il/49ad41c4e98d05fc.json",
+  "fetchedAt": "2026-11-15T06:29:55.459Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1127": {
+  "file": "gankasumnh.co.il/d8fcc149158f7da6.json",
+  "fetchedAt": "2026-11-15T06:29:56.828Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=yucca": {
+  "file": "netaplants.co.il/3ef591bacb888363.json",
+  "fetchedAt": "2026-11-15T06:29:56.943Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%99%D7%95%D7%A7%D7%94": {
+  "file": "mermel-nursery.co.il/49cdbeda25c0deb9.json",
+  "fetchedAt": "2026-11-15T06:29:57.136Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=yucca": {
+  "file": "mermel-nursery.co.il/43eca5d275cfc69b.json",
+  "fetchedAt": "2026-11-15T06:30:01.415Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A8%D7%A1%D7%95%D7%9C%D7%94": {
+  "file": "gankasumnh.co.il/5915379840837012.json",
+  "fetchedAt": "2026-11-15T06:30:02.444Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A8%D7%A1%D7%95%D7%9C%D7%94": {
+  "file": "hamashtela.co.il/b18d87fe60755e94.json",
+  "fetchedAt": "2026-11-15T06:30:02.460Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A8%D7%A1%D7%95%D7%9C%D7%94": {
+  "file": "netaplants.co.il/0aafebea380d516c.json",
+  "fetchedAt": "2026-11-15T06:30:03.293Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=crassula": {
+  "file": "gankasumnh.co.il/e386b26d7a3ff6a6.json",
+  "fetchedAt": "2026-11-15T06:30:03.986Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=crassula": {
+  "file": "hamashtela.co.il/0ffaed880bd603da.json",
+  "fetchedAt": "2026-11-15T06:30:04.177Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=crassula": {
+  "file": "netaplants.co.il/9169f550c926d8f0.json",
+  "fetchedAt": "2026-11-15T06:30:05.606Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A8%D7%A1%D7%95%D7%9C%D7%94": {
+  "file": "mermel-nursery.co.il/0d393307121e8993.json",
+  "fetchedAt": "2026-11-15T06:30:06.170Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=43164": {
+  "file": "netaplants.co.il/33a90b5ab84efa60.json",
+  "fetchedAt": "2026-11-15T06:30:08.012Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=crassula": {
+  "file": "mermel-nursery.co.il/7512eea5979426de.json",
+  "fetchedAt": "2026-11-15T06:30:10.422Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%99": {
+  "file": "hamashtela.co.il/3962ca7750d93d96.json",
+  "fetchedAt": "2026-11-15T06:30:44.561Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%99": {
+  "file": "gankasumnh.co.il/8d70c4570f90f9c3.json",
+  "fetchedAt": "2026-11-15T06:30:44.473Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%99": {
+  "file": "netaplants.co.il/922703072560e0bc.json",
+  "fetchedAt": "2026-11-15T06:30:46.940Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aloe": {
+  "file": "gankasumnh.co.il/1ac23a640629c64b.json",
+  "fetchedAt": "2026-11-15T06:30:46.105Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aloe": {
+  "file": "hamashtela.co.il/9920f820e7ee7a27.json",
+  "fetchedAt": "2026-11-15T06:30:46.355Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aloe": {
+  "file": "netaplants.co.il/2af7182c820299c3.json",
+  "fetchedAt": "2026-11-15T06:30:49.167Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%99": {
+  "file": "mermel-nursery.co.il/390d39242b8343ed.json",
+  "fetchedAt": "2026-11-15T06:30:49.707Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2123": {
+  "file": "netaplants.co.il/263b794649404682.json",
+  "fetchedAt": "2026-11-15T06:30:51.914Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=aloe": {
+  "file": "mermel-nursery.co.il/718f8c153ef817b1.json",
+  "fetchedAt": "2026-11-15T06:30:54.008Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A7%D7%98%D7%95%D7%A1": {
+  "file": "hamashtela.co.il/4a215a0829c83be6.json",
+  "fetchedAt": "2026-11-15T06:30:19.782Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A7%D7%98%D7%95%D7%A1": {
+  "file": "gankasumnh.co.il/02362fc7178ba700.json",
+  "fetchedAt": "2026-11-15T06:30:19.947Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=1514": {
+  "file": "gankasumnh.co.il/601da3352757cd4a.json",
+  "fetchedAt": "2026-11-15T06:30:21.554Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A7%D7%98%D7%95%D7%A1": {
+  "file": "netaplants.co.il/d0ce894764f71e6c.json",
+  "fetchedAt": "2026-11-15T06:30:21.638Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%A7%D7%A7%D7%98%D7%95%D7%A1": {
+  "file": "mermel-nursery.co.il/8416ce6c6454591a.json",
+  "fetchedAt": "2026-11-15T06:30:23.227Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=2091&parent%5B%5D=2115&parent%5B%5D=2123&parent%5B%5D=2163&parent%5B%5D=2707&parent%5B%5D=24263&parent%5B%5D=25217&parent%5B%5D=28583&parent%5B%5D=43164&parent%5B%5D=44681&parent%5B%5D=45918&parent%5B%5D=47704&parent%5B%5D=48221&parent%5B%5D=49520&parent%5B%5D=58132&parent%5B%5D=62246&parent%5B%5D=63374&parent%5B%5D=67016&parent%5B%5D=67854&parent%5B%5D=68079": {
+  "file": "netaplants.co.il/b3aaa577f4ebf3b4.json",
+  "fetchedAt": "2026-11-15T06:30:25.735Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4794": {
+  "file": "mermel-nursery.co.il/a8a1b221f19ec667.json",
+  "fetchedAt": "2026-11-15T06:30:27.541Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=69403": {
+  "file": "netaplants.co.il/0c226aae7c583ea9.json",
+  "fetchedAt": "2026-11-15T06:30:28.034Z",
+  "status": 200
+ },
+ "https://hamashtela.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%95%D7%A8%D7%94": {
+  "file": "hamashtela.co.il/8772404dd78988af.json",
+  "fetchedAt": "2026-11-15T06:30:42.879Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%95%D7%A8%D7%94": {
+  "file": "gankasumnh.co.il/40a9a96fb4fa272f.json",
+  "fetchedAt": "2026-11-15T06:30:42.920Z",
+  "status": 200
+ },
+ "https://netaplants.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%95%D7%A8%D7%94": {
+  "file": "netaplants.co.il/16506da07cd01c71.json",
+  "fetchedAt": "2026-11-15T06:30:44.635Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=50&page=1&search=%D7%90%D7%9C%D7%95%D7%95%D7%A8%D7%94": {
+  "file": "mermel-nursery.co.il/e05d3300e6529d15.json",
+  "fetchedAt": "2026-11-15T06:30:45.500Z",
+  "status": 200
+ },
+ "https://gankasumnh.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=4213": {
+  "file": "gankasumnh.co.il/5fc476a021214e8a.json",
+  "fetchedAt": "2026-11-15T06:30:47.660Z",
+  "status": 200
+ },
+ "https://mermel-nursery.co.il/wp-json/wc/store/v1/products?per_page=100&type=variation&parent%5B%5D=30957": {
+  "file": "mermel-nursery.co.il/c3d8e7a7b4101475.json",
+  "fetchedAt": "2026-11-15T06:30:58.250Z",
+  "status": 200
+ }
+}
