@@ -50,3 +50,9 @@ Make reasonable technical choices independently. Ask for approval only before pa
 - Request approval before spending money, publishing/deploying, changing production resources, or making irreversible external changes.
 - Keep changes small and reviewable; update docs/RELEASE_STATUS.md with verified evidence and blockers after each milestone.
 - Do not assume unattended operation or remote access: work only within the permissions and runtime provided.
+
+## Current implementation (v0.1, 2026-11-15)
+- Start with `docs/RELEASE_STATUS.md` (verified state and blockers) and `docs/source-audit.md` (what each source allows).
+- Commands: `pnpm check` (typecheck, unit, build, E2E), `pnpm eval` (live evaluation), `PF_DATA_MODE=fixture pnpm dev` (offline demo).
+- New sources go through `services/api/src/sources/registry.ts` with audit evidence; never add a source behind bot protection.
+- Taxonomy changes: run `pnpm test` (includes `eval/species.test.ts`), and measure on a fresh blind holdout before claiming accuracy.
