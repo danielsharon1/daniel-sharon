@@ -90,3 +90,27 @@ test("image identification refuses non-web images", async () => {
   await expect(page.locator("#status .error")).toBeVisible();
   await page.close();
 });
+
+test("static site mode: popup decrypts the snapshot and searches locally", async () => {
+  const page = await ctx.newPage();
+  await page.goto(`chrome-extension://${extId}/options.html`);
+  await page.locator("#apiBase").fill("http://127.0.0.1:8789/daniel-sharon/");
+  await page.locator("#passphrase").fill("e2e-demo-passphrase");
+  await page.locator("#form button").click();
+  await expect(page.locator("#status")).toContainText(/נשמר|Saved/);
+  await page.goto(`chrome-extension://${extId}/popup.html`);
+  await page.locator("#q").fill("מונסטרה");
+  await page.locator("#form button[type=submit]").click();
+  await expect(page.locator("#results li").first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator("#status")).toContainText(/הדגמה|Demo/);
+  // A wrong passphrase gives a clear message instead of results.
+  await page.goto(`chrome-extension://${extId}/options.html`);
+  await page.locator("#passphrase").fill("wrong-passphrase-123");
+  await page.locator("#form button").click();
+  await page.goto(`chrome-extension://${extId}/popup.html`);
+  await page.locator("#q").fill("מונסטרה");
+  await page.locator("#form button[type=submit]").click();
+  await expect(page.locator("#status .error")).toBeVisible();
+  await page.close();
+});
+

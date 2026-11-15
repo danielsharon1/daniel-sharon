@@ -14,7 +14,7 @@ export const STRINGS = {
     from: "החל מ־",
     km: (n) => `${n} ק״מ`,
     unknownLoc: "מיקום לא מאומת",
-    unreachable: "אין חיבור לשרת PlantFinder. בדקו את כתובת השרת בהגדרות.",
+    unreachable: "אין חיבור לאתר PlantFinder. בדקו את הכתובת בהגדרות התוסף.",
     unknown_city: "העיר לא נמצאה.",
     noTitle: "לא נמצא צמח מוכר בכותרת העמוד.",
     demo: "מצב הדגמה: נתונים מתמונת מצב, לא בדיקה חיה.",
@@ -27,11 +27,17 @@ export const STRINGS = {
     confirm: "זה הצמח, לחיפוש",
     confidence: (p) => `ביטחון ${p}%`,
     imageError: "לא הצלחנו להוריד או לזהות את התמונה.",
-    apiBase: "כתובת שרת PlantFinder",
+    apiBase: "כתובת האתר של PlantFinder (GitHub Pages או שרת)",
+    passphraseLabel: "סיסמת הנתונים",
+    passphraseHint: "אותה סיסמה של האתר. נשמרת רק במחשב הזה.",
+    passphrase_required: "צריך להזין את סיסמת הנתונים בהגדרות התוסף.",
+    wrong_passphrase: "סיסמת הנתונים שגויה. אפשר לתקן בהגדרות התוסף.",
+    snapshot_unavailable: "לא הצלחנו לטעון את הנתונים מהאתר.",
+    snapshotAt: (d) => `נתונים מ־${d}`,
     save: "שמירה",
     saved: "נשמר",
     invalidUrl: "כתובת לא תקינה. צריך להתחיל ב-https:// או http://",
-    privacy: "התוסף שולח לשרת רק את מה שביקשת לחפש: טקסט, כותרת עמוד או כתובת תמונה. הוא לא קורא תוכן מהעמודים."
+    privacy: "התוסף לא קורא תוכן מהעמודים. החיפוש רץ בתוך התוסף על הנתונים מהאתר; לזיהוי תמונה נשלחת רק כתובת התמונה שבחרת."
   },
   en: {
     plant: "Plant name",
@@ -61,11 +67,17 @@ export const STRINGS = {
     confirm: "This is it, search",
     confidence: (p) => `${p}% confidence`,
     imageError: "Could not download or identify this image.",
-    apiBase: "PlantFinder server address",
+    apiBase: "PlantFinder site address (GitHub Pages or a server)",
+    passphraseLabel: "Data passphrase",
+    passphraseHint: "Same passphrase as the site. Stored on this computer only.",
+    passphrase_required: "Enter the data passphrase in the extension settings.",
+    wrong_passphrase: "Wrong data passphrase. Fix it in the extension settings.",
+    snapshot_unavailable: "Could not load the data from the site.",
+    snapshotAt: (d) => `Data from ${d}`,
     save: "Save",
     saved: "Saved",
     invalidUrl: "Invalid address. It must start with https:// or http://",
-    privacy: "The extension sends the server only what you ask to search: text, a page title or an image address. It does not read page content."
+    privacy: "The extension never reads page content. Search runs inside the extension on the site's data; for image identification only the image address you chose is sent."
   }
 };
 

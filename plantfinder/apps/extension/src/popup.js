@@ -1,4 +1,4 @@
-import { apiGet, el, formatPrice, safeHref, uiLang, webSearchUrl } from "./common.js";
+import { el, formatPrice, resolveTitle, safeHref, searchPlants, uiLang, webSearchUrl } from "./common.js";
 import { STRINGS, applyStrings } from "./strings.js";
 
 const lang = uiLang();
@@ -32,10 +32,11 @@ async function search(q) {
   results.replaceChildren();
   openAll.hidden = true;
   try {
-    const r = await apiGet(`/api/search?${new URLSearchParams(params)}`);
+    const r = await searchPlants(params);
     const shown = r.items.filter((i) => i.bucket !== "related_species").slice(0, 6);
     const matches = r.items.filter((i) => i.bucket === "match").length;
     setStatus([r.dataMode === "fixture" ? `${t.demo} ` : "", matches ? t.matches(matches) : t.noMatches].join(""));
+    if (r.snapshotGeneratedAt) results.before(el("p", { class: "muted small" }, t.snapshotAt(new Date(r.snapshotGeneratedAt).toLocaleString(lang === "he" ? "he-IL" : "en-GB"))));
     for (const i of shown) {
       const href = safeHref(i.url);
       const where = i.distanceKm !== null ? t.km(i.distanceKm) : i.seller.location ? "" : t.unknownLoc;
@@ -51,7 +52,7 @@ async function search(q) {
     }
     openAll.hidden = false;
   } catch (e) {
-    setStatus(e.code === "unknown_city" ? t.unknown_city : t.unreachable, "error");
+    setStatus(t[e.code] ?? t.unreachable, "error");
   }
 }
 
@@ -64,15 +65,10 @@ $("form").addEventListener("submit", (e) => {
 $("usePage").addEventListener("click", async () => {
   // activeTab: the popup was opened by the user on this tab, so its title is available.
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  const title = (tab?.title || "").slice(0, 300);
-  try {
-    const resolved = await apiGet(`/api/resolve?q=${encodeURIComponent(title)}`);
-    if (!resolved.taxon) return setStatus(t.noTitle);
-    $("q").value = lang === "he" ? resolved.taxon.he : resolved.taxon.en;
-    void search($("q").value);
-  } catch {
-    setStatus(t.unreachable, "error");
-  }
+  const resolved = resolveTitle(tab?.title || "");
+  if (!resolved.taxon) return setStatus(t.noTitle);
+  $("q").value = lang === "he" ? resolved.taxon.he : resolved.taxon.en;
+  void search($("q").value);
 });
 
 openAll.addEventListener("click", async () => {

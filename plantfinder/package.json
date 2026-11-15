@@ -18,7 +18,8 @@
     "eval": "NODE_USE_ENV_PROXY=1 tsx eval/run-eval.ts",
     "eval:species": "tsx eval/species-eval.ts eval/species-holdout2.json",
     "gazetteer": "tsx scripts/build-gazetteer.ts",
-    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e"
+    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm build:static-demo && pnpm test:e2e",
+    "build:static-demo": "pnpm --filter @plantfinder/web build:static && PF_SNAPSHOT_PASSPHRASE=e2e-demo-passphrase pnpm --filter @plantfinder/api snapshot --out ../../apps/web/dist-static --from-fixtures"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

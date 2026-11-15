@@ -1,4 +1,4 @@
-import { apiGet, webSearchUrl, uiLang } from "./common.js";
+import { detectBackend, getSiteBase, resolveTitle, webSearchUrl, uiLang } from "./common.js";
 
 export const MENU_IDS = ["pf-image", "pf-selection", "pf-page"];
 
@@ -18,8 +18,18 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "pf-image" && info.srcUrl) {
     // Only http(s) images can be identified server-side; data:/blob: images stay in the page.
     const isRemote = /^https?:\/\//i.test(info.srcUrl);
-    const page = chrome.runtime.getURL(`identify.html?${new URLSearchParams(isRemote ? { imageUrl: info.srcUrl } : { unsupported: "1" })}`);
-    await chrome.tabs.create({ url: page, index: tab ? tab.index + 1 : undefined });
+    let backend = null;
+    try {
+      backend = isRemote ? await detectBackend() : null;
+    } catch {
+      /* site unreachable: the identify page explains */
+    }
+    // Static site: the web app identifies the image (it holds the optional Pl@ntNet key); server: our identify page.
+    const url =
+      backend?.kind === "static"
+        ? `${await getSiteBase()}?${new URLSearchParams({ identifyUrl: info.srcUrl, lang })}`
+        : chrome.runtime.getURL(`identify.html?${new URLSearchParams(isRemote ? { imageUrl: info.srcUrl } : { unsupported: "1" })}`);
+    await chrome.tabs.create({ url, index: tab ? tab.index + 1 : undefined });
     return;
   }
   if (info.menuItemId === "pf-selection" && info.selectionText) {
@@ -30,13 +40,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId === "pf-page" && tab) {
     // activeTab (granted by the context-menu click) gives us the title; no page content is read.
     const title = (tab.title || "").slice(0, 300);
-    let q = title.slice(0, 80);
-    try {
-      const resolved = await apiGet(`/api/resolve?q=${encodeURIComponent(title)}`);
-      if (resolved.taxon) q = lang === "he" ? resolved.taxon.he : resolved.taxon.en;
-    } catch {
-      // API unreachable: fall back to the raw title so the user can edit it in the app
-    }
+    const resolved = resolveTitle(title); // local classifier, same as the site
+    const q = resolved.taxon ? (lang === "he" ? resolved.taxon.he : resolved.taxon.en) : title.slice(0, 80);
     await chrome.tabs.create({ url: await webSearchUrl({ q, lang }), index: tab.index + 1 });
   }
 });
