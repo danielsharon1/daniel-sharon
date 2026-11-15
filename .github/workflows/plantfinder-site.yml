@@ -1,13 +1,12 @@
 # PlantFinder free hosting: GitHub Actions collects the nursery catalogs 3x a day, encrypts them, and
 # publishes the static site to GitHub Pages. No server, no paid service.
 #
-# One-time setup (repository owner):
-#   0. Merge the PlantFinder pull request into the default branch.
+# One-time setup (repository owner), in this order:
 #   1. Settings → Pages → Build and deployment → Source: "GitHub Actions"
 #   2. Settings → Secrets and variables → Actions → New repository secret:
 #        PF_SNAPSHOT_PASSPHRASE  (required, at least 12 characters; you type it once on each device)
 #        PLANTNET_API_KEY        (optional, free Pl@ntNet key for photo identification; visible to site visitors)
-#   3. Actions → "PlantFinder site" → Run workflow (or wait for the next scheduled run)
+#   3. Merge the PlantFinder pull request into the default branch: that push runs this workflow.
 name: PlantFinder site
 
 on:

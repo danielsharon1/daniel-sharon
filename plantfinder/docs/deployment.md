@@ -20,16 +20,17 @@ only, encrypts the snapshot with your passphrase, and publishes to GitHub Pages.
 searches locally, with the same strict rules as the API.
 
 ### One-time setup (about 3 minutes, no payment details)
-1. **Merge** the PlantFinder pull request into the default branch (in this repository:
-   `claude/email-agent-property-alerts-tbcuh9`). Scheduled workflows and Pages deployments run from the default branch only.
-2. GitHub → repository **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. **Settings → Secrets and variables → Actions → New repository secret**:
+Do these in order; the merge in step 3 starts the first deployment automatically.
+1. GitHub → repository **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. **Settings → Secrets and variables → Actions → New repository secret**:
    - `PF_SNAPSHOT_PASSPHRASE`: required, at least 12 characters (e.g. four random words). You type it once per device.
    - `PLANTNET_API_KEY`: optional. Create a free account at my.plantnet.org (500 identifications/day free).
      It is embedded in the static site, so anyone who has the site can see it. The free plan cannot incur
      charges; at worst the daily quota is used up.
-4. **Actions → PlantFinder site → Run workflow.** After about 5 minutes the site is at
-   `https://danielsharon1.github.io/daniel-sharon/`.
+3. **Merge the PlantFinder pull request** into the default branch (in this repository:
+   `claude/email-agent-property-alerts-tbcuh9`). Scheduled runs and Pages deployments happen only from the default branch.
+4. After about 5 minutes the site is at `https://danielsharon1.github.io/daniel-sharon/`. Progress is
+   visible under **Actions → PlantFinder site**, which also has a **Run workflow** button for a manual refresh.
 
 ### What to expect
 - Data freshness: the banner shows when the snapshot was taken. If a source fails, its previous data
