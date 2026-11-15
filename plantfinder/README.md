@@ -7,6 +7,11 @@ location, and how confidently the plant was identified. No fabricated listings.
 **Status:** v0.1 working personal pilot, 6 live sources. Not yet authorized for public use. See
 [`docs/RELEASE_STATUS.md`](docs/RELEASE_STATUS.md).
 
+## Free hosting (no server, no payment)
+
+The site can run for free on GitHub Pages, refreshed 3 times a day by GitHub Actions, with the nursery
+data encrypted under your passphrase. Setup takes about 3 minutes: [`docs/deployment.md`](docs/deployment.md#option-1-free-static-site-on-github-pages).
+
 ## Quick start
 
 Requirements: Node ≥ 20.11, pnpm 10 (`corepack enable`).

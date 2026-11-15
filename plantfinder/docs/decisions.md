@@ -17,3 +17,6 @@
 | D13 | Fixture (DEMO) mode serves real recorded snapshots, labelled in the UI | Offline development and CI without loading the sources | — |
 | D14 | No payments, deployment or account creation without the owner's approval | Project rules | — |
 | D15 | Alerts deferred | Freshness is not yet proven over time (CLAUDE.md step 6) | After 2–4 weeks of live monitoring |
+| D16 | Primary deployment = static site on GitHub Pages, built by a scheduled GitHub Actions workflow (3×/day) | $0, no server, no card; the owner asked for a free setup that runs by itself | Accounts or real-time stock are needed |
+| D17 | Static snapshot is encrypted (AES-GCM, PBKDF2 passphrase); unencrypted publishing is refused for pilot sources | A public URL must not republish catalogs whose terms forbid it | Written permissions make sources `partner` |
+| D18 | Search runs in the browser (shared engine), same strict rules as the API | One engine, three hosts (API, web, extension) | — |

@@ -1,3 +1,19 @@
+# Release status: v0.2 (2026-11-15)
+
+## v0.2: free hosting (static site), not yet activated
+| Item | Status | Evidence |
+|---|---|---|
+| Live full-catalog snapshot from all 6 sources | ✅ 5,091 plant listings, ~3 min, 337 KB encrypted | Local run of `pnpm --filter @plantfinder/api snapshot` (2026-11-15) |
+| Benchmark on the snapshot = same buckets as the live API | ✅ 0 match / 5 unknown location / 10 outside radius | Script check + E2E (static project) |
+| Encryption (AES-GCM, PBKDF2 400k); refuses unencrypted pilot data; tamper and wrong-passphrase detection | ✅ | Unit tests + E2E (ciphertext contains no catalog text) |
+| Source failure → previous data carried over (≤72 h), labelled; no fresh source → job fails, site keeps last version | ✅ | Simulated with all sources unreachable |
+| Static web app: unlock, remember, lock, search, photo (optional key), a11y, mobile | ✅ | 6 E2E tests (`e2e/static.spec.ts`) |
+| Extension against the static site (bundled engine, local decryption) | ✅ | Extension E2E |
+| Workflow `.github/workflows/plantfinder-site.yml` | ✅ written and rehearsed from a clean clone / ⚠️ **not yet run on GitHub** | Needs merge to `main`, Pages enabled, `PF_SNAPSHOT_PASSPHRASE` secret |
+| Photo identification in static mode | ⚠️ code only: no Pl@ntNet key available to test | — |
+
+---
+
 # Release status: v0.1 (2026-11-15)
 
 **Status: working personal pilot. NOT production-ready for public launch.** The software is built and

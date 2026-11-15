@@ -46,3 +46,14 @@ implementing engineer; an independent review is recommended before any public la
 3. Fix the DNS-rebinding residual, or disable URL identification.
 4. Privacy notice (Hebrew and English) covering Pl@ntNet and geolocation; legal review.
 5. Independent security review and dependency monitoring (Dependabot or Renovate).
+
+## Static site mode (GitHub Pages), added 2026-11-15
+
+| Area | Risk | Control |
+|---|---|---|
+| Publishing nursery data | A public Pages URL would republish catalogs whose terms forbid it | The snapshot is gzip + **AES-256-GCM** with a key from **PBKDF2-SHA256 (400,000 iterations, random 16-byte salt, 12-byte IV)**. The builder **refuses** to publish pilot data without `PF_SNAPSHOT_PASSPHRASE` (min. 12 chars). GCM authentication detects tampering and wrong passphrases. `meta.json` holds only counts and crypto parameters |
+| Passphrase handling | Leak or brute force | Stored as a GitHub secret (masked in logs) and in the user's browser `localStorage` (web) or `chrome.storage.local` (extension, never synced). Strength is the user's choice: use four or more random words. Offline brute force against a weak passphrase is possible, because the ciphertext is public |
+| Pl@ntNet key in the static build | Visible to anyone with the site | Optional. Free plan only (no billing); worst case the daily quota is exhausted. Images go from the browser straight to Pl@ntNet; URL identification lets Pl@ntNet fetch the image, so there is no SSRF surface on our side |
+| CSP | Pages cannot send headers | CSP is delivered as a `<meta>` tag (`script-src 'self'`, `connect-src 'self' https://my-api.plantnet.org`). `frame-ancestors` is not supported in meta, so clickjacking protection is weaker than in server mode, which is acceptable for a read-only search page |
+| Supply chain of the workflow | Third-party actions | Only official `actions/*` and `pnpm/action-setup`; `contents: write` is used for the weekly health commit only |
+| Source load | 3 runs a day | About 100 requests per run across 6 hosts, sequential per host with 1.2 s gaps and robots.txt enforced: lighter than live per-search fetching |

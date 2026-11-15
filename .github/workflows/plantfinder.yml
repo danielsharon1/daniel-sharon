@@ -30,6 +30,7 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - run: pnpm build:static-demo # static site + encrypted DEMO snapshot for the static E2E tests
       - run: pnpm exec playwright install --with-deps chromium
       # E2E runs against recorded source snapshots (fixture mode): no network access to the nurseries needed.
       - run: pnpm test:e2e

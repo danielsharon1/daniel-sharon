@@ -22,6 +22,22 @@
             product-kind detector · geo · gazetteer (GeoNames IL) · search-core
 ```
 
+## Free static mode (GitHub Pages)
+
+```
+GitHub Actions (cron 3×/day)                          GitHub Pages (static, free)
+  pnpm test                                             index.html + assets
+  web build --mode static          ───────────────►     data/meta.json   (counts, crypto params)
+  snapshot-build: fetchCatalog() × 6 sources            data/index.bin   (gzip + AES-GCM)
+    → plants only → encrypt with PF_SNAPSHOT_PASSPHRASE          │
+                                                                  ▼
+                                    Browser / extension: passphrase → decrypt → searchSnapshot()
+                                    (same strict evaluation as the API; gazetteer loaded lazily)
+```
+- `packages/shared/src/snapshot.ts`: format, encryption (WebCrypto) and `searchSnapshot()`.
+- `services/api/src/snapshot-build.ts`: builder. Carries over a failed source's previous data for up to 72 h; refuses empty or unencrypted pilot output.
+- `apps/web/src/static-client.ts`: implements the same `Client` interface as the API client.
+
 ## Why this shape
 
 - **One backend for web and extension.** The extension is a thin client of the same API, so there is no
