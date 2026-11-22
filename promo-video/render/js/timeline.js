@@ -247,7 +247,7 @@ export async function buildTimeline(ctx) {
   const LX = P(1010, W - 140);   // left-column text right edge (16:9)
   ov.text({ t0: 26.55, t1: 28.75, text: 'תפריט מוכן.', size: P(96, 100), pos: { h: { x: LX, y: 250 }, v: { x: LX, y: 280 } }, mask: true });
   ov.text({ t0: 26.95, t1: 28.8, text: 'לפי היעדים שלך.', cls: 'mint', size: P(96, 100), pos: { h: { x: LX, y: 368 }, v: { x: LX, y: 394 } }, mask: true, stagger: 0.09 });
-  ov.callout({ t0: 27.85, t1: 28.8, anchor: () => phone.screenWorld(RING.x - 150, RING.y + 60, nutLayer.lift), label: 'נותרו 2,220 קק״ל', side: 'left', len: P(150, 120), rise: P(150, 160) });
+  ov.callout({ t0: 27.85, t1: 28.8, anchor: () => phone.screenWorld(RING.x - 150, RING.y + 60, nutLayer.lift), label: 'נותרו 2,220 קק״ל', side: 'left', len: P(150, 40), rise: P(150, 120) });
   ov.text({ t0: 29.0, t1: 31.45, text: 'מסמנים ארוחה -', size: P(88, 92), pos: { h: { x: LX, y: 250 }, v: { x: LX, y: 280 } }, mask: true });
   ov.text({ t0: 29.4, t1: 31.5, text: 'והמספרים מתעדכנים.', cls: 'mint', size: P(88, 92), pos: { h: { x: LX, y: 362 }, v: { x: LX, y: 388 } }, mask: true, stagger: 0.08 });
   ov.text({ t0: 31.9, t1: 33.9, text: 'החלפות מוכנות.', size: P(96, 100), pos: { h: { x: LX, y: 250 }, v: { x: LX, y: 280 } }, mask: true });
