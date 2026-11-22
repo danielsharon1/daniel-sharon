@@ -4,6 +4,9 @@ const { chromium, devices } = require('playwright');
 const fs = require('fs'); const path = require('path');
 
 const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+// iOS-like flick: short finger drag (accelerating), then exponential momentum decay
+const momentum = (u) => { const k = 5.2, a = 0.12; const ramp = (x) => x * x / (2 * a); const vEnd = 1;
+  const raw = u < a ? ramp(u) : a / 2 + (1 - Math.exp(-k * (u - a))) / k * vEnd; const tot = a / 2 + (1 - Math.exp(-k * (1 - a))) / k * vEnd; return raw / tot; };
 
 async function createRecorder({ out, fps = 30, storageState, saveState, device = 'iPhone 14 Pro', viewport, dpr, safeArea = { top: 59, bottom: 34 }, format = 'png', colorScheme = 'dark' }) {
   fs.mkdirSync(out, { recursive: true });
@@ -78,7 +81,7 @@ async function createRecorder({ out, fps = 30, storageState, saveState, device =
       const maxS = await handle.evaluate(e => e.scrollHeight - e.clientHeight); dy = Math.max(-start, Math.min(dy, maxS - start));
       const n = Math.round(sec * fps);
       events.push({ type: 'scroll', frame, dy, frames: n });
-      for (let i = 1; i <= n; i++) { await handle.evaluate((e, v) => { e.scrollTop = v; }, start + dy * ease(i / n)); await capture(); }
+      for (let i = 1; i <= n; i++) { await handle.evaluate((e, v) => { e.scrollTop = v; }, start + dy * momentum(i / n)); await capture(); }
     },
     events,
     async close() {

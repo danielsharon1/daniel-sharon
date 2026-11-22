@@ -7,6 +7,7 @@ export class Overlay {
     this.W = W; this.H = H; this.aspect = aspect; this.root = root;
     this.svg = document.createElementNS(SVGNS, 'svg'); this.svg.setAttribute('width', W); this.svg.setAttribute('height', H);
     this.svg.setAttribute('viewBox', `0 0 ${W} ${H}`); this.svg.classList.add('ov-svg'); root.appendChild(this.svg);
+    this.svg.innerHTML = `<defs><linearGradient id="coGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="${W}" y2="0"><stop offset="0" stop-color="#4fe3c1"/><stop offset="1" stop-color="#4fe3c1"/></linearGradient></defs>`;
     this.layer = document.createElement('div'); this.layer.className = 'ov-layer'; root.appendChild(this.layer);
     this.items = [];
   }
@@ -35,7 +36,7 @@ export class Overlay {
     const t0 = o.t0, t1 = o.t1 ?? 1e9;
     const vis = t >= t0 - 0.001 && t <= t1 + (o.exitDur ?? 0.45);
     it.el.style.display = vis ? 'block' : 'none'; if (!vis) return;
-    const size = this.P(o.size) ?? 96;
+    const size = (this.P(o.size) ?? 96) * (/(plex|med|mono)/.test(o.cls || '') ? 1 : 1.22);
     const st = it.el.style;
     st.fontSize = size + 'px'; st.left = st.right = 'auto';
     const x = pos.x, y = pos.y, align = pos.align || o.align || 'right';
@@ -55,13 +56,13 @@ export class Overlay {
       const a = o.anim || 'rise';
       let tf = '', op = 1, blur = 0;
       if (a === 'rise') { const k = easeOut5(p); tf = `translateY(${(1 - k) * 105}%)`; op = o.mask ? 1 : k; if (!o.mask) blur = (1 - k) * 8; }
-      else if (a === 'slam') { const k = easeOut5(p); tf = `scale(${lerp(1.9, 1, k)})`; op = clamp(p * 3); blur = (1 - k) * 16; }
+      else if (a === 'slam') { const k = easeOut5(p); tf = `scale(${lerp(this.aspect === 'v' ? 1.3 : 1.9, 1, k)})`; op = clamp(p * 3); blur = (1 - k) * 16; }
       else if (a === 'blur') { const k = easeOut3(p); tf = `translateX(${(1 - k) * (it.el.dir === 'rtl' ? -40 : 40)}px)`; op = k; blur = (1 - k) * 14; }
       else if (a === 'drop') { const k = easeOutBack(p, 1.3); tf = `translateY(${(1 - k) * -60}%) rotate(${(1 - clamp(k)) * -6}deg)`; op = clamp(p * 4); }
       else if (a === 'type') { op = p > 0 ? 1 : 0; }
       if (e > 0) {
         const ee = easeInOut3(e);
-        const ex = o.exit || 'rise';
+        const ex = o.exit || (a === 'slam' ? 'fade' : 'rise');
         if (ex === 'rise') { tf += ` translateY(${-ee * 105}%)`; op *= o.mask ? 1 : 1 - ee; if (!o.mask) blur += ee * 8; }
         else if (ex === 'fade') { op *= 1 - ee; blur += ee * 10; }
         else if (ex === 'drop') { tf += ` translateY(${ee * 105}%)`; }
@@ -80,31 +81,32 @@ export class Overlay {
     const dot = document.createElementNS(SVGNS, 'circle'); dot.setAttribute('class', 'co-dot'); dot.setAttribute('r', 6); g.appendChild(dot);
     const ring = document.createElementNS(SVGNS, 'circle'); ring.setAttribute('class', 'co-ring'); g.appendChild(ring);
     const lab = document.createElement('div'); lab.className = 'co-label'; lab.dir = 'rtl';
-    lab.innerHTML = `<div class="co-k">${o.k || ''}</div><div class="co-t">${o.label}</div>`; this.layer.appendChild(lab);
+    lab.innerHTML = `<div class="co-t">${o.label}</div>`; this.layer.appendChild(lab);
     const it = { kind: 'callout', o, g, path, dot, ring, lab }; this.items.push(it); return it;
   }
   _updCallout(it, t, project) {
     const o = it.o; const t1 = o.t1 ?? 1e9;
     const vis = t >= o.t0 && t <= t1 + 0.4;
-    it.g.style.display = vis ? '' : 'none'; it.lab.style.display = vis ? 'block' : 'none'; if (!vis) return;
+    it.g.style.display = vis ? '' : 'none'; it.lab.style.display = vis ? 'flex' : 'none'; if (!vis) return;
     const a = project(o.anchor());
-    const side = this.P(o.side) || 'left'; const L = this.P(o.len) ?? 220; const rise = this.P(o.rise) ?? -90;
+    const at = this.P(o.at);
+    const side = at ? at.side : (this.P(o.side) || 'left'); const L = at ? 90 : (this.P(o.len) ?? 220); const rise = at ? (at.y - a.y) : (this.P(o.rise) ?? -90);
     const sx = side === 'left' ? -1 : 1;
-    const e = [a.x + sx * Math.abs(rise) * 0.9, a.y + rise];
-    const end = [e[0] + sx * L, e[1]];
+    const end = at ? [at.x, at.y] : [a.x + sx * Math.abs(rise) * 0.9 + sx * L, a.y + rise];
     const pIn = easeInOut3(clamp((t - o.t0) / 0.55));
     const pOut = clamp((t - t1) / 0.4);
-    const seg1 = Math.hypot(e[0] - a.x, e[1] - a.y), seg2 = L, tot = seg1 + seg2;
-    it.path.setAttribute('d', `M${a.x},${a.y} L${e[0]},${e[1]} L${end[0]},${end[1]}`);
-    it.path.style.strokeDasharray = `${tot}`; it.path.style.strokeDashoffset = `${tot * (1 - pIn) + 0}`;
+    const c1 = [a.x + sx * Math.abs(rise) * 0.15, a.y + rise * 0.85], c2 = [end[0] - sx * L * 0.65, end[1]];
+    it.path.setAttribute('d', `M${a.x},${a.y} C${c1[0]},${c1[1]} ${c2[0]},${c2[1]} ${end[0]},${end[1]}`);
+    const tot = it.path.getTotalLength();
+    it.path.style.strokeDasharray = `${tot}`; it.path.style.strokeDashoffset = `${tot * (1 - pIn)}`;
     it.path.style.opacity = 1 - pOut;
-    it.dot.setAttribute('cx', a.x); it.dot.setAttribute('cy', a.y); it.dot.style.opacity = clamp(pIn * 4) * (1 - pOut);
+    it.dot.setAttribute('r', 7); it.dot.setAttribute('cx', a.x); it.dot.setAttribute('cy', a.y); it.dot.style.opacity = clamp(pIn * 4) * (1 - pOut);
     const rp = clamp((t - o.t0) / 0.9);
-    it.ring.setAttribute('cx', a.x); it.ring.setAttribute('cy', a.y); it.ring.setAttribute('r', 6 + 26 * easeOut3(rp)); it.ring.style.opacity = (1 - rp) * 0.9 * (1 - pOut);
+    it.ring.setAttribute('cx', a.x); it.ring.setAttribute('cy', a.y); it.ring.setAttribute('r', 8 + 22 * easeOut3(rp)); it.ring.style.opacity = (1 - rp) * 0.9 * (1 - pOut);
     const lp = easeOut3(clamp((t - o.t0 - 0.35) / 0.45));
-    const ls = it.lab.style; ls.top = (end[1] - 4) + 'px';
-    if (sx < 0) { ls.right = (this.W - end[0] + 14) + 'px'; ls.left = 'auto'; ls.textAlign = 'right'; } else { ls.left = (end[0] + 14) + 'px'; ls.right = 'auto'; ls.textAlign = 'left'; }
-    ls.opacity = lp * (1 - pOut); ls.transform = `translateY(-50%) translateX(${(1 - lp) * sx * 18}px)`;
+    const ls = it.lab.style; ls.top = end[1] + 'px';
+    if (sx < 0) { ls.right = (this.W - end[0] + 2) + 'px'; ls.left = 'auto'; ls.flexDirection = 'row'; } else { ls.left = (end[0] + 2) + 'px'; ls.right = 'auto'; ls.flexDirection = 'row-reverse'; }
+    ls.opacity = lp * (1 - pOut); ls.transform = `translateY(-50%) translateX(${(1 - lp) * sx * 18}px) scale(${0.92 + 0.08 * lp})`; ls.transformOrigin = sx < 0 ? 'right center' : 'left center';
   }
   // ---------------- dimension line between two projected anchors ----------------
   dim(o) {

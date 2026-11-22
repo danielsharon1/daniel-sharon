@@ -209,17 +209,17 @@ for tt_, h in [(8.0, 0.55), (16.0, 1.0), (26.0, 0.75), (42.0, 1.0), (60.0, 1.15)
 for t0, t1, f0, f1, p0, p1 in [(15.0, 16.0, 300, 3500, 0, 0), (18.25, 19.35, 250, 2500, 0.2, -0.9), (33.7, 35.3, 400, 3000, -0.5, 0.5), (37.6, 38.9, 300, 4500, 0, 0.6),
                                  (55.15, 56.05, 300, 3800, 0.3, -0.2), (59.45, 60.4, 500, 5000, 0, 0), (26.0, 27.4, 3000, 500, 0, 0)]:
     place(sfx, whoosh(t1 - t0, f0, f1, p0, p1), t0, 0.6)
-place(sfx, scan_sound(1.45, True), 3.95, 0.9); place(sfx, scan_sound(1.0, False), 41.0, 0.8); place(sfx, scan_sound(1.1, True), 43.95, 0.8)
+place(sfx, scan_sound(1.45, True), 3.95, 0.9); place(sfx, scan_sound(0.6, True), 15.4, 0.5); place(sfx, scan_sound(1.0, False), 41.0, 0.8); place(sfx, scan_sound(1.1, True), 43.95, 0.8)
 # blueprint drafting blips
 for i in range(26):
     tb = 0.15 + i * 0.12 + rng.random() * 0.05
     place(sfx, blip(2800 + rng.random() * 2400, 0.03, 0.09), tb, 1.0, rng.random() * 1.2 - 0.6)
-for tb in [1.3, 1.7, 2.2, 2.5, 42.6, 43.2]: place(sfx, blip(1320, 0.12, 0.16), tb, 1.0)
+for tb in [42.6, 43.2]: place(sfx, blip(1320, 0.12, 0.16), tb, 1.0)
 # rest timer ticks
 for i in range(5): place(sfx, blip(4200, 0.02, 0.14), 22.2 + i * 0.5, 1.0, 0.3)
 # plate roll rumble + settle clunk
 n = int(1.6 * SR); tt = t_(n); rum = filt(rng.standard_normal(n), 'lowpass', 180) * np.sin(np.pi * tt / 1.6) * 0.9
-place(sfx, rum, 24.3, 0.9, -0.4); place(sfx, impact(0.35, 0.8), 25.85, 0.5)
+place(sfx, rum, 24.3, 0.9, -0.4); place(sfx, impact(0.35, 0.8), 25.5, 0.5)
 # beam zap + arrival chime
 n = int(0.75 * SR); tt = t_(n); zap = np.sin(2 * np.pi * np.cumsum(500 * 2 ** (2.5 * tt / 0.75)) / SR) * 0.12 * np.sin(np.pi * tt / 0.75)
 place(sfx, zap, 53.55, 1.0, 0.3)

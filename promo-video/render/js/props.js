@@ -215,3 +215,69 @@ export function makeBeam() {
     },
   };
 }
+
+// ---------------- photoreal sprites (AI product shots, cut out) ----------------
+const texLoader = new THREE.TextureLoader();
+const pending = [];
+function loadTex(url) { const t = texLoader.load(url); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; pending.push(new Promise(r => { const im = new Image(); im.onload = im.onerror = r; im.src = url; })); return t; }
+// resolves when every photo texture has finished loading (the renderer must not start before)
+export async function texturesReady() { await Promise.all(pending); await new Promise(r => setTimeout(r, 300)); }
+export function makePhotoDumbbell(meta) {
+  // world units chosen so the head-centre distance equals the procedural dumbbell's (16.2)
+  const ppu = Math.hypot(meta.R[0] - meta.L[0], meta.R[1] - meta.L[1]) / 16.2;
+  const w = meta.w / ppu, h = meta.h / ppu;
+  const axisDeg = -Math.atan2(meta.R[1] - meta.L[1], meta.R[0] - meta.L[0]) * 180 / Math.PI;   // y-up angle of the dumbbell axis in the photo
+  const cx = ((meta.L[0] + meta.R[0]) / 2 - meta.w / 2) / ppu, cy = -((meta.L[1] + meta.R[1]) / 2 - meta.h / 2) / ppu;
+  const g = new THREE.Group(); const inner = new THREE.Group(); g.add(inner); inner.position.set(-cx, -cy, 0);
+  const tex = loadTex('assets/dumbbell.png'); const mask = loadTex('assets/dumbbell_mask.png'); mask.colorSpace = THREE.NoColorSpace;
+  const geo = new THREE.PlaneGeometry(w, h);
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false });
+  const main = new THREE.Mesh(geo, mat); inner.add(main);
+  // ghost copies for motion blur
+  const ghosts = [0, 1, 2, 3].map(() => { const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false, opacity: 0 })); inner.add(m); m.visible = false; return m; });
+  // light sweep: bright diagonal band masked by the dumbbell silhouette
+  const sc = document.createElement('canvas'); sc.width = 1024; sc.height = 16; const sx = sc.getContext('2d');
+  const gr = sx.createLinearGradient(0, 0, 1024, 0); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.47, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, 'rgba(255,255,255,1)'); gr.addColorStop(0.53, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+  sx.fillStyle = gr; sx.fillRect(0, 0, 1024, 16);
+  const stex = new THREE.CanvasTexture(sc); stex.wrapS = THREE.ClampToEdgeWrapping; stex.center.set(0.5, 0.5); stex.rotation = 0.6;
+  const sweep = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: stex, alphaMap: mask, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, opacity: 0 }));
+  sweep.position.z = 0.01; inner.add(sweep);
+  // soft back glow
+  const gc = document.createElement('canvas'); gc.width = gc.height = 256; const gx = gc.getContext('2d'); const rg = gx.createRadialGradient(128, 128, 0, 128, 128, 128); rg.addColorStop(0, 'rgba(79,227,193,0.35)'); rg.addColorStop(1, 'rgba(79,227,193,0)'); gx.fillStyle = rg; gx.fillRect(0, 0, 256, 256);
+  const glow = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.1, w * 0.75), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(gc), transparent: true, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending, opacity: 0 }));
+  glow.position.z = -0.2; g.add(glow);
+  // always drawn on top (it is the hero element wherever it appears); order: glow < ghosts < main < sweep
+  glow.renderOrder = 19; ghosts.forEach(m => { m.renderOrder = 20; m.material.depthTest = false; }); main.renderOrder = 21; sweep.renderOrder = 22;
+  for (const m of [glow, main, sweep]) m.material.depthTest = false;
+  return {
+    group: g, axisDeg, main, mat,
+    set({ opacity = 1, sweep: sw = -1, glow: gl = 0, blur = null } = {}) {
+      mat.opacity = opacity; g.visible = opacity > 0.002;
+      sweep.material.opacity = sw >= 0 ? 0.32 * opacity : 0; stex.offset.x = 0.5 - sw * 1.0;
+      glow.material.opacity = gl * opacity;
+      ghosts.forEach((m, i) => { if (blur) { m.visible = true; m.position.set(-blur[0] * (i + 1) / 4, -blur[1] * (i + 1) / 4, -0.01 * (i + 1)); m.material.opacity = opacity * [0.4, 0.28, 0.18, 0.1][i]; } else m.visible = false; });
+    },
+  };
+}
+export function makePhotoPlate(Rp = 4) {
+  const tex = loadTex('assets/plate.png');
+  const size = 1600 / 762.85 * Rp;     // texture radius 762.85 px of 1600
+  const g = new THREE.Group();
+  const geo = new THREE.PlaneGeometry(size, size);
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false });
+  const disc = new THREE.Mesh(geo, mat); g.add(disc);
+  const ghosts = [0, 1, 2].map(() => { const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false, opacity: 0 })); g.add(m); return m; });
+  // fixed rim light (does not rotate with the plate)
+  const rc = document.createElement('canvas'); rc.width = rc.height = 512; const rx = rc.getContext('2d');
+  rx.translate(256, 256); const rgr = rx.createLinearGradient(-256, -256, 256, 256); rgr.addColorStop(0, 'rgba(160,255,232,0.9)'); rgr.addColorStop(0.45, 'rgba(79,227,193,0)'); rgr.addColorStop(1, 'rgba(79,227,193,0)');
+  rx.strokeStyle = rgr; rx.lineWidth = 6; rx.beginPath(); rx.arc(0, 0, 512 * (762.85 / 1600) - 4, 0, Math.PI * 2); rx.stroke();
+  const rim = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(rc), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, opacity: 0.55 }));
+  rim.position.z = 0.02; g.add(rim);
+  return {
+    group: g, Rp, disc,
+    set(rot, opacity = 1, blur = 0) {
+      disc.rotation.z = rot; mat.opacity = opacity; rim.material.opacity = 0.55 * opacity; g.visible = opacity > 0.002;
+      ghosts.forEach((m, i) => { m.rotation.z = rot + blur * (i + 1) / 3; m.material.opacity = blur ? opacity * [0.35, 0.22, 0.12][i] : 0; m.visible = !!blur; });
+    },
+  };
+}

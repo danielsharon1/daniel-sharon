@@ -152,7 +152,8 @@ export class Phone {
       else {
         // app frame (1179x2379) below the status bar; extend its top row into the bar area for continuity
         c.drawImage(s.img, 0, APP_TOP + (s.dy || 0), SCR_W, s.img.height * SCR_W / s.img.width);
-        c.drawImage(s.img, 0, 0, SCR_W, 2, 0, 0, SCR_W, APP_TOP + 1);
+        // status-bar strip: solid app background (like the real iOS 'black' status bar) - no stretched pixels
+        c.fillStyle = bg; c.fillRect(0, 0, SCR_W, APP_TOP);
       }
     }
     c.globalAlpha = 1;

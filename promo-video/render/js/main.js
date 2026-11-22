@@ -7,7 +7,7 @@ import { buildTimeline } from './timeline.js';
 const params = new URLSearchParams(location.search);
 const aspect = params.get('aspect') === 'v' ? 'v' : 'h';
 const W = aspect === 'v' ? 1080 : 1920, H = aspect === 'v' ? 1920 : 1080;
-const stage = document.getElementById('stage'); stage.style.width = W + 'px'; stage.style.height = H + 'px';
+const stage = document.getElementById('stage'); stage.style.width = W + 'px'; stage.style.height = H + 'px'; stage.classList.add(aspect);
 document.body.style.width = W + 'px'; document.body.style.height = H + 'px';
 
 const canvas = document.getElementById('gl');
@@ -64,6 +64,21 @@ window.renderFrame = async (f, fps = 30) => {
   ov.update(t, project);
   renderer.render(scene, camera);
   return true;
+};
+// layout QA: bounding boxes of every visible overlay text element at frame f (no GL render)
+window.qaLayout = async (f, fps = 30) => {
+  const t = f / fps; await tl.update(t); camera.updateMatrixWorld(true); ov.update(t, project);
+  const eff = (el) => { let o = 1; for (let e = el; e && e.id !== 'stage'; e = e.parentElement) { const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') return 0; o *= +cs.opacity; } return o; };
+  const out = [];
+  const leaves = [...document.querySelectorAll('#ov .ki, #ov .co-label, #ov .kh *')].filter(e => e.classList.contains('ki') || e.classList.contains('co-label') || (e.children.length === 0 && e.textContent.trim()) || e.classList.contains('chip'));
+  const textRect = (e) => { if (e.classList.contains('co-label') || e.classList.contains('chip')) return e.getBoundingClientRect(); const rg = document.createRange(); rg.selectNodeContents(e); return rg.getBoundingClientRect(); };
+  for (const e of leaves) {
+    const o = eff(e); if (o < 0.12) continue; const r = textRect(e); if (r.width < 2) continue;
+    let x0 = r.left, y0 = r.top, x1 = r.right, y1 = r.bottom;
+    const m = e.closest('.kw.mask'); if (m) { const q = m.getBoundingClientRect(); x0 = Math.max(x0, q.left); y0 = Math.max(y0, q.top); x1 = Math.min(x1, q.right); y1 = Math.min(y1, q.bottom); if (x1 - x0 < 2 || y1 - y0 < 4) continue; }
+    out.push({ txt: e.textContent.trim().slice(0, 40), x0: Math.round(x0), y0: Math.round(y0), x1: Math.round(x1), y1: Math.round(y1), o: +o.toFixed(2) });
+  }
+  return out;
 };
 await document.fonts.ready;
 for (const f of ['900 40px Heebo', '700 40px Heebo', '500 40px Heebo', '300 40px Heebo', '400 20px "IBM Plex Mono"', '500 20px "IBM Plex Mono"', '400 20px "IBM Plex Sans Hebrew"', '500 20px "IBM Plex Sans Hebrew"']) await document.fonts.load(f, 'אבג abc 123');

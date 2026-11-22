@@ -108,7 +108,7 @@ const scenes = {
     await rec.close();
   },
   async nutrition() {
-    const rec = await createRecorder({ out: out('nutrition'), storageState: B });
+    const rec = await createRecorder({ out: out('nutrition'), storageState: S + '/tools/stateC.json' });
     const p = rec.page;
     await rec.goto(URL + '/nutrition'); await rec.ready(); await rec.dismissTour();
     await rec.enable(); rec.mark('start'); await rec.hold(0.8);
