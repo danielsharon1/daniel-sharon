@@ -57,8 +57,6 @@ const tmpV = new THREE.Vector3();
 const project = (v) => { tmpV.copy(v).project(camera); return { x: (tmpV.x + 1) / 2 * W, y: (1 - tmpV.y) / 2 * H, z: tmpV.z }; };
 
 window.DURATION = tl.duration;
-window.__scene = scene; window.__THREE = THREE; window.__renderer = renderer; window.__camera = camera;
-window.__dbg = () => ({ cam: camera.position.toArray().map(v => +v.toFixed(2)), dir: camera.getWorldDirection(new THREE.Vector3()).toArray().map(v => +v.toFixed(2)), fov: camera.fov, aspect: camera.aspect, kids: scene.children.filter(c => c.visible).length });
 window.renderFrame = async (f, fps = 30) => {
   const t = f / fps;
   await tl.update(t);
